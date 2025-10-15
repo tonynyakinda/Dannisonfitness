@@ -210,7 +210,7 @@ header {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://unsplash.com/s/photos/african-personal-trainer') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Hero.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -360,7 +360,7 @@ header {
 
 /* CTA Section */
 .cta {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1920x1080/000000/FFFFFF?text=Start+Your+Journey') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('journey.jpg') center/cover no-repeat;
     color: var(--white);
     text-align: center;
     padding: 100px 0;
