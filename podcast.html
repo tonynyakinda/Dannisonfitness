@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Page-specific styles for the podcast list -->
+    <style>
+        .podcast-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .podcast-episode {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #ffffff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        @media (min-width: 768px) {
+            .podcast-episode {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .podcast-episode:hover {
+            transform: translateY(-5px);
+        }
+
+        .episode-thumbnail {
+            flex-shrink: 0;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            background-color: var(--light-gray);
+        }
+
+        @media (min-width: 768px) {
+            .episode-thumbnail {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .episode-details {
+            flex-grow: 1;
+        }
+
+        .episode-details .episode-meta {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .episode-details h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .episode-details p {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .episode-actions {
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .episode-actions {
+                width: auto;
+            }
+        }
+
+        .episode-actions .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .episode-actions .btn {
+                width: 150px;
+            }
+        }
+
+        .podcast-platforms {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .podcast-platforms h3 {
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .platform-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .platform-links a {
+            display: inline-block;
+            padding: 12px 20px;
+            background: var(--dark-gray);
+            color: #fff;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .platform-links a:hover {
+            background: var(--primary-orange);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>The Fitness Transformation</h1>
+                <p>The official podcast of Dennison Fitness. Actionable advice for your health journey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Podcast Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Episodes</h2>
+                <p>Tune in for expert interviews, training tips, and myth-busting.</p>
+            </div>
+
+            <div class="podcast-list">
+                <!-- Episode 1 -->
+                <div class="podcast-episode">
+                    <img src="https://placehold.co/150x150/F37050/FFFFFF?text=Ep+03" alt="Podcast Episode 3"
+                        class="episode-thumbnail">
+                    <div class="episode-details">
+                        <div class="episode-meta">Episode 03 | Oct 25, 2025 | 45 min</div>
+                        <h3>The 5 Nutrition Myths Costing You Gains</h3>
+                        <p>Dennison sits down with registered dietitian Dr. Jane Smith to debunk common nutrition myths
+                            and give you the facts on fat loss and muscle gain.</p>
+                    </div>
+                    <div class="episode-actions">
+                        <a href="#" class="btn btn-primary">Listen Now</a>
+                    </div>
+                </div>
+
+                <!-- Episode 2 -->
+                <div class="podcast-episode">
+                    <img src="https://placehold.co/150x150/6D6E71/FFFFFF?text=Ep+02" alt="Podcast Episode 2"
+                        class="episode-thumbnail">
+                    <div class="episode-details">
+                        <div class="episode-meta">Episode 02 | Oct 18, 2025 | 30 min</div>
+                        <h3>How to Stay Motivated When You Want to Quit</h3>
+                        <p>In this solo episode, Dennison shares his top 3 mental strategies for pushing through
+                            plateaus and staying consistent even when life gets in the way.</p>
+                    </div>
+                    <div class="episode-actions">
+                        <a href="#" class="btn btn-primary">Listen Now</a>
+                    </div>
+                </div>
+
+                <!-- Episode 3 -->
+                <div class="podcast-episode">
+                    <img src="https://placehold.co/150x150/F37050/FFFFFF?text=Ep+01" alt="Podcast Episode 1"
+                        class="episode-thumbnail">
+                    <div class="episode-details">
+                        <div class="episode-meta">Episode 01 | Oct 11, 2025 | 38 min</div>
+                        <h3>Training for Life: More Than Just Aesthetics</h3>
+                        <p>Welcome to the first episode! We dive into the Dennison Fitness philosophy, focusing on
+                            functional strength, longevity, and building a body that serves you.</p>
+                    </div>
+                    <div class="episode-actions">
+                        <a href="#" class="btn btn-primary">Listen Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="podcast-platforms">
+                <h3>Subscribe & Listen On</h3>
+                <div class="platform-links">
+                    <a href="#"><i class="fab fa-apple"></i> Apple Podcasts</a>
+                    <a href="#"><i class="fab fa-spotify"></i> Spotify</a>
+                    <a href="#"><i class="fab fa-google"></i> Google Podcasts</a>
+                    <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Have a Question or Topic Suggestion?</h2>
+            <p>We'd love to hear from you. Send us your questions, and we might answer them on a future episode!</p>
+            <a href="contact.html" class="btn btn-primary">Submit a Question</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala,Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                            <option value="podcast-question">Podcast Question</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Question / Topic (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        // Set current year in footer
+        const yearSpan = document.getElementById('copyright-year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+
+</html>

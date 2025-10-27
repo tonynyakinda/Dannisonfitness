@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Page-specific styles for the merchandise grid -->
+    <style>
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .merch-card {
+            background: #ffffff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .merch-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: var(--light-gray);
+        }
+
+        .merch-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .merch-content .merch-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        .merch-content p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Dennison Fitness Gear</h1>
+                <p>Shop our official merchandise and represent your fitness journey</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merchandise Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Shop Our Collection</h2>
+                <p>High-quality apparel and accessories to support your training.</p>
+            </div>
+
+            <div class="merch-grid">
+                <!-- Product 1 -->
+                <div class="merch-card">
+                    <img src="https://placehold.co/400x400/F37050/FFFFFF?text=DF+T-Shirt"
+                        alt="Dennison Fitness T-Shirt">
+                    <div class="merch-content">
+                        <h3>DF Signature T-Shirt</h3>
+                        <span class="merch-price">$25.00</span>
+                        <p>Our classic athletic-fit t-shirt. Breathable cotton blend, perfect for in and out of the gym.
+                        </p>
+                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="merch-card">
+                    <img src="https://placehold.co/400x400/6D6E71/FFFFFF?text=DF+Hoodie" alt="Dennison Fitness Hoodie">
+                    <div class="merch-content">
+                        <h3>Performance Hoodie</h3>
+                        <span class="merch-price">$55.00</span>
+                        <p>Stay warm during your warm-ups or on rest days with our premium fleece-lined hoodie.</p>
+                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="merch-card">
+                    <img src="https://placehold.co/400x400/F37050/FFFFFF?text=DF+Water+Bottle"
+                        alt="Dennison Fitness Water Bottle">
+                    <div class="merch-content">
+                        <h3>Insulated Water Bottle</h3>
+                        <span class="merch-price">$30.00</span>
+                        <p>Keep your water cold for 24 hours. 32oz insulated stainless steel bottle with DF logo.</p>
+                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="merch-card">
+                    <img src="https://placehold.co/400x400/6D6E71/FFFFFF?text=DF+Hat" alt="Dennison Fitness Hat">
+                    <div class="merch-content">
+                        <h3>DF Trucker Hat</h3>
+                        <span class="merch-price">$22.00</span>
+                        <p>A stylish trucker hat with breathable mesh back and embroidered logo. One size fits all.</p>
+                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Have a Question About Our Gear?</h2>
+            <p>Contact us for questions about sizing, materials, or bulk orders.</p>
+            <a href="contact.html" class="btn btn-primary">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala,Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                            <option value="merchandise-inquiry">Merchandise Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Question (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        // Set current year in footer
+        const yearSpan = document.getElementById('copyright-year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+
+</html>
