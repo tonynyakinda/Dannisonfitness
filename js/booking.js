@@ -1,3 +1,4 @@
+//booking.js  
 // Booking Modal Functionality
 const bookingModal = document.getElementById('booking-modal');
 const bookNowBtns = document.querySelectorAll('.book-now-btn, #hero-book-btn, #cta-book-btn');

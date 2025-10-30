@@ -13,11 +13,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
-    <!-- Page-specific styles for the schedule table -->
     <style>
         .schedule-container {
             overflow-x: auto;
-            /* Makes table scrollable on small screens */
             background: #ffffff;
             padding: 25px;
             border-radius: 8px;
@@ -29,7 +27,6 @@
             width: 100%;
             border-collapse: collapse;
             min-width: 800px;
-            /* Ensures table content isn't too cramped */
             text-align: center;
         }
 
@@ -38,34 +35,19 @@
             padding: 18px 15px;
             border: 1px solid #eee;
             font-family: 'Open Sans', sans-serif;
-            vertical-align: middle;
+            vertical-align: top;
         }
 
         .schedule-table th {
             background-color: #F37050;
-            /* Using your brand's primary orange */
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
         }
 
         .schedule-table tbody tr:nth-child(even) {
             background-color: #f9f9f9;
-        }
-
-        .schedule-table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .schedule-table td:first-child {
-            /* Time column */
-            font-weight: 700;
-            color: #333;
-            background-color: #fdfdfd;
-            font-family: 'Montserrat', sans-serif;
-            width: 120px;
         }
 
         .schedule-table .class-session {
@@ -73,23 +55,20 @@
             color: #F37050;
             display: block;
             font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .schedule-table .class-entry {
+            background: var(--light-gray);
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
         }
 
         .schedule-table .session-type {
             font-size: 0.85rem;
             color: #666;
-            margin-top: 4px;
             display: block;
-        }
-
-        .schedule-table .open-gym {
-            font-weight: 500;
-            color: #444;
-        }
-
-        .schedule-table .closed {
-            color: #bbb;
-            font-style: italic;
         }
 
         .schedule-note {
@@ -104,7 +83,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <nav class="navbar">
@@ -134,7 +112,6 @@
         </div>
     </header>
 
-    <!-- Page Hero -->
     <section class="hero"
         style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
         <div class="container">
@@ -145,14 +122,12 @@
         </div>
     </section>
 
-    <!-- Schedule Section -->
     <section class="services">
         <div class="container">
             <div class="section-title">
                 <h2>Weekly Group Class Schedule</h2>
                 <p>Our group classes are designed to be challenging, fun, and scalable for all fitness levels.</p>
             </div>
-
             <div class="schedule-container">
                 <table class="schedule-table">
                     <thead>
@@ -167,107 +142,20 @@
                             <th>Sunday</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="schedule-body">
                         <tr>
-                            <td>06:00 AM</td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td><span class="class-session">Full Body</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>07:00 AM</td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>08:00 AM</td>
-                            <td colspan="5" class="open-gym">Open Gym / Personal Training by Appointment</td>
-                            <td><span class="class-session">Yoga Flow</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>12:00 PM</td>
-                            <td><span class="class-session">Lunch Express</span><span class="session-type">30-min
-                                    HIIT</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Lunch Express</span><span class="session-type">30-min
-                                    HIIT</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Lunch Express</span><span class="session-type">30-min
-                                    HIIT</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>04:00 PM</td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Core & Glutes</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Core & Glutes</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td class="open-gym">Open Gym</td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>05:00 PM</td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td class="open-gym">Open Gym</td>
-                            <td><span class="class-session">Full Body</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="open-gym">Open Gym</td>
-                            <td class="closed">Closed</td>
-                        </tr>
-                        <tr>
-                            <td>06:00 PM</td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td><span class="class-session">HIIT Blast</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td><span class="class-session">Strength</span><span class="session-type">Group Class</span>
-                            </td>
-                            <td><span class="class-session">Yoga Flow</span><span class="session-type">Group
-                                    Class</span></td>
-                            <td class="closed">Closed</td>
-                            <td class="closed">Closed</td>
+                            <td colspan="8">Loading schedule...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
             <div class="schedule-note">
-                <strong>One-on-One Personal Training:</strong> Available by appointment during all "Open Gym" hours.
+                <strong>One-on-One Personal Training:</strong> Available by appointment.
                 <br>Please use the button below to book your private consultation or session.
             </div>
-
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta">
         <div class="container">
             <h2>Ready to Book Your Spot?</h2>
@@ -276,7 +164,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
@@ -315,7 +202,6 @@
         </div>
     </footer>
 
-    <!-- Booking Modal -->
     <div class="modal" id="booking-modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -326,7 +212,6 @@
                         <label for="service">Select Service</label>
                         <select id="service" name="service" required>
                             <option value="">Choose a service</option>
-                            <option value="consultation">Free Consultation</option>
                             <option value="group-class-hiit">Group Class - HIIT Blast</option>
                             <option value="group-class-strength">Group Class - Strength</option>
                             <option value="group-class-yoga">Group Class - Yoga Flow</option>
@@ -357,17 +242,10 @@
         </div>
     </div>
 
-    <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
     <script src="js/booking.js"></script>
-    <script>
-        // Set current year in footer
-        const yearSpan = document.getElementById('copyright-year');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    </script>
+    <script type="module" src="database.js"></script>
 </body>
 
 </html>

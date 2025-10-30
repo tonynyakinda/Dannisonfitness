@@ -122,53 +122,10 @@
                 <p>High-quality apparel and accessories to support your training.</p>
             </div>
 
-            <div class="merch-grid">
-                <!-- Product 1 -->
-                <div class="merch-card">
-                    <img src="https://placehold.co/400x400/F37050/FFFFFF?text=DF+T-Shirt"
-                        alt="Dennison Fitness T-Shirt">
-                    <div class="merch-content">
-                        <h3>DF Signature T-Shirt</h3>
-                        <span class="merch-price">$25.00</span>
-                        <p>Our classic athletic-fit t-shirt. Breathable cotton blend, perfect for in and out of the gym.
-                        </p>
-                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="merch-card">
-                    <img src="https://placehold.co/400x400/6D6E71/FFFFFF?text=DF+Hoodie" alt="Dennison Fitness Hoodie">
-                    <div class="merch-content">
-                        <h3>Performance Hoodie</h3>
-                        <span class="merch-price">$55.00</span>
-                        <p>Stay warm during your warm-ups or on rest days with our premium fleece-lined hoodie.</p>
-                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="merch-card">
-                    <img src="https://placehold.co/400x400/F37050/FFFFFF?text=DF+Water+Bottle"
-                        alt="Dennison Fitness Water Bottle">
-                    <div class="merch-content">
-                        <h3>Insulated Water Bottle</h3>
-                        <span class="merch-price">$30.00</span>
-                        <p>Keep your water cold for 24 hours. 32oz insulated stainless steel bottle with DF logo.</p>
-                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="merch-card">
-                    <img src="https://placehold.co/400x400/6D6E71/FFFFFF?text=DF+Hat" alt="Dennison Fitness Hat">
-                    <div class="merch-content">
-                        <h3>DF Trucker Hat</h3>
-                        <span class="merch-price">$22.00</span>
-                        <p>A stylish trucker hat with breathable mesh back and embroidered logo. One size fits all.</p>
-                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a>
-                    </div>
-                </div>
+            <!-- This container will be filled with products from the database -->
+            <div class="merch-grid" id="merch-container">
+                <!-- JavaScript will insert products here -->
+                <p>Loading products...</p>
             </div>
 
         </div>
@@ -266,13 +223,8 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
     <script src="js/booking.js"></script>
-    <script>
-        // Set current year in footer
-        const yearSpan = document.getElementById('copyright-year');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    </script>
+    <!-- Add type="module" to enable Supabase import -->
+    <script type="module" src="database.js"></script>
 </body>
 
 </html>

@@ -12,8 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-
-    <!-- Page-specific styles for the podcast list -->
     <style>
         .podcast-list {
             display: grid;
@@ -85,24 +83,21 @@
 
         .episode-actions {
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             width: 100%;
         }
 
         @media (min-width: 768px) {
             .episode-actions {
-                width: auto;
+                width: 150px;
             }
         }
 
         .episode-actions .btn {
             width: 100%;
             text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .episode-actions .btn {
-                width: 150px;
-            }
         }
 
         .podcast-platforms {
@@ -137,11 +132,34 @@
         .platform-links a:hover {
             background: var(--primary-orange);
         }
+
+        .video-player-container {
+            display: none;
+            margin-top: 1rem;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .video-player-container.active {
+            display: block;
+        }
+
+        .video-player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <nav class="navbar">
@@ -171,7 +189,6 @@
         </div>
     </header>
 
-    <!-- Page Hero -->
     <section class="hero"
         style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
         <div class="container">
@@ -182,61 +199,15 @@
         </div>
     </section>
 
-    <!-- Podcast Section -->
     <section class="services">
         <div class="container">
             <div class="section-title">
                 <h2>Latest Episodes</h2>
                 <p>Tune in for expert interviews, training tips, and myth-busting.</p>
             </div>
-
-            <div class="podcast-list">
-                <!-- Episode 1 -->
-                <div class="podcast-episode">
-                    <img src="https://placehold.co/150x150/F37050/FFFFFF?text=Ep+03" alt="Podcast Episode 3"
-                        class="episode-thumbnail">
-                    <div class="episode-details">
-                        <div class="episode-meta">Episode 03 | Oct 25, 2025 | 45 min</div>
-                        <h3>The 5 Nutrition Myths Costing You Gains</h3>
-                        <p>Dennison sits down with registered dietitian Dr. Jane Smith to debunk common nutrition myths
-                            and give you the facts on fat loss and muscle gain.</p>
-                    </div>
-                    <div class="episode-actions">
-                        <a href="#" class="btn btn-primary">Listen Now</a>
-                    </div>
-                </div>
-
-                <!-- Episode 2 -->
-                <div class="podcast-episode">
-                    <img src="https://placehold.co/150x150/6D6E71/FFFFFF?text=Ep+02" alt="Podcast Episode 2"
-                        class="episode-thumbnail">
-                    <div class="episode-details">
-                        <div class="episode-meta">Episode 02 | Oct 18, 2025 | 30 min</div>
-                        <h3>How to Stay Motivated When You Want to Quit</h3>
-                        <p>In this solo episode, Dennison shares his top 3 mental strategies for pushing through
-                            plateaus and staying consistent even when life gets in the way.</p>
-                    </div>
-                    <div class="episode-actions">
-                        <a href="#" class="btn btn-primary">Listen Now</a>
-                    </div>
-                </div>
-
-                <!-- Episode 3 -->
-                <div class="podcast-episode">
-                    <img src="https://placehold.co/150x150/F37050/FFFFFF?text=Ep+01" alt="Podcast Episode 1"
-                        class="episode-thumbnail">
-                    <div class="episode-details">
-                        <div class="episode-meta">Episode 01 | Oct 11, 2025 | 38 min</div>
-                        <h3>Training for Life: More Than Just Aesthetics</h3>
-                        <p>Welcome to the first episode! We dive into the Dennison Fitness philosophy, focusing on
-                            functional strength, longevity, and building a body that serves you.</p>
-                    </div>
-                    <div class="episode-actions">
-                        <a href="#" class="btn btn-primary">Listen Now</a>
-                    </div>
-                </div>
+            <div class="podcast-list" id="podcast-list-container">
+                <p>Loading episodes...</p>
             </div>
-
             <div class="podcast-platforms">
                 <h3>Subscribe & Listen On</h3>
                 <div class="platform-links">
@@ -246,11 +217,9 @@
                     <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta">
         <div class="container">
             <h2>Have a Question or Topic Suggestion?</h2>
@@ -259,7 +228,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
@@ -298,7 +266,6 @@
         </div>
     </footer>
 
-    <!-- Booking Modal -->
     <div class="modal" id="booking-modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -338,17 +305,10 @@
         </div>
     </div>
 
-    <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
     <script src="js/booking.js"></script>
-    <script>
-        // Set current year in footer
-        const yearSpan = document.getElementById('copyright-year');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    </script>
+    <script type="module" src="database.js"></script>
 </body>
 
 </html>
