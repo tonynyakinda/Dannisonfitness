@@ -10,6 +10,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -61,10 +64,7 @@
                 <p>Stay informed with evidence-based fitness and nutrition information</p>
             </div>
 
-            <!-- This container will be filled with blog posts from the database -->
-            <div class="blog-grid" id="blog-posts-container"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px;">
-                <!-- JavaScript will insert blog posts here -->
+            <div class="blog-grid" id="blog-posts-container">
                 <p>Loading posts...</p>
             </div>
 
@@ -170,10 +170,8 @@
         </div>
     </div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
     <script type="module" src="js/booking.js"></script>
-    <!-- Add type="module" to enable Supabase import -->
+    <script src="js/main.js"></script>
     <script type="module" src="database.js"></script>
 </body>
 

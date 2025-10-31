@@ -1,3 +1,5 @@
+/* css/style.css */
+
 /* CSS Variables for consistent theming */
 :root {
     --primary-orange: #F37050;
@@ -210,7 +212,7 @@ header {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Hero.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/Hero.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -360,7 +362,7 @@ header {
 
 /* CTA Section */
 .cta {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('journey.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/journey.jpg') center/cover no-repeat;
     color: var(--white);
     text-align: center;
     padding: 100px 0;
@@ -515,4 +517,63 @@ footer {
 .form-group textarea:focus {
     border-color: var(--primary-orange);
     outline: none;
+}
+
+/* =================================
+   BLOG GRID & CARD STYLES (NEW)
+   ================================= */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    align-items: stretch;
+}
+
+.blog-post {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-image {
+    height: 220px;
+    flex-shrink: 0;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-content .blog-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: var(--charcoal-gray);
+}
+
+.blog-content h3 {
+    margin-bottom: 15px;
+}
+
+.blog-content p {
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.blog-content .btn {
+    display: inline-block;
+    align-self: flex-start;
 }
