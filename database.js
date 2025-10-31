@@ -2,101 +2,18 @@
 
 import { supabase } from '../supabaseClient.js';
 
-// --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
-let activeAudioPlayer = null;
-let activeAudioEpisodeId = null;
-let progressUpdateInterval = null;
-
-window.onYouTubeIframeAPIReady = function () {
-    console.log("YouTube API is ready.");
-};
-
-function createAudioPlayer(episodeId, videoId) {
-    if (activeAudioPlayer) {
-        activeAudioPlayer.destroy();
-        clearInterval(progressUpdateInterval);
-        const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-        if (oldEpisodeElement) {
-            oldEpisodeElement.querySelector('.custom-audio-player').classList.remove('active');
-        }
-    }
-    const playerContainerId = `audio-player-div-${episodeId}`;
-    activeAudioPlayer = new YT.Player(playerContainerId, {
-        height: '0',
-        width: '0',
-        videoId: videoId,
-        playerVars: { 'controls': 0 },
-        events: {
-            'onReady': onAudioPlayerReady,
-            'onStateChange': onAudioPlayerStateChange
-        }
-    });
-    activeAudioEpisodeId = episodeId;
-}
-
-function onAudioPlayerReady(event) {
-    event.target.playVideo();
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    const volumeSlider = episodeElement.querySelector('.volume-slider');
-    event.target.setVolume(volumeSlider.value);
-    progressUpdateInterval = setInterval(() => {
-        updateProgressBar(event.target);
-    }, 1000);
-}
-
-function onAudioPlayerStateChange(event) {
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    if (!episodeElement) return;
-
-    const playBtn = episodeElement.querySelector('.listen-play-btn');
-    const pauseBtn = episodeElement.querySelector('.listen-pause-btn');
-
-    if (event.data === YT.PlayerState.PLAYING) {
-        playBtn.style.display = 'none';
-        pauseBtn.style.display = 'inline-flex';
-    } else {
-        playBtn.style.display = 'inline-flex';
-        pauseBtn.style.display = 'none';
-        if (event.data === YT.PlayerState.ENDED) {
-            clearInterval(progressUpdateInterval);
-            if (activeAudioPlayer) activeAudioPlayer.destroy();
-            activeAudioPlayer = null;
-        }
-    }
-}
-
-function formatTime(time) {
-    if (isNaN(time)) return "0:00";
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-}
-
-function updateProgressBar(player) {
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
-    const currentTime = player.getCurrentTime();
-    const duration = player.getDuration();
-    const progressBar = episodeElement.querySelector('.progress-slider');
-    const currentTimeDisplay = episodeElement.querySelector('.current-time');
-    const durationDisplay = episodeElement.querySelector('.duration-time');
-    progressBar.max = duration;
-    progressBar.value = currentTime;
-    currentTimeDisplay.textContent = formatTime(currentTime);
-    durationDisplay.textContent = formatTime(duration);
-}
-
-function getYouTubeVideoId(url) {
+// --- HELPER FUNCTION TO EMBED YOUTUBE VIDEOS ---
+function getYouTubeEmbedUrl(url) {
     if (!url) return null;
     let videoId;
     try {
         const urlObj = new URL(url);
         if (urlObj.hostname === 'youtu.be') {
             videoId = urlObj.pathname.slice(1);
-        } else {
+        } else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') {
             videoId = urlObj.searchParams.get('v');
         }
-        return videoId;
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
     } catch (e) {
         return null;
     }
@@ -124,24 +41,91 @@ async function loadBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (container) {
         const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'blog').order('created_at', { ascending: false });
-        if (error) { container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>'; return; }
-        if (data.length === 0) { container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>'; return; }
+        if (error) {
+            container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>';
+            return;
+        }
+        if (data.length === 0) {
+            container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>';
+            return;
+        }
         container.innerHTML = '';
         data.forEach(post => {
             const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
-            const postCard = `<article class="blog-post" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);"><div class="blog-image"><a href="#"><img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;"></a></div><div class="blog-content" style="padding: 25px;"><div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div><h3 style="margin-bottom: 15px;">${post.title}</h3><p style="margin-bottom: 20px;">${contentSnippet.substring(0, 150)}...</p><a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a></div></article>`;
+            const postCard = `
+                <article class="blog-post">
+                    <div class="blog-image">
+                        <a href="post.html?id=${post.id}">
+                            <img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;">
+                        </a>
+                    </div>
+                    <div class="blog-content" style="padding: 25px;">
+                        <div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div>
+                        <h3 style="margin-bottom: 15px;"><a href="post.html?id=${post.id}" style="color: inherit; text-decoration: none;">${post.title}</a></h3>
+                        <p style="margin-bottom: 20px;">${contentSnippet.substring(0, 150)}...</p>
+                        <a href="post.html?id=${post.id}" class="btn btn-secondary" style="display: inline-block;">Read More</a>
+                    </div>
+                </article>`;
             container.insertAdjacentHTML('beforeend', postCard);
         });
     }
 }
+
+// --- DYNAMICALLY LOAD A SINGLE POST ---
+async function loadSinglePost() {
+    const container = document.getElementById('single-post-container');
+    if (container) {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+
+        if (!postId) {
+            container.innerHTML = '<h1>Article not found.</h1><p>Please return to the <a href="blog.html">blog list</a>.</p>';
+            return;
+        }
+
+        const { data: post, error } = await supabase
+            .from('posts')
+            .select('*')
+            .eq('id', postId)
+            .single();
+
+        if (error || !post) {
+            console.error('Error fetching post:', error);
+            container.innerHTML = '<h1>Article not found.</h1><p>The requested article does not exist or could not be loaded.</p>';
+            return;
+        }
+
+        document.title = `${post.title} | Dennison Fitness`;
+
+        container.innerHTML = `
+            <div class="post-header">
+                <h1>${post.title}</h1>
+                <div class="post-meta">
+                    Published on ${new Date(post.created_at).toLocaleDateString()}
+                </div>
+            </div>
+            <img src="${post.image_url}" alt="${post.title}" class="post-image">
+            <div class="post-content">
+                ${post.content}
+            </div>
+        `;
+    }
+}
+
 
 // --- DYNAMICALLY LOAD MERCHANDISE ---
 async function loadMerchandise() {
     const container = document.getElementById('merch-container');
     if (container) {
         const { data, error } = await supabase.from('merchandise').select('*').order('created_at', { ascending: false });
-        if (error) { container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>'; return; }
-        if (data.length === 0) { container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>'; return; }
+        if (error) {
+            container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>';
+            return;
+        }
+        if (data.length === 0) {
+            container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>';
+            return;
+        }
         container.innerHTML = '';
         data.forEach(item => {
             const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">$${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
@@ -150,7 +134,7 @@ async function loadMerchandise() {
     }
 }
 
-// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED AGAIN) ---
+// --- DYNAMICALLY LOAD PODCAST EPISODES ---
 async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
@@ -166,7 +150,6 @@ async function loadPodcastEpisodes() {
 
             let actionButtons = '';
             if (hasVideo) {
-                // CORRECTED LOGIC: Create both buttons if a video exists
                 actionButtons = `
                     <button class="btn btn-secondary main-listen-btn">Listen</button>
                     <button class="btn btn-primary watch-btn">Watch</button>
@@ -215,11 +198,9 @@ async function loadPodcastEpisodes() {
             const videoUrl = episodeElement.dataset.videoUrl;
             const videoId = getYouTubeVideoId(videoUrl);
 
-            // --- MAIN "LISTEN" BUTTON ---
             if (button.classList.contains('main-listen-btn')) {
                 const audioPlayerUI = episodeElement.querySelector('.custom-audio-player');
                 audioPlayerUI.classList.toggle('active');
-                // If we are activating it for the first time and it's not the current player
                 if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) {
                     if (videoId) {
                         createAudioPlayer(episodeId, videoId);
@@ -227,7 +208,6 @@ async function loadPodcastEpisodes() {
                 }
             }
 
-            // --- WATCH BUTTON ---
             if (button.classList.contains('watch-btn')) {
                 const playerContainer = episodeElement.querySelector('.video-player-container');
                 if (playerContainer.classList.contains('active')) {
@@ -244,7 +224,6 @@ async function loadPodcastEpisodes() {
                 }
             }
 
-            // --- IN-PLAYER "PLAY" BUTTON ---
             if (button.classList.contains('listen-play-btn')) {
                 if (videoId) {
                     if (activeAudioEpisodeId !== episodeId) {
@@ -254,7 +233,6 @@ async function loadPodcastEpisodes() {
                     }
                 }
             }
-            // --- IN-PLAYER "PAUSE" BUTTON ---
             if (button.classList.contains('listen-pause-btn')) {
                 if (activeAudioPlayer) {
                     activeAudioPlayer.pauseVideo();
@@ -277,7 +255,6 @@ async function loadPodcastEpisodes() {
         });
     }
 }
-
 
 // --- DYNAMICALLY LOAD TESTIMONIALS PAGE ---
 async function loadTestimonialsPage() {

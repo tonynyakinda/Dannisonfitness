@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The title will be set by JavaScript -->
+    <title>Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .post-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 100px;
+            /* Add padding to account for fixed header */
+        }
+
+        .post-header h1 {
+            font-size: 3rem;
+        }
+
+        .post-meta {
+            color: var(--charcoal-gray);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+        }
+
+        .post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .post-content h1,
+        .post-content h2,
+        .post-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content ul,
+        .post-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="services" style="padding-top: 0;">
+            <div class="container" id="single-post-container">
+                <p style="text-align: center; font-size: 1.2rem; padding-top: 150px;">Loading article...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala,Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+</body>
+
+</html>
