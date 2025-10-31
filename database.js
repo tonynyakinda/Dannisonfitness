@@ -78,7 +78,7 @@ async function loadMerchandise() {
     }
 }
 
-// --- DYNAMICALLY LOAD PODCAST EPISODES ---
+// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED) ---
 async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
@@ -95,14 +95,12 @@ async function loadPodcastEpisodes() {
 
         data.forEach((episode, index) => {
             const episodeNumber = (data.length - index).toString().padStart(2, '0');
-            const hasAudio = !!episode.audio_url;
             const hasVideo = !!episode.video_url;
 
             let actionButtons = '';
-            if (hasAudio) {
-                actionButtons += `<a href="${episode.audio_url}" target="_blank" class="btn btn-secondary">Listen</a>`;
-            }
+            // If a video URL exists, create both a Listen and a Watch button for it.
             if (hasVideo) {
+                actionButtons += `<button class="btn btn-secondary listen-btn" data-video-url="${episode.video_url}" data-id="${episode.id}">Listen</button>`;
                 actionButtons += `<button class="btn btn-primary watch-btn" data-video-url="${episode.video_url}" data-id="${episode.id}">Watch</button>`;
             }
 
@@ -114,35 +112,55 @@ async function loadPodcastEpisodes() {
                         <h3>${episode.title}</h3>
                         <p>${episode.content ? (episode.content.length > 200 ? episode.content.substring(0, 200) + '...' : episode.content) : 'Tune in to find out more about this episode!'}</p>
                         <div class="video-player-container" id="video-player-${episode.id}"></div>
+                        <div class="audio-player-container" id="audio-player-${episode.id}" style="height: 0; overflow: hidden;"></div>
                     </div>
                     <div class="episode-actions">${actionButtons}</div>
                 </div>`;
             container.insertAdjacentHTML('beforeend', episodeCard);
         });
 
+        // Add event listeners for the new "Listen" and "Watch" buttons
         container.addEventListener('click', function (e) {
-            if (e.target && e.target.classList.contains('watch-btn')) {
-                const button = e.target;
+            const button = e.target.closest('button');
+            if (!button) return;
+
+            if (button.classList.contains('watch-btn')) {
                 const episodeId = button.dataset.id;
                 const videoUrl = button.dataset.videoUrl;
                 const embedUrl = getYouTubeEmbedUrl(videoUrl);
-
                 const playerContainer = document.getElementById(`video-player-${episodeId}`);
 
+                // Toggle visible player
                 if (playerContainer.classList.contains('active')) {
                     playerContainer.innerHTML = '';
                     playerContainer.classList.remove('active');
-                } else {
-                    if (embedUrl) {
-                        document.querySelectorAll('.video-player-container.active').forEach(activePlayer => {
-                            activePlayer.innerHTML = '';
-                            activePlayer.classList.remove('active');
-                        });
-                        playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-                        playerContainer.classList.add('active');
-                    } else {
-                        alert('Video URL is not a valid YouTube link.');
-                    }
+                } else if (embedUrl) {
+                    document.querySelectorAll('.video-player-container.active, .audio-player-container.active').forEach(activePlayer => {
+                        activePlayer.innerHTML = '';
+                        activePlayer.classList.remove('active');
+                    });
+                    playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                    playerContainer.classList.add('active');
+                }
+            }
+
+            if (button.classList.contains('listen-btn')) {
+                const episodeId = button.dataset.id;
+                const videoUrl = button.dataset.videoUrl;
+                const embedUrl = getYouTubeEmbedUrl(videoUrl);
+                const playerContainer = document.getElementById(`audio-player-${episodeId}`);
+
+                // Toggle hidden player for audio
+                if (playerContainer.classList.contains('active')) {
+                    playerContainer.innerHTML = '';
+                    playerContainer.classList.remove('active');
+                } else if (embedUrl) {
+                    document.querySelectorAll('.video-player-container.active, .audio-player-container.active').forEach(activePlayer => {
+                        activePlayer.innerHTML = '';
+                        activePlayer.classList.remove('active');
+                    });
+                    playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
+                    playerContainer.classList.add('active');
                 }
             }
         });
@@ -154,42 +172,21 @@ async function loadTestimonialsPage() {
     const galleryContainer = document.getElementById('transformation-gallery-container');
     const videoContainer = document.getElementById('video-testimonials-container');
     const storiesContainer = document.getElementById('client-stories-container');
-
     if (galleryContainer && videoContainer && storiesContainer) {
         const { data, error } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
-        if (error) {
-            galleryContainer.innerHTML = '<p>Error loading content.</p>';
-            videoContainer.innerHTML = '<p>Error loading content.</p>';
-            storiesContainer.innerHTML = '<p>Error loading content.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            galleryContainer.innerHTML = '<p>No transformations to show yet.</p>';
-            videoContainer.innerHTML = '<p>No video testimonials yet.</p>';
-            storiesContainer.innerHTML = '<p>No client stories yet.</p>';
-            return;
-        }
-
-        galleryContainer.innerHTML = '';
-        videoContainer.innerHTML = '';
-        storiesContainer.innerHTML = '';
-
+        if (error) { galleryContainer.innerHTML = '<p>Error loading content.</p>'; videoContainer.innerHTML = '<p>Error loading content.</p>'; storiesContainer.innerHTML = '<p>Error loading content.</p>'; return; }
+        if (data.length === 0) { galleryContainer.innerHTML = '<p>No transformations to show yet.</p>'; videoContainer.innerHTML = '<p>No video testimonials yet.</p>'; storiesContainer.innerHTML = '<p>No client stories yet.</p>'; return; }
+        galleryContainer.innerHTML = ''; videoContainer.innerHTML = ''; storiesContainer.innerHTML = '';
         const videoTestimonials = [];
-
         data.forEach(testimonial => {
             if (testimonial.image_before_url && testimonial.image_after_url) {
                 const galleryCard = `<div class="transformation-card" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);"><div class="transformation-images" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0;"><div class="before-image"><img src="${testimonial.image_before_url}" alt="Before Transformation" style="width: 100%; height: 250px; object-fit: cover;"><div style="background: var(--primary-orange); color: white; text-align: center; padding: 5px; font-weight: bold;">BEFORE</div></div><div class="after-image"><img src="${testimonial.image_after_url}" alt="After Transformation" style="width: 100%; height: 250px; object-fit: cover;"><div style="background: var(--charcoal-gray); color: white; text-align: center; padding: 5px; font-weight: bold;">AFTER</div></div></div><div style="padding: 20px;"><h3>${testimonial.client_name}'s Transformation</h3><p>${testimonial.quote.substring(0, 100)}...</p></div></div>`;
                 galleryContainer.insertAdjacentHTML('beforeend', galleryCard);
             }
-
-            if (testimonial.video_url) {
-                videoTestimonials.push(testimonial);
-            }
-
+            if (testimonial.video_url) { videoTestimonials.push(testimonial); }
             const storyCard = `<div class="testimonial-card"><div class="client-info"><div class="client-image"><img src="${testimonial.image_after_url}" alt="${testimonial.client_name}"></div><div><div class="client-name">${testimonial.client_name}</div><div>${testimonial.program_type || 'Transformation Program'}</div></div></div><p>${testimonial.quote}</p></div>`;
             storiesContainer.insertAdjacentHTML('beforeend', storyCard);
         });
-
         if (videoTestimonials.length > 0) {
             videoTestimonials.forEach(testimonial => {
                 const embedUrl = getYouTubeEmbedUrl(testimonial.video_url);
@@ -209,41 +206,13 @@ async function loadSchedule() {
     const scheduleBody = document.getElementById('schedule-body');
     if (scheduleBody) {
         const { data, error } = await supabase.from('schedule').select('*').order('start_time');
-        if (error) {
-            console.error('Error fetching schedule:', error);
-            scheduleBody.innerHTML = '<tr><td colspan="8">Error loading schedule.</td></tr>';
-            return;
-        }
-        if (data.length === 0) {
-            scheduleBody.innerHTML = '<tr><td colspan="8">Class schedule is not available at the moment.</td></tr>';
-            return;
-        }
-
+        if (error) { console.error('Error fetching schedule:', error); scheduleBody.innerHTML = '<tr><td colspan="8">Error loading schedule.</td></tr>'; return; }
+        if (data.length === 0) { scheduleBody.innerHTML = '<tr><td colspan="8">Class schedule is not available at the moment.</td></tr>'; return; }
         const timeSlots = {};
-        data.forEach(item => {
-            const time = item.start_time.slice(0, 5);
-            if (!timeSlots[time]) {
-                timeSlots[time] = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] };
-            }
-            timeSlots[time][item.day_of_week].push(item);
-        });
-
+        data.forEach(item => { const time = item.start_time.slice(0, 5); if (!timeSlots[time]) { timeSlots[time] = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] }; } timeSlots[time][item.day_of_week].push(item); });
         const sortedTimes = Object.keys(timeSlots).sort();
         let tableHtml = '';
-        sortedTimes.forEach(time => {
-            tableHtml += '<tr>';
-            tableHtml += `<td><strong>${time}</strong></td>`;
-            for (let day = 1; day <= 7; day++) {
-                tableHtml += '<td>';
-                if (timeSlots[time][day] && timeSlots[time][day].length > 0) {
-                    timeSlots[time][day].forEach(classItem => {
-                        tableHtml += `<div class="class-entry"><span class="class-session">${classItem.class_name}</span><span class="session-type">Group Class</span></div>`;
-                    });
-                }
-                tableHtml += '</td>';
-            }
-            tableHtml += '</tr>';
-        });
+        sortedTimes.forEach(time => { tableHtml += '<tr>'; tableHtml += `<td><strong>${time}</strong></td>`; for (let day = 1; day <= 7; day++) { tableHtml += '<td>'; if (timeSlots[time][day] && timeSlots[time][day].length > 0) { timeSlots[time][day].forEach(classItem => { tableHtml += `<div class="class-entry"><span class="class-session">${classItem.class_name}</span><span class="session-type">Group Class</span></div>`; }); } tableHtml += '</td>'; } tableHtml += '</tr>'; });
         scheduleBody.innerHTML = tableHtml;
     }
 }
