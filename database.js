@@ -2,18 +2,71 @@
 
 import { supabase } from '../supabaseClient.js';
 
-// --- HELPER FUNCTION TO EMBED YOUTUBE VIDEOS ---
-function getYouTubeEmbedUrl(url) {
+// --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
+let activeAudioPlayer = null;
+let activeAudioEpisodeId = null;
+
+window.onYouTubeIframeAPIReady = function () {
+    console.log("YouTube API is ready.");
+};
+
+function createAudioPlayer(episodeId, videoId) {
+    if (activeAudioPlayer) {
+        activeAudioPlayer.destroy();
+        const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+        if (oldEpisodeElement) {
+            oldEpisodeElement.querySelector('.listen-play-btn').style.display = 'inline-flex';
+            oldEpisodeElement.querySelector('.listen-pause-btn').style.display = 'none';
+        }
+    }
+    const playerContainerId = `audio-player-${episodeId}`;
+    activeAudioPlayer = new YT.Player(playerContainerId, {
+        height: '0',
+        width: '0',
+        videoId: videoId,
+        events: {
+            'onReady': onAudioPlayerReady,
+            'onStateChange': onAudioPlayerStateChange
+        }
+    });
+    activeAudioEpisodeId = episodeId;
+}
+
+function onAudioPlayerReady(event) {
+    event.target.playVideo();
+}
+
+function onAudioPlayerStateChange(event) {
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    if (!episodeElement) return;
+
+    const playBtn = episodeElement.querySelector('.listen-play-btn');
+    const pauseBtn = episodeElement.querySelector('.listen-pause-btn');
+
+    if (event.data === YT.PlayerState.PLAYING) {
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'inline-flex';
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+        playBtn.style.display = 'inline-flex';
+        pauseBtn.style.display = 'none';
+        if (event.data === YT.PlayerState.ENDED) {
+            if (activeAudioPlayer) activeAudioPlayer.destroy();
+            activeAudioPlayer = null;
+        }
+    }
+}
+
+function getYouTubeVideoId(url) {
     if (!url) return null;
     let videoId;
     try {
         const urlObj = new URL(url);
         if (urlObj.hostname === 'youtu.be') {
             videoId = urlObj.pathname.slice(1);
-        } else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') {
+        } else {
             videoId = urlObj.searchParams.get('v');
         }
-        return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        return videoId;
     } catch (e) {
         return null;
     }
@@ -51,7 +104,8 @@ async function loadBlogPosts() {
         }
         container.innerHTML = '';
         data.forEach(post => {
-            const postCard = `<article class="blog-post" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);"><div class="blog-image"><a href="#"><img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;"></a></div><div class="blog-content" style="padding: 25px;"><div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div><h3 style="margin-bottom: 15px;">${post.title}</h3><p style="margin-bottom: 20px;">${post.content.substring(0, 150)}...</p><a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a></div></article>`;
+            const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
+            const postCard = `<article class="blog-post" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);"><div class="blog-image"><a href="#"><img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;"></a></div><div class="blog-content" style="padding: 25px;"><div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div><h3 style="margin-bottom: 15px;">${post.title}</h3><p style="margin-bottom: 20px;">${contentSnippet.substring(0, 150)}...</p><a href="#" class="btn btn-secondary" style="display: inline-block;">Read More</a></div></article>`;
             container.insertAdjacentHTML('beforeend', postCard);
         });
     }
@@ -78,7 +132,7 @@ async function loadMerchandise() {
     }
 }
 
-// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED) ---
+// --- DYNAMICALLY LOAD PODCAST EPISODES ---
 async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
@@ -92,75 +146,71 @@ async function loadPodcastEpisodes() {
             return;
         }
         container.innerHTML = '';
-
         data.forEach((episode, index) => {
             const episodeNumber = (data.length - index).toString().padStart(2, '0');
             const hasVideo = !!episode.video_url;
+            const contentSnippet = episode.content ? episode.content.replace(/<[^>]*>?/gm, '') : 'Tune in to find out more!';
 
             let actionButtons = '';
-            // If a video URL exists, create both a Listen and a Watch button for it.
             if (hasVideo) {
-                actionButtons += `<button class="btn btn-secondary listen-btn" data-video-url="${episode.video_url}" data-id="${episode.id}">Listen</button>`;
-                actionButtons += `<button class="btn btn-primary watch-btn" data-video-url="${episode.video_url}" data-id="${episode.id}">Watch</button>`;
+                actionButtons = `
+                    <div class="audio-controls">
+                        <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i> Listen</button>
+                        <button class="btn btn-secondary listen-pause-btn" style="display: none;"><i class="fas fa-pause"></i> Pause</button>
+                    </div>
+                    <button class="btn btn-primary watch-btn">Watch</button>
+                `;
             }
 
             const episodeCard = `
-                <div class="podcast-episode">
+                <div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''}">
                     <img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail">
                     <div class="episode-details">
                         <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
                         <h3>${episode.title}</h3>
-                        <p>${episode.content ? (episode.content.length > 200 ? episode.content.substring(0, 200) + '...' : episode.content) : 'Tune in to find out more about this episode!'}</p>
-                        <div class="video-player-container" id="video-player-${episode.id}"></div>
-                        <div class="audio-player-container" id="audio-player-${episode.id}" style="height: 0; overflow: hidden;"></div>
+                        <p>${contentSnippet.substring(0, 150)}...</p>
+                        <div class="video-player-container"></div>
+                        <div class="audio-player-container" id="audio-player-${episode.id}"></div>
                     </div>
                     <div class="episode-actions">${actionButtons}</div>
                 </div>`;
             container.insertAdjacentHTML('beforeend', episodeCard);
         });
 
-        // Add event listeners for the new "Listen" and "Watch" buttons
         container.addEventListener('click', function (e) {
             const button = e.target.closest('button');
             if (!button) return;
 
-            if (button.classList.contains('watch-btn')) {
-                const episodeId = button.dataset.id;
-                const videoUrl = button.dataset.videoUrl;
-                const embedUrl = getYouTubeEmbedUrl(videoUrl);
-                const playerContainer = document.getElementById(`video-player-${episodeId}`);
+            const episodeElement = button.closest('.podcast-episode');
+            const episodeId = episodeElement.dataset.id;
+            const videoUrl = episodeElement.dataset.videoUrl;
+            const videoId = getYouTubeVideoId(videoUrl);
 
-                // Toggle visible player
+            if (button.classList.contains('watch-btn')) {
+                const playerContainer = episodeElement.querySelector('.video-player-container');
                 if (playerContainer.classList.contains('active')) {
                     playerContainer.innerHTML = '';
                     playerContainer.classList.remove('active');
-                } else if (embedUrl) {
-                    document.querySelectorAll('.video-player-container.active, .audio-player-container.active').forEach(activePlayer => {
-                        activePlayer.innerHTML = '';
-                        activePlayer.classList.remove('active');
-                    });
-                    playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                } else if (videoId) {
+                    if (activeAudioPlayer) { activeAudioPlayer.stopVideo(); }
+                    document.querySelectorAll('.video-player-container.active').forEach(p => { p.innerHTML = ''; p.classList.remove('active'); });
+                    playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                     playerContainer.classList.add('active');
                 }
             }
 
-            if (button.classList.contains('listen-btn')) {
-                const episodeId = button.dataset.id;
-                const videoUrl = button.dataset.videoUrl;
-                const embedUrl = getYouTubeEmbedUrl(videoUrl);
-                const playerContainer = document.getElementById(`audio-player-${episodeId}`);
-
-                // Toggle hidden player for audio
-                if (playerContainer.classList.contains('active')) {
-                    playerContainer.innerHTML = '';
-                    playerContainer.classList.remove('active');
-                } else if (embedUrl) {
-                    document.querySelectorAll('.video-player-container.active, .audio-player-container.active').forEach(activePlayer => {
-                        activePlayer.innerHTML = '';
-                        activePlayer.classList.remove('active');
-                    });
-                    playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
-                    playerContainer.classList.add('active');
+            if (button.classList.contains('listen-play-btn')) {
+                if (videoId) {
+                    if (activeAudioEpisodeId !== episodeId) {
+                        createAudioPlayer(episodeId, videoId);
+                    } else if (activeAudioPlayer) {
+                        activeAudioPlayer.playVideo();
+                    }
+                }
+            }
+            if (button.classList.contains('listen-pause-btn')) {
+                if (activeAudioPlayer) {
+                    activeAudioPlayer.pauseVideo();
                 }
             }
         });
@@ -189,7 +239,7 @@ async function loadTestimonialsPage() {
         });
         if (videoTestimonials.length > 0) {
             videoTestimonials.forEach(testimonial => {
-                const embedUrl = getYouTubeEmbedUrl(testimonial.video_url);
+                const embedUrl = getYouTubeVideoId(testimonial.video_url) ? `https://www.youtube.com/embed/${getYouTubeVideoId(testimonial.video_url)}` : null;
                 if (embedUrl) {
                     const videoCard = `<div class="video-embed-card" style="margin-bottom: 2rem;"><h3 style="text-align: center; margin-bottom: 1rem;">${testimonial.client_name}'s Story</h3><div class="video-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${embedUrl}" title="${testimonial.client_name}'s Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>`;
                     videoContainer.insertAdjacentHTML('beforeend', videoCard);
