@@ -5,7 +5,9 @@ import { supabase } from '../supabaseClient.js';
 // --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
 let activeAudioPlayer = null;
 let activeAudioEpisodeId = null;
+let progressUpdateInterval = null;
 
+// This function is called by the YouTube API once it's loaded and available.
 window.onYouTubeIframeAPIReady = function () {
     console.log("YouTube API is ready.");
 };
@@ -13,17 +15,20 @@ window.onYouTubeIframeAPIReady = function () {
 function createAudioPlayer(episodeId, videoId) {
     if (activeAudioPlayer) {
         activeAudioPlayer.destroy();
+        clearInterval(progressUpdateInterval);
         const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
         if (oldEpisodeElement) {
-            oldEpisodeElement.querySelector('.listen-play-btn').style.display = 'inline-flex';
-            oldEpisodeElement.querySelector('.listen-pause-btn').style.display = 'none';
+            oldEpisodeElement.querySelector('.custom-audio-player').classList.remove('active');
         }
     }
-    const playerContainerId = `audio-player-${episodeId}`;
+    const playerContainerId = `audio-player-div-${episodeId}`;
     activeAudioPlayer = new YT.Player(playerContainerId, {
         height: '0',
         width: '0',
         videoId: videoId,
+        playerVars: {
+            'controls': 0,
+        },
         events: {
             'onReady': onAudioPlayerReady,
             'onStateChange': onAudioPlayerStateChange
@@ -34,6 +39,13 @@ function createAudioPlayer(episodeId, videoId) {
 
 function onAudioPlayerReady(event) {
     event.target.playVideo();
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    const volumeSlider = episodeElement.querySelector('.volume-slider');
+    event.target.setVolume(volumeSlider.value);
+
+    progressUpdateInterval = setInterval(() => {
+        updateProgressBar(event.target);
+    }, 1000);
 }
 
 function onAudioPlayerStateChange(event) {
@@ -46,14 +58,38 @@ function onAudioPlayerStateChange(event) {
     if (event.data === YT.PlayerState.PLAYING) {
         playBtn.style.display = 'none';
         pauseBtn.style.display = 'inline-flex';
-    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+    } else {
         playBtn.style.display = 'inline-flex';
         pauseBtn.style.display = 'none';
         if (event.data === YT.PlayerState.ENDED) {
+            clearInterval(progressUpdateInterval);
             if (activeAudioPlayer) activeAudioPlayer.destroy();
             activeAudioPlayer = null;
         }
     }
+}
+
+function formatTime(time) {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function updateProgressBar(player) {
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
+
+    const currentTime = player.getCurrentTime();
+    const duration = player.getDuration();
+    const progressBar = episodeElement.querySelector('.progress-slider');
+    const currentTimeDisplay = episodeElement.querySelector('.current-time');
+    const durationDisplay = episodeElement.querySelector('.duration-time');
+
+    progressBar.max = duration;
+    progressBar.value = currentTime;
+    currentTimeDisplay.textContent = formatTime(currentTime);
+    durationDisplay.textContent = formatTime(duration);
 }
 
 function getYouTubeVideoId(url) {
@@ -137,14 +173,9 @@ async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
         const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'vlog').order('created_at', { ascending: false });
-        if (error) {
-            container.innerHTML = '<p>There was an error loading the episodes. Please try again later.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            container.innerHTML = '<p>No episodes have been released yet. Check back soon!</p>';
-            return;
-        }
+        if (error) { container.innerHTML = '<p>Error loading episodes.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No episodes yet.</p>'; return; }
+
         container.innerHTML = '';
         data.forEach((episode, index) => {
             const episodeNumber = (data.length - index).toString().padStart(2, '0');
@@ -153,13 +184,7 @@ async function loadPodcastEpisodes() {
 
             let actionButtons = '';
             if (hasVideo) {
-                actionButtons = `
-                    <div class="audio-controls">
-                        <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i> Listen</button>
-                        <button class="btn btn-secondary listen-pause-btn" style="display: none;"><i class="fas fa-pause"></i> Pause</button>
-                    </div>
-                    <button class="btn btn-primary watch-btn">Watch</button>
-                `;
+                actionButtons = `<button class="btn btn-primary watch-btn">Watch</button>`;
             }
 
             const episodeCard = `
@@ -169,8 +194,26 @@ async function loadPodcastEpisodes() {
                         <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
                         <h3>${episode.title}</h3>
                         <p>${contentSnippet.substring(0, 150)}...</p>
+                        
+                        <div class="custom-audio-player">
+                            <div class="player-controls">
+                                <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="btn btn-secondary listen-pause-btn" style="display:none;"><i class="fas fa-pause"></i></button>
+                                <div class="progress-bar-container">
+                                    <span class="time-display current-time">0:00</span>
+                                    <input type="range" class="progress-slider" value="0" min="0" step="1">
+                                    <span class="time-display duration-time">0:00</span>
+                                </div>
+                            </div>
+                            <div class="volume-controls">
+                                <i class="fas fa-volume-down"></i>
+                                <input type="range" class="volume-slider" min="0" max="100" value="75">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                        </div>
+
                         <div class="video-player-container"></div>
-                        <div class="audio-player-container" id="audio-player-${episode.id}"></div>
+                        <div class="audio-player-container" id="audio-player-div-${episode.id}"></div>
                     </div>
                     <div class="episode-actions">${actionButtons}</div>
                 </div>`;
@@ -192,8 +235,8 @@ async function loadPodcastEpisodes() {
                     playerContainer.innerHTML = '';
                     playerContainer.classList.remove('active');
                 } else if (videoId) {
-                    if (activeAudioPlayer) { activeAudioPlayer.stopVideo(); }
-                    document.querySelectorAll('.video-player-container.active').forEach(p => { p.innerHTML = ''; p.classList.remove('active'); });
+                    if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); }
+                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); p.innerHTML = p.classList.contains('video-player-container') ? '' : p.innerHTML; });
                     playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                     playerContainer.classList.add('active');
                 }
@@ -201,6 +244,7 @@ async function loadPodcastEpisodes() {
 
             if (button.classList.contains('listen-play-btn')) {
                 if (videoId) {
+                    episodeElement.querySelector('.custom-audio-player').classList.add('active');
                     if (activeAudioEpisodeId !== episodeId) {
                         createAudioPlayer(episodeId, videoId);
                     } else if (activeAudioPlayer) {
@@ -208,9 +252,24 @@ async function loadPodcastEpisodes() {
                     }
                 }
             }
+
             if (button.classList.contains('listen-pause-btn')) {
                 if (activeAudioPlayer) {
                     activeAudioPlayer.pauseVideo();
+                }
+            }
+        });
+
+        container.addEventListener('input', function (e) {
+            const slider = e.target;
+            if (slider.classList.contains('progress-slider')) {
+                if (activeAudioPlayer && typeof activeAudioPlayer.seekTo === 'function') {
+                    activeAudioPlayer.seekTo(slider.value, true);
+                }
+            }
+            if (slider.classList.contains('volume-slider')) {
+                if (activeAudioPlayer && typeof activeAudioPlayer.setVolume === 'function') {
+                    activeAudioPlayer.setVolume(slider.value);
                 }
             }
         });

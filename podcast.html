@@ -103,11 +103,6 @@
             text-align: center;
         }
 
-        .audio-controls {
-            display: contents;
-        }
-
-        /* Allows buttons to stay in flex layout */
         .podcast-platforms {
             margin-top: 40px;
             text-align: center;
@@ -163,6 +158,67 @@
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        /* NEW STYLES FOR AUDIO PLAYER */
+        .custom-audio-player {
+            display: none;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .custom-audio-player.active {
+            display: block;
+        }
+
+        .custom-audio-player .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-audio-player .player-controls .btn {
+            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar-container input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-controls i {
+            color: var(--charcoal-gray);
+        }
+
+        .volume-controls input[type="range"] {
+            width: 80px;
         }
     </style>
 </head>
@@ -315,7 +371,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/booking.js"></script>
-    <script type="module" src="database.js"></script>
+    <script type="module" src="js/database.js"></script>
 </body>
 
 </html>
