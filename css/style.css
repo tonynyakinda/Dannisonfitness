@@ -539,14 +539,14 @@ footer {
 }
 
 .blog-image {
-    height: 220px;
+    height: 250px;
     flex-shrink: 0;
 }
 
 .blog-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 110%;
+    object-fit: fill;
 }
 
 .blog-content {
