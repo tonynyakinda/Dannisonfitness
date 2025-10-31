@@ -19,6 +19,106 @@ function getYouTubeEmbedUrl(url) {
     }
 }
 
+// --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
+let activeAudioPlayer = null;
+let activeAudioEpisodeId = null;
+let progressUpdateInterval = null;
+
+window.onYouTubeIframeAPIReady = function () {
+    console.log("YouTube API is ready.");
+};
+
+function createAudioPlayer(episodeId, videoId) {
+    if (activeAudioPlayer) {
+        activeAudioPlayer.destroy();
+        clearInterval(progressUpdateInterval);
+        const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+        if (oldEpisodeElement) {
+            oldEpisodeElement.querySelector('.custom-audio-player').classList.remove('active');
+        }
+    }
+    const playerContainerId = `audio-player-div-${episodeId}`;
+    activeAudioPlayer = new YT.Player(playerContainerId, {
+        height: '0',
+        width: '0',
+        videoId: videoId,
+        playerVars: { 'controls': 0 },
+        events: {
+            'onReady': onAudioPlayerReady,
+            'onStateChange': onAudioPlayerStateChange
+        }
+    });
+    activeAudioEpisodeId = episodeId;
+}
+
+function onAudioPlayerReady(event) {
+    event.target.playVideo();
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    const volumeSlider = episodeElement.querySelector('.volume-slider');
+    event.target.setVolume(volumeSlider.value);
+    progressUpdateInterval = setInterval(() => {
+        updateProgressBar(event.target);
+    }, 1000);
+}
+
+function onAudioPlayerStateChange(event) {
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    if (!episodeElement) return;
+
+    const playBtn = episodeElement.querySelector('.listen-play-btn');
+    const pauseBtn = episodeElement.querySelector('.listen-pause-btn');
+
+    if (event.data === YT.PlayerState.PLAYING) {
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'inline-flex';
+    } else {
+        playBtn.style.display = 'inline-flex';
+        pauseBtn.style.display = 'none';
+        if (event.data === YT.PlayerState.ENDED) {
+            clearInterval(progressUpdateInterval);
+            if (activeAudioPlayer) activeAudioPlayer.destroy();
+            activeAudioPlayer = null;
+        }
+    }
+}
+
+function formatTime(time) {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function updateProgressBar(player) {
+    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
+    if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
+    const currentTime = player.getCurrentTime();
+    const duration = player.getDuration();
+    const progressBar = episodeElement.querySelector('.progress-slider');
+    const currentTimeDisplay = episodeElement.querySelector('.current-time');
+    const durationDisplay = episodeElement.querySelector('.duration-time');
+    progressBar.max = duration;
+    progressBar.value = currentTime;
+    currentTimeDisplay.textContent = formatTime(currentTime);
+    durationDisplay.textContent = formatTime(duration);
+}
+
+function getYouTubeVideoId(url) {
+    if (!url) return null;
+    let videoId;
+    try {
+        const urlObj = new URL(url);
+        if (urlObj.hostname === 'youtu.be') {
+            videoId = urlObj.pathname.slice(1);
+        } else {
+            videoId = urlObj.searchParams.get('v');
+        }
+        return videoId;
+    } catch (e) {
+        return null;
+    }
+}
+
 // --- CONTACT FORM SUBMISSION ---
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
@@ -41,31 +141,12 @@ async function loadBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (container) {
         const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'blog').order('created_at', { ascending: false });
-        if (error) {
-            container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>';
-            return;
-        }
+        if (error) { container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(post => {
             const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
-            const postCard = `
-                <article class="blog-post">
-                    <div class="blog-image">
-                        <a href="post.html?id=${post.id}">
-                            <img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;">
-                        </a>
-                    </div>
-                    <div class="blog-content" style="padding: 25px;">
-                        <div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div>
-                        <h3 style="margin-bottom: 15px;"><a href="post.html?id=${post.id}" style="color: inherit; text-decoration: none;">${post.title}</a></h3>
-                        <p style="margin-bottom: 20px;">${contentSnippet.substring(0, 150)}...</p>
-                        <a href="post.html?id=${post.id}" class="btn btn-secondary" style="display: inline-block;">Read More</a>
-                    </div>
-                </article>`;
+            const postCard = `<article class="blog-post" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);"><div class="blog-image"><a href="post.html?id=${post.id}"><img src="${post.image_url}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;"></a></div><div class="blog-content" style="padding: 25px;"><div class="blog-meta" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: var(--charcoal-gray);"><span>${new Date(post.created_at).toLocaleDateString()}</span></div><h3 style="margin-bottom: 15px;"><a href="post.html?id=${post.id}" style="color: inherit; text-decoration: none;">${post.title}</a></h3><p style="margin-bottom: 20px;">${contentSnippet.substring(0, 150)}...</p><a href="post.html?id=${post.id}" class="btn btn-secondary" style="display: inline-block;">Read More</a></div></article>`;
             container.insertAdjacentHTML('beforeend', postCard);
         });
     }
@@ -112,20 +193,13 @@ async function loadSinglePost() {
     }
 }
 
-
 // --- DYNAMICALLY LOAD MERCHANDISE ---
 async function loadMerchandise() {
     const container = document.getElementById('merch-container');
     if (container) {
         const { data, error } = await supabase.from('merchandise').select('*').order('created_at', { ascending: false });
-        if (error) {
-            container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>';
-            return;
-        }
+        if (error) { container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(item => {
             const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">$${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
@@ -207,7 +281,6 @@ async function loadPodcastEpisodes() {
                     }
                 }
             }
-
             if (button.classList.contains('watch-btn')) {
                 const playerContainer = episodeElement.querySelector('.video-player-container');
                 if (playerContainer.classList.contains('active')) {
@@ -223,7 +296,6 @@ async function loadPodcastEpisodes() {
                     playerContainer.classList.add('active');
                 }
             }
-
             if (button.classList.contains('listen-play-btn')) {
                 if (videoId) {
                     if (activeAudioEpisodeId !== episodeId) {
@@ -239,7 +311,6 @@ async function loadPodcastEpisodes() {
                 }
             }
         });
-
         container.addEventListener('input', function (e) {
             const slider = e.target;
             if (slider.classList.contains('progress-slider')) {
@@ -314,6 +385,7 @@ if (yearSpan) {
 
 // --- RUN ON PAGE LOAD ---
 loadBlogPosts();
+loadSinglePost();
 loadMerchandise();
 loadPodcastEpisodes();
 loadTestimonialsPage();
