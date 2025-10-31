@@ -150,7 +150,7 @@ async function loadMerchandise() {
     }
 }
 
-// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED) ---
+// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED AGAIN) ---
 async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
@@ -164,11 +164,13 @@ async function loadPodcastEpisodes() {
             const hasVideo = !!episode.video_url;
             const contentSnippet = episode.content ? episode.content.replace(/<[^>]*>?/gm, '') : 'Tune in to find out more!';
 
-            // CORRECTED: The audio player UI is now always present in the HTML but hidden
             let actionButtons = '';
             if (hasVideo) {
-                // The watch button is always visible
-                actionButtons = `<button class="btn btn-primary watch-btn">Watch</button>`;
+                // CORRECTED LOGIC: Create both buttons if a video exists
+                actionButtons = `
+                    <button class="btn btn-secondary main-listen-btn">Listen</button>
+                    <button class="btn btn-primary watch-btn">Watch</button>
+                `;
             }
 
             const episodeCard = `
@@ -179,7 +181,6 @@ async function loadPodcastEpisodes() {
                         <h3>${episode.title}</h3>
                         <p>${contentSnippet.substring(0, 150)}...</p>
                         
-                        <!-- Always include the audio player structure, hidden by default -->
                         <div class="custom-audio-player">
                             <div class="player-controls">
                                 <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
@@ -205,7 +206,6 @@ async function loadPodcastEpisodes() {
             container.insertAdjacentHTML('beforeend', episodeCard);
         });
 
-        // Event listener logic remains the same
         container.addEventListener('click', function (e) {
             const button = e.target.closest('button');
             if (!button) return;
@@ -215,7 +215,19 @@ async function loadPodcastEpisodes() {
             const videoUrl = episodeElement.dataset.videoUrl;
             const videoId = getYouTubeVideoId(videoUrl);
 
-            // Watch button logic
+            // --- MAIN "LISTEN" BUTTON ---
+            if (button.classList.contains('main-listen-btn')) {
+                const audioPlayerUI = episodeElement.querySelector('.custom-audio-player');
+                audioPlayerUI.classList.toggle('active');
+                // If we are activating it for the first time and it's not the current player
+                if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) {
+                    if (videoId) {
+                        createAudioPlayer(episodeId, videoId);
+                    }
+                }
+            }
+
+            // --- WATCH BUTTON ---
             if (button.classList.contains('watch-btn')) {
                 const playerContainer = episodeElement.querySelector('.video-player-container');
                 if (playerContainer.classList.contains('active')) {
@@ -232,10 +244,9 @@ async function loadPodcastEpisodes() {
                 }
             }
 
-            // Listen (Play) button logic
+            // --- IN-PLAYER "PLAY" BUTTON ---
             if (button.classList.contains('listen-play-btn')) {
                 if (videoId) {
-                    episodeElement.querySelector('.custom-audio-player').classList.add('active');
                     if (activeAudioEpisodeId !== episodeId) {
                         createAudioPlayer(episodeId, videoId);
                     } else if (activeAudioPlayer) {
@@ -243,8 +254,7 @@ async function loadPodcastEpisodes() {
                     }
                 }
             }
-
-            // Listen (Pause) button logic
+            // --- IN-PLAYER "PAUSE" BUTTON ---
             if (button.classList.contains('listen-pause-btn')) {
                 if (activeAudioPlayer) {
                     activeAudioPlayer.pauseVideo();
