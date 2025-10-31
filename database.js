@@ -7,7 +7,6 @@ let activeAudioPlayer = null;
 let activeAudioEpisodeId = null;
 let progressUpdateInterval = null;
 
-// This function is called by the YouTube API once it's loaded and available.
 window.onYouTubeIframeAPIReady = function () {
     console.log("YouTube API is ready.");
 };
@@ -26,9 +25,7 @@ function createAudioPlayer(episodeId, videoId) {
         height: '0',
         width: '0',
         videoId: videoId,
-        playerVars: {
-            'controls': 0,
-        },
+        playerVars: { 'controls': 0 },
         events: {
             'onReady': onAudioPlayerReady,
             'onStateChange': onAudioPlayerStateChange
@@ -42,7 +39,6 @@ function onAudioPlayerReady(event) {
     const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
     const volumeSlider = episodeElement.querySelector('.volume-slider');
     event.target.setVolume(volumeSlider.value);
-
     progressUpdateInterval = setInterval(() => {
         updateProgressBar(event.target);
     }, 1000);
@@ -79,13 +75,11 @@ function formatTime(time) {
 function updateProgressBar(player) {
     const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
     if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
-
     const currentTime = player.getCurrentTime();
     const duration = player.getDuration();
     const progressBar = episodeElement.querySelector('.progress-slider');
     const currentTimeDisplay = episodeElement.querySelector('.current-time');
     const durationDisplay = episodeElement.querySelector('.duration-time');
-
     progressBar.max = duration;
     progressBar.value = currentTime;
     currentTimeDisplay.textContent = formatTime(currentTime);
@@ -130,14 +124,8 @@ async function loadBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (container) {
         const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'blog').order('created_at', { ascending: false });
-        if (error) {
-            container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>';
-            return;
-        }
+        if (error) { container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(post => {
             const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
@@ -152,14 +140,8 @@ async function loadMerchandise() {
     const container = document.getElementById('merch-container');
     if (container) {
         const { data, error } = await supabase.from('merchandise').select('*').order('created_at', { ascending: false });
-        if (error) {
-            container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>';
-            return;
-        }
-        if (data.length === 0) {
-            container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>';
-            return;
-        }
+        if (error) { container.innerHTML = '<p>There was an error loading the products. Please try again later.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(item => {
             const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">$${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
@@ -168,7 +150,7 @@ async function loadMerchandise() {
     }
 }
 
-// --- DYNAMICALLY LOAD PODCAST EPISODES ---
+// --- DYNAMICALLY LOAD PODCAST EPISODES (CORRECTED) ---
 async function loadPodcastEpisodes() {
     const container = document.getElementById('podcast-list-container');
     if (container) {
@@ -182,8 +164,10 @@ async function loadPodcastEpisodes() {
             const hasVideo = !!episode.video_url;
             const contentSnippet = episode.content ? episode.content.replace(/<[^>]*>?/gm, '') : 'Tune in to find out more!';
 
+            // CORRECTED: The audio player UI is now always present in the HTML but hidden
             let actionButtons = '';
             if (hasVideo) {
+                // The watch button is always visible
                 actionButtons = `<button class="btn btn-primary watch-btn">Watch</button>`;
             }
 
@@ -195,6 +179,7 @@ async function loadPodcastEpisodes() {
                         <h3>${episode.title}</h3>
                         <p>${contentSnippet.substring(0, 150)}...</p>
                         
+                        <!-- Always include the audio player structure, hidden by default -->
                         <div class="custom-audio-player">
                             <div class="player-controls">
                                 <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
@@ -220,6 +205,7 @@ async function loadPodcastEpisodes() {
             container.insertAdjacentHTML('beforeend', episodeCard);
         });
 
+        // Event listener logic remains the same
         container.addEventListener('click', function (e) {
             const button = e.target.closest('button');
             if (!button) return;
@@ -229,6 +215,7 @@ async function loadPodcastEpisodes() {
             const videoUrl = episodeElement.dataset.videoUrl;
             const videoId = getYouTubeVideoId(videoUrl);
 
+            // Watch button logic
             if (button.classList.contains('watch-btn')) {
                 const playerContainer = episodeElement.querySelector('.video-player-container');
                 if (playerContainer.classList.contains('active')) {
@@ -236,12 +223,16 @@ async function loadPodcastEpisodes() {
                     playerContainer.classList.remove('active');
                 } else if (videoId) {
                     if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); }
-                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); p.innerHTML = p.classList.contains('video-player-container') ? '' : p.innerHTML; });
+                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => {
+                        p.classList.remove('active');
+                        if (p.classList.contains('video-player-container')) p.innerHTML = '';
+                    });
                     playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                     playerContainer.classList.add('active');
                 }
             }
 
+            // Listen (Play) button logic
             if (button.classList.contains('listen-play-btn')) {
                 if (videoId) {
                     episodeElement.querySelector('.custom-audio-player').classList.add('active');
@@ -253,6 +244,7 @@ async function loadPodcastEpisodes() {
                 }
             }
 
+            // Listen (Pause) button logic
             if (button.classList.contains('listen-pause-btn')) {
                 if (activeAudioPlayer) {
                     activeAudioPlayer.pauseVideo();
@@ -275,6 +267,7 @@ async function loadPodcastEpisodes() {
         });
     }
 }
+
 
 // --- DYNAMICALLY LOAD TESTIMONIALS PAGE ---
 async function loadTestimonialsPage() {
