@@ -103,7 +103,6 @@ async function loadPodcastEpisodes() {
                 actionButtons += `<a href="${episode.audio_url}" target="_blank" class="btn btn-secondary">Listen</a>`;
             }
             if (hasVideo) {
-                // The data-id attribute is used to uniquely identify the player container for this episode
                 actionButtons += `<button class="btn btn-primary watch-btn" data-video-url="${episode.video_url}" data-id="${episode.id}">Watch</button>`;
             }
 
@@ -113,7 +112,7 @@ async function loadPodcastEpisodes() {
                     <div class="episode-details">
                         <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
                         <h3>${episode.title}</h3>
-                        <p>${episode.content || 'Tune in to find out more about this episode!'}</p>
+                        <p>${episode.content ? (episode.content.length > 200 ? episode.content.substring(0, 200) + '...' : episode.content) : 'Tune in to find out more about this episode!'}</p>
                         <div class="video-player-container" id="video-player-${episode.id}"></div>
                     </div>
                     <div class="episode-actions">${actionButtons}</div>
@@ -135,12 +134,10 @@ async function loadPodcastEpisodes() {
                     playerContainer.classList.remove('active');
                 } else {
                     if (embedUrl) {
-                        // Close any other active players first
                         document.querySelectorAll('.video-player-container.active').forEach(activePlayer => {
                             activePlayer.innerHTML = '';
                             activePlayer.classList.remove('active');
                         });
-                        // Open the new one
                         playerContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                         playerContainer.classList.add('active');
                     } else {
@@ -151,7 +148,6 @@ async function loadPodcastEpisodes() {
         });
     }
 }
-
 
 // --- DYNAMICALLY LOAD TESTIMONIALS PAGE ---
 async function loadTestimonialsPage() {
