@@ -1,9 +1,34 @@
-// js/database.js
-
 import { supabase } from '../supabaseClient.js';
 
-// --- HELPER FUNCTION TO EMBED YOUTUBE VIDEOS ---
-function getYouTubeEmbedUrl(url) { if (!url) return null; let videoId; try { const urlObj = new URL(url); if (urlObj.hostname === 'youtu.be') { videoId = urlObj.pathname.slice(1); } else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') { videoId = urlObj.searchParams.get('v'); } return videoId ? `https://www.youtube.com/embed/${videoId}` : null; } catch (e) { return null; } }
+// --- NEW HELPER FUNCTION TO EXTRACT YOUTUBE VIDEO ID ---
+// This function correctly extracts ONLY the video ID from various YouTube URL formats.
+function getYouTubeVideoId(url) {
+    if (!url) return null;
+    let videoId = null;
+    try {
+        const urlObj = new URL(url);
+        if (urlObj.hostname === 'youtu.be') {
+            videoId = urlObj.pathname.slice(1);
+        } else if (urlObj.hostname.includes('youtube.com')) {
+            videoId = urlObj.searchParams.get('v');
+        }
+    } catch (e) {
+        // Fallback for non-standard URLs
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regex);
+        if (match) {
+            videoId = match[1];
+        }
+    }
+    return videoId;
+}
+
+// --- REFACTORED HELPER FUNCTION TO USE THE NEW ONE ---
+// Now this function is simpler and relies on the function above.
+function getYouTubeEmbedUrl(url) {
+    const videoId = getYouTubeVideoId(url);
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+}
 
 // --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
 let activeAudioPlayer = null; let activeAudioEpisodeId = null; let progressUpdateInterval = null;
@@ -94,7 +119,10 @@ async function loadPodcastEpisodes() {
             const episodeElement = button.closest('.podcast-episode');
             const episodeId = episodeElement.dataset.id;
             const videoUrl = episodeElement.dataset.videoUrl;
+
+            // --- FIX: This line will now work because the function exists ---
             const videoId = getYouTubeVideoId(videoUrl);
+
             if (button.classList.contains('main-listen-btn')) { const audioPlayerUI = episodeElement.querySelector('.custom-audio-player'); audioPlayerUI.classList.toggle('active'); if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) { if (videoId) { createAudioPlayer(episodeId, videoId); } } }
             if (button.classList.contains('watch-btn')) { const playerContainer = episodeElement.querySelector('.video-player-container'); if (playerContainer.classList.contains('active')) { playerContainer.innerHTML = ''; playerContainer.classList.remove('active'); } else if (videoId) { if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); } document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); if (p.classList.contains('video-player-container')) p.innerHTML = ''; }); playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`; playerContainer.classList.add('active'); } }
             if (button.classList.contains('listen-play-btn')) { if (videoId) { if (activeAudioEpisodeId !== episodeId) { createAudioPlayer(episodeId, videoId); } else if (activeAudioPlayer) { activeAudioPlayer.playVideo(); } } }
@@ -130,7 +158,8 @@ async function loadTestimonialsPage() {
         });
         if (videoTestimonials.length > 0) {
             videoTestimonials.forEach(testimonial => {
-                const embedUrl = getYouTubeVideoId(testimonial.video_url) ? `https://www.youtube.com/embed/${getYouTubeVideoId(testimonial.video_url)}` : null;
+                // --- FIX: Use the correct getYouTubeEmbedUrl function which now works ---
+                const embedUrl = getYouTubeEmbedUrl(testimonial.video_url);
                 if (embedUrl) {
                     const videoCard = `<div class="video-embed-card" style="margin-bottom: 2rem;"><h3 style="text-align: center; margin-bottom: 1rem;">${testimonial.client_name}'s Story</h3><div class="video-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="${embedUrl}" title="${testimonial.client_name}'s Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>`;
                     videoContainer.insertAdjacentHTML('beforeend', videoCard);
