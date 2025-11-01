@@ -10,9 +10,8 @@ if (hamburger && navMenu) {
         navMenu.classList.toggle('active');
     });
 
-    // Close mobile menu when clicking on a link
     document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-        if (!n.classList.contains('book-now-btn')) { // Don't close if it's the booking button in the nav
+        if (!n.classList.contains('book-now-btn')) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }
@@ -23,14 +22,12 @@ if (hamburger && navMenu) {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
-
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop - 80, // Adjust for fixed header height
+                top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
         }
@@ -51,26 +48,32 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (THIS WAS THE MISSING PIECE) ---
+// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (ROBUST VERSION) ---
 window.addEventListener('load', () => {
-    // Get the filename of the current page (e.g., "blog.html")
-    const currentPage = window.location.pathname.split("/").pop();
+    const currentUrl = window.location.href;
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    navLinks.forEach(link => {
-        const linkPage = link.getAttribute('href');
+    let isHomepage = true; // Assume we are on the homepage by default
 
-        // Special case for the homepage
-        if ((currentPage === 'index.html' || currentPage === '') && linkPage === 'index.html') {
+    navLinks.forEach(link => {
+        const linkUrl = link.href;
+
+        // Check if the link's URL is part of the current page's URL
+        // We exclude the homepage link from this initial check
+        if (currentUrl.includes(link.getAttribute('href')) && link.getAttribute('href') !== 'index.html') {
             link.classList.add('active-link');
+            isHomepage = false; // If any other link is active, it's not the homepage
         }
-        // Logic for all other pages
-        else if (linkPage !== 'index.html' && currentPage === linkPage) {
+
+        // Special check for the single post page to highlight the "Blog" link
+        if (currentUrl.includes('post.html') && link.getAttribute('href') === 'blog.html') {
             link.classList.add('active-link');
-        }
-        // Logic for the single post page, to highlight "Blog"
-        else if (currentPage === 'post.html' && linkPage === 'blog.html') {
-            link.classList.add('active-link');
+            isHomepage = false;
         }
     });
+
+    // If no other link was activated, it must be the homepage
+    if (isHomepage) {
+        document.querySelector('.nav-menu a[href="index.html"]').classList.add('active-link');
+    }
 });
