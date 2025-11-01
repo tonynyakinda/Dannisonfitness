@@ -38,42 +38,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (header) {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-            header.style.padding = '5px 0';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            header.style.padding = '15px 0';
-        }
+        // A slight style change for a smoother scroll effect on the header
+        const isScrolled = window.scrollY > 50;
+        header.style.boxShadow = isScrolled ? '0 5px 15px rgba(0, 0, 0, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.1)';
+        header.style.padding = isScrolled ? '5px 0' : '15px 0';
     }
 });
 
-// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (ROBUST VERSION) ---
+// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (FINAL, SIMPLIFIED VERSION) ---
 window.addEventListener('load', () => {
-    const currentUrl = window.location.href;
+    const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    let isHomepage = true; // Assume we are on the homepage by default
+    // Get just the filename (e.g., "about.html" or "" for the root)
+    let currentPage = currentPath.split("/").pop();
+
+    // If the path ends in a slash (like on the live server root), it will be empty.
+    // In that case, we default to "index.html".
+    if (currentPage === "") {
+        currentPage = "index.html";
+    }
 
     navLinks.forEach(link => {
-        const linkUrl = link.href;
+        const linkPage = link.getAttribute('href');
 
-        // Check if the link's URL is part of the current page's URL
-        // We exclude the homepage link from this initial check
-        if (currentUrl.includes(link.getAttribute('href')) && link.getAttribute('href') !== 'index.html') {
-            link.classList.add('active-link');
-            isHomepage = false; // If any other link is active, it's not the homepage
-        }
+        // First, remove active class from all links to prevent duplicates
+        link.classList.remove('active-link');
 
-        // Special check for the single post page to highlight the "Blog" link
-        if (currentUrl.includes('post.html') && link.getAttribute('href') === 'blog.html') {
+        // Check for a direct match
+        if (linkPage === currentPage) {
             link.classList.add('active-link');
-            isHomepage = false;
         }
     });
 
-    // If no other link was activated, it must be the homepage
-    if (isHomepage) {
-        document.querySelector('.nav-menu a[href="index.html"]').classList.add('active-link');
+    // Special case: If we are on post.html, highlight the 'Blog' link instead.
+    if (currentPage === 'post.html') {
+        const blogLink = document.querySelector('.nav-menu a[href="blog.html"]');
+        if (blogLink) {
+            // Remove active from post.html if it somehow got it, and add to blog.html
+            const postLink = document.querySelector('.nav-menu a[href="post.html"]');
+            if (postLink) postLink.classList.remove('active-link');
+            blogLink.classList.add('active-link');
+        }
     }
 });
