@@ -47,22 +47,26 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (NEW) ---
-document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = window.location.pathname.split("/").pop();
+// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (REVISED) ---
+// We use the 'load' event to ensure all content (including from database.js) is on the page
+window.addEventListener('load', () => {
+    // Get the filename of the current page (e.g., "blog.html")
+    const currentPage = window.location.pathname.split("/").pop();
     const navLinks = document.querySelectorAll('.nav-menu a');
 
     navLinks.forEach(link => {
-        const linkLocation = link.getAttribute('href');
+        const linkPage = link.getAttribute('href');
 
-        // Handle homepage case (index.html or empty path)
-        if ((currentLocation === 'index.html' || currentLocation === '') && (linkLocation === 'index.html')) {
+        // Special case for the homepage
+        if ((currentPage === 'index.html' || currentPage === '') && linkPage === 'index.html') {
             link.classList.add('active-link');
-            return;
         }
-
-        // Handle other pages
-        if (linkLocation !== 'index.html' && currentLocation === linkLocation) {
+        // Logic for all other pages
+        else if (linkPage !== 'index.html' && currentPage === linkPage) {
+            link.classList.add('active-link');
+        }
+        // Logic for the single post page, to highlight "Blog"
+        else if (currentPage === 'post.html' && linkPage === 'blog.html') {
             link.classList.add('active-link');
         }
     });

@@ -2,51 +2,6 @@
 
 import { supabase } from '../supabaseClient.js';
 
-// All helper functions (getYouTubeEmbedUrl, etc.) are at the top and are unchanged
-
-// --- DYNAMICALLY LOAD BLOG POSTS (CLEANED UP) ---
-async function loadBlogPosts() {
-    const container = document.getElementById('blog-posts-container');
-    if (container) {
-        const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'blog').order('created_at', { ascending: false });
-        if (error) { container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>'; return; }
-        if (data.length === 0) { container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>'; return; }
-
-        container.innerHTML = '';
-        data.forEach(post => {
-            const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
-
-            // This now uses the new CSS classes and has no inline styles
-            const postCard = `
-                <article class="blog-post">
-                    <div class="blog-image">
-                        <a href="post.html?id=${post.id}">
-                            <img src="${post.image_url}" alt="${post.title}">
-                        </a>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span>${new Date(post.created_at).toLocaleDateString()}</span>
-                        </div>
-                        <h3><a href="post.html?id=${post.id}" style="color: inherit; text-decoration: none;">${post.title}</a></h3>
-                        <p>${contentSnippet.substring(0, 150)}...</p>
-                        <a href="post.html?id=${post.id}" class="btn btn-secondary">Read More</a>
-                    </div>
-                </article>`;
-            container.insertAdjacentHTML('beforeend', postCard);
-        });
-    }
-}
-
-// ALL OTHER FUNCTIONS in database.js are unchanged, so the rest of the file is identical to the last one I sent.
-// I am providing the full file below for absolute certainty.
-
-// (The full, complete file as requested)
-
-// js/database.js
-
-// import { supabase } from '../supabaseClient.js'; already declared at the top
-
 // --- HELPER FUNCTION TO EMBED YOUTUBE VIDEOS ---
 function getYouTubeEmbedUrl(url) {
     if (!url) return null;
@@ -181,46 +136,43 @@ if (contactForm) {
     });
 }
 
-// --- DYNAMICALLY LOAD SINGLE POST ---
+// --- DYNAMICALLY LOAD BLOG POSTS ---
+async function loadBlogPosts() {
+    const container = document.getElementById('blog-posts-container');
+    if (container) {
+        const { data, error } = await supabase.from('posts').select('*').eq('post_type', 'blog').order('created_at', { ascending: false });
+        if (error) { container.innerHTML = '<p>There was an error loading the posts. Please try again later.</p>'; return; }
+        if (data.length === 0) { container.innerHTML = '<p>No blog posts have been published yet. Check back soon!</p>'; return; }
+        container.innerHTML = '';
+        data.forEach(post => {
+            const contentSnippet = post.content ? post.content.replace(/<[^>]*>?/gm, '') : '';
+            const postCard = `<article class="blog-post"><div class="blog-image"><a href="post.html?id=${post.id}"><img src="${post.image_url}" alt="${post.title}"></a></div><div class="blog-content"><div class="blog-meta"><span>${new Date(post.created_at).toLocaleDateString()}</span></div><h3><a href="post.html?id=${post.id}" style="color: inherit; text-decoration: none;">${post.title}</a></h3><p>${contentSnippet.substring(0, 150)}...</p><a href="post.html?id=${post.id}" class="btn btn-secondary">Read More</a></div></article>`;
+            container.insertAdjacentHTML('beforeend', postCard);
+        });
+    }
+}
+
+// --- DYNAMICALLY LOAD A SINGLE POST ---
 async function loadSinglePost() {
     const container = document.getElementById('single-post-container');
     if (container) {
         const params = new URLSearchParams(window.location.search);
         const postId = params.get('id');
-
         if (!postId) {
             container.innerHTML = '<h1>Article not found.</h1><p>Please return to the <a href="blog.html">blog list</a>.</p>';
             return;
         }
-
-        const { data: post, error } = await supabase
-            .from('posts')
-            .select('*')
-            .eq('id', postId)
-            .single();
-
+        const { data: post, error } = await supabase.from('posts').select('*').eq('id', postId).single();
         if (error || !post) {
             console.error('Error fetching post:', error);
             container.innerHTML = '<h1>Article not found.</h1><p>The requested article does not exist or could not be loaded.</p>';
             return;
         }
-
         document.title = `${post.title} | Dennison Fitness`;
-
-        container.innerHTML = `
-            <div class="post-header">
-                <h1>${post.title}</h1>
-                <div class="post-meta">
-                    Published on ${new Date(post.created_at).toLocaleDateString()}
-                </div>
-            </div>
-            <img src="${post.image_url}" alt="${post.title}" class="post-image">
-            <div class="post-content">
-                ${post.content}
-            </div>
-        `;
+        container.innerHTML = `<div class="post-header"><h1>${post.title}</h1><div class="post-meta">Published on ${new Date(post.created_at).toLocaleDateString()}</div></div><img src="${post.image_url}" alt="${post.title}" class="post-image"><div class="post-content">${post.content}</div>`;
     }
 }
+
 
 // --- DYNAMICALLY LOAD MERCHANDISE ---
 async function loadMerchandise() {
@@ -231,7 +183,7 @@ async function loadMerchandise() {
         if (data.length === 0) { container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(item => {
-            const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">Ksh${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
+            const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">$${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
             container.insertAdjacentHTML('beforeend', merchCard);
         });
     }
