@@ -1,4 +1,5 @@
-//main.js
+// js/main.js
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -44,4 +45,25 @@ window.addEventListener('scroll', () => {
             header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         }
     }
+});
+
+// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (NEW) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const currentLocation = window.location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
+    navLinks.forEach(link => {
+        const linkLocation = link.getAttribute('href');
+
+        // Handle homepage case (index.html or empty path)
+        if ((currentLocation === 'index.html' || currentLocation === '') && (linkLocation === 'index.html')) {
+            link.classList.add('active-link');
+            return;
+        }
+
+        // Handle other pages
+        if (linkLocation !== 'index.html' && currentLocation === linkLocation) {
+            link.classList.add('active-link');
+        }
+    });
 });
