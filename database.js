@@ -50,7 +50,6 @@ function createAudioPlayer(episodeId, videoId) {
     });
     activeAudioEpisodeId = episodeId;
 }
-
 function onAudioPlayerReady(event) {
     event.target.playVideo();
     const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
@@ -60,7 +59,6 @@ function onAudioPlayerReady(event) {
         updateProgressBar(event.target);
     }, 1000);
 }
-
 function onAudioPlayerStateChange(event) {
     const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
     if (!episodeElement) return;
@@ -81,14 +79,12 @@ function onAudioPlayerStateChange(event) {
         }
     }
 }
-
 function formatTime(time) {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
-
 function updateProgressBar(player) {
     const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
     if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
@@ -101,22 +97,6 @@ function updateProgressBar(player) {
     progressBar.value = currentTime;
     currentTimeDisplay.textContent = formatTime(currentTime);
     durationDisplay.textContent = formatTime(duration);
-}
-
-function getYouTubeVideoId(url) {
-    if (!url) return null;
-    let videoId;
-    try {
-        const urlObj = new URL(url);
-        if (urlObj.hostname === 'youtu.be') {
-            videoId = urlObj.pathname.slice(1);
-        } else {
-            videoId = urlObj.searchParams.get('v');
-        }
-        return videoId;
-    } catch (e) {
-        return null;
-    }
 }
 
 // --- CONTACT FORM SUBMISSION ---
@@ -158,21 +138,13 @@ async function loadSinglePost() {
     if (container) {
         const params = new URLSearchParams(window.location.search);
         const postId = params.get('id');
-        if (!postId) {
-            container.innerHTML = '<h1>Article not found.</h1><p>Please return to the <a href="blog.html">blog list</a>.</p>';
-            return;
-        }
+        if (!postId) { container.innerHTML = '<h1>Article not found.</h1><p>Please return to the <a href="blog.html">blog list</a>.</p>'; return; }
         const { data: post, error } = await supabase.from('posts').select('*').eq('id', postId).single();
-        if (error || !post) {
-            console.error('Error fetching post:', error);
-            container.innerHTML = '<h1>Article not found.</h1><p>The requested article does not exist or could not be loaded.</p>';
-            return;
-        }
+        if (error || !post) { console.error('Error fetching post:', error); container.innerHTML = '<h1>Article not found.</h1><p>The requested article does not exist or could not be loaded.</p>'; return; }
         document.title = `${post.title} | Dennison Fitness`;
         container.innerHTML = `<div class="post-header"><h1>${post.title}</h1><div class="post-meta">Published on ${new Date(post.created_at).toLocaleDateString()}</div></div><img src="${post.image_url}" alt="${post.title}" class="post-image"><div class="post-content">${post.content}</div>`;
     }
 }
-
 
 // --- DYNAMICALLY LOAD MERCHANDISE ---
 async function loadMerchandise() {
@@ -183,7 +155,7 @@ async function loadMerchandise() {
         if (data.length === 0) { container.innerHTML = '<p>No products are available at the moment. Check back soon!</p>'; return; }
         container.innerHTML = '';
         data.forEach(item => {
-            const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">Ksh${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
+            const merchCard = `<div class="merch-card"><img src="${item.image_url}" alt="${item.name}"><div class="merch-content"><h3>${item.name}</h3><span class="merch-price">$${Number(item.price).toFixed(2)}</span><p>${item.description}</p><a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Add to Cart</a></div></div>`;
             container.insertAdjacentHTML('beforeend', merchCard);
         });
     }
@@ -202,65 +174,22 @@ async function loadPodcastEpisodes() {
             const episodeNumber = (data.length - index).toString().padStart(2, '0');
             const hasVideo = !!episode.video_url;
             const contentSnippet = episode.content ? episode.content.replace(/<[^>]*>?/gm, '') : 'Tune in to find out more!';
-
             let actionButtons = '';
-            if (hasVideo) {
-                actionButtons = `
-                    <button class="btn btn-secondary main-listen-btn">Listen</button>
-                    <button class="btn btn-primary watch-btn">Watch</button>
-                `;
-            }
-
-            const episodeCard = `
-                <div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''}">
-                    <img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail">
-                    <div class="episode-details">
-                        <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
-                        <h3>${episode.title}</h3>
-                        <p>${contentSnippet.substring(0, 150)}...</p>
-                        
-                        <div class="custom-audio-player">
-                            <div class="player-controls">
-                                <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
-                                <button class="btn btn-secondary listen-pause-btn" style="display:none;"><i class="fas fa-pause"></i></button>
-                                <div class="progress-bar-container">
-                                    <span class="time-display current-time">0:00</span>
-                                    <input type="range" class="progress-slider" value="0" min="0" step="1">
-                                    <span class="time-display duration-time">0:00</span>
-                                </div>
-                            </div>
-                            <div class="volume-controls">
-                                <i class="fas fa-volume-down"></i>
-                                <input type="range" class="volume-slider" min="0" max="100" value="75">
-                                <i class="fas fa-volume-up"></i>
-                            </div>
-                        </div>
-
-                        <div class="video-player-container"></div>
-                        <div class="audio-player-container" id="audio-player-div-${episode.id}"></div>
-                    </div>
-                    <div class="episode-actions">${actionButtons}</div>
-                </div>`;
+            if (hasVideo) { actionButtons = `<button class="btn btn-secondary main-listen-btn">Listen</button><button class="btn btn-primary watch-btn">Watch</button>`; }
+            const episodeCard = `<div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''}"><img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail"><div class="episode-details"><div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div><h3>${episode.title}</h3><p>${contentSnippet.substring(0, 150)}...</p><div class="custom-audio-player"><div class="player-controls"><button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button><button class="btn btn-secondary listen-pause-btn" style="display:none;"><i class="fas fa-pause"></i></button><div class="progress-bar-container"><span class="time-display current-time">0:00</span><input type="range" class="progress-slider" value="0" min="0" step="1"><span class="time-display duration-time">0:00</span></div></div><div class="volume-controls"><i class="fas fa-volume-down"></i><input type="range" class="volume-slider" min="0" max="100" value="75"><i class="fas fa-volume-up"></i></div></div><div class="video-player-container"></div><div class="audio-player-container" id="audio-player-div-${episode.id}"></div></div><div class="episode-actions">${actionButtons}</div></div>`;
             container.insertAdjacentHTML('beforeend', episodeCard);
         });
-
         container.addEventListener('click', function (e) {
             const button = e.target.closest('button');
             if (!button) return;
-
             const episodeElement = button.closest('.podcast-episode');
             const episodeId = episodeElement.dataset.id;
             const videoUrl = episodeElement.dataset.videoUrl;
             const videoId = getYouTubeVideoId(videoUrl);
-
             if (button.classList.contains('main-listen-btn')) {
                 const audioPlayerUI = episodeElement.querySelector('.custom-audio-player');
                 audioPlayerUI.classList.toggle('active');
-                if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) {
-                    if (videoId) {
-                        createAudioPlayer(episodeId, videoId);
-                    }
-                }
+                if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) { if (videoId) { createAudioPlayer(episodeId, videoId); } }
             }
             if (button.classList.contains('watch-btn')) {
                 const playerContainer = episodeElement.querySelector('.video-player-container');
@@ -269,41 +198,18 @@ async function loadPodcastEpisodes() {
                     playerContainer.classList.remove('active');
                 } else if (videoId) {
                     if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); }
-                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => {
-                        p.classList.remove('active');
-                        if (p.classList.contains('video-player-container')) p.innerHTML = '';
-                    });
+                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); if (p.classList.contains('video-player-container')) p.innerHTML = ''; });
                     playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                     playerContainer.classList.add('active');
                 }
             }
-            if (button.classList.contains('listen-play-btn')) {
-                if (videoId) {
-                    if (activeAudioEpisodeId !== episodeId) {
-                        createAudioPlayer(episodeId, videoId);
-                    } else if (activeAudioPlayer) {
-                        activeAudioPlayer.playVideo();
-                    }
-                }
-            }
-            if (button.classList.contains('listen-pause-btn')) {
-                if (activeAudioPlayer) {
-                    activeAudioPlayer.pauseVideo();
-                }
-            }
+            if (button.classList.contains('listen-play-btn')) { if (videoId) { if (activeAudioEpisodeId !== episodeId) { createAudioPlayer(episodeId, videoId); } else if (activeAudioPlayer) { activeAudioPlayer.playVideo(); } } }
+            if (button.classList.contains('listen-pause-btn')) { if (activeAudioPlayer) { activeAudioPlayer.pauseVideo(); } }
         });
         container.addEventListener('input', function (e) {
             const slider = e.target;
-            if (slider.classList.contains('progress-slider')) {
-                if (activeAudioPlayer && typeof activeAudioPlayer.seekTo === 'function') {
-                    activeAudioPlayer.seekTo(slider.value, true);
-                }
-            }
-            if (slider.classList.contains('volume-slider')) {
-                if (activeAudioPlayer && typeof activeAudioPlayer.setVolume === 'function') {
-                    activeAudioPlayer.setVolume(slider.value);
-                }
-            }
+            if (slider.classList.contains('progress-slider')) { if (activeAudioPlayer && typeof activeAudioPlayer.seekTo === 'function') { activeAudioPlayer.seekTo(slider.value, true); } }
+            if (slider.classList.contains('volume-slider')) { if (activeAudioPlayer && typeof activeAudioPlayer.setVolume === 'function') { activeAudioPlayer.setVolume(slider.value); } }
         });
     }
 }
