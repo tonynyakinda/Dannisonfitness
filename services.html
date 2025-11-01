@@ -1,4 +1,3 @@
-<!--services.html-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +64,7 @@
                 <p>Choose the program that best fits your goals and schedule</p>
             </div>
 
+            <!-- ONE-ON-ONE TRAINING -->
             <div class="service-detail" style="margin-bottom: 80px;">
                 <div class="about-content">
                     <div class="about-text">
@@ -72,7 +72,6 @@
                         <p>Experience fully personalized training sessions with undivided attention from your certified
                             coach. This is our most comprehensive service, designed for maximum results and
                             accountability.</p>
-
                         <h4>Who This Is For:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Beginners needing proper form and technique guidance</li>
@@ -80,7 +79,6 @@
                             <li>Those seeking maximum accountability and motivation</li>
                             <li>Anyone wanting completely customized workout programming</li>
                         </ul>
-
                         <h4>What's Included:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Customized workout plans tailored to your goals</li>
@@ -90,15 +88,11 @@
                             <li>Progress tracking and regular assessments</li>
                             <li>24/7 support via messaging</li>
                         </ul>
-
-                        <div class="pricing"
+                        <div id="pricing-one-on-one" class="pricing"
                             style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius); margin: 20px 0;">
                             <h4>Investment:</h4>
-                            <p><strong>Single Session: Ksh85</strong></p>
-                            <p><strong>8-Session Package: Ksh600 (Ksh75/session)</strong></p>
-                            <p><strong>16-Session Package: Ksh1,120 (Ksh70/session)</strong></p>
+                            <p>Loading pricing...</p>
                         </div>
-
                         <a href="#" class="btn btn-primary book-now-btn">Book This Program</a>
                     </div>
                     <div class="about-image">
@@ -107,6 +101,7 @@
                 </div>
             </div>
 
+            <!-- ONLINE COACHING -->
             <div class="service-detail" style="margin-bottom: 80px;">
                 <div class="about-content">
                     <div class="about-image">
@@ -116,7 +111,6 @@
                         <h3>Online Coaching</h3>
                         <p>Professional fitness guidance delivered directly to you, wherever you are. Perfect for those
                             with busy schedules or who prefer to workout at home or while traveling.</p>
-
                         <h4>Who This Is For:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Busy professionals with irregular schedules</li>
@@ -124,7 +118,6 @@
                             <li>Home gym enthusiasts</li>
                             <li>Those comfortable with self-guided workouts</li>
                         </ul>
-
                         <h4>What's Included:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Customized workout programming</li>
@@ -134,27 +127,23 @@
                             <li>Access to exclusive workout library</li>
                             <li>Monthly video coaching calls</li>
                         </ul>
-
-                        <div class="pricing"
+                        <div id="pricing-online" class="pricing"
                             style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius); margin: 20px 0;">
                             <h4>Investment:</h4>
-                            <p><strong>Monthly Coaching: Ksh299/month</strong></p>
-                            <p><strong>3-Month Package: Ksh797 (Ksh265/month)</strong></p>
-                            <p><strong>6-Month Package: Ksh1,494 (Ksh249/month)</strong></p>
+                            <p>Loading pricing...</p>
                         </div>
-
                         <a href="#" class="btn btn-primary book-now-btn">Get Started</a>
                     </div>
                 </div>
             </div>
 
+            <!-- NUTRITION COACHING -->
             <div class="service-detail" style="margin-bottom: 80px;">
                 <div class="about-content">
                     <div class="about-text">
                         <h3>Nutrition Coaching</h3>
                         <p>Transform your relationship with food and learn sustainable eating habits that support your
                             fitness goals. Nutrition is 80% of the results equation.</p>
-
                         <h4>Who This Is For:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Anyone struggling with nutrition consistency</li>
@@ -162,7 +151,6 @@
                             <li>People with specific dietary needs or restrictions</li>
                             <li>Athletes looking to optimize performance</li>
                         </ul>
-
                         <h4>What's Included:</h4>
                         <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
                             <li>Customized meal plans based on your preferences</li>
@@ -172,15 +160,11 @@
                             <li>Weekly check-ins and adjustments</li>
                             <li>Education on sustainable nutrition habits</li>
                         </ul>
-
-                        <div class="pricing"
+                        <div id="pricing-nutrition" class="pricing"
                             style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius); margin: 20px 0;">
                             <h4>Investment:</h4>
-                            <p><strong>Nutrition Assessment: Ksh150</strong></p>
-                            <p><strong>Monthly Nutrition Coaching: Ksh199/month</strong></p>
-                            <p><strong>3-Month Nutrition Package: Ksh537 (Ksh179/month)</strong></p>
+                            <p>Loading pricing...</p>
                         </div>
-
                         <a href="#" class="btn btn-primary book-now-btn">Start Nutrition Plan</a>
                     </div>
                     <div class="about-image">
@@ -188,6 +172,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -276,16 +261,9 @@
         </div>
     </div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
     <script type="module" src="js/booking.js"></script>
-    <script>
-        // Set current year in footer
-        const yearSpan = document.getElementById('copyright-year');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    </script>
+    <script src="js/main.js"></script>
+    <script type="module" src="database.js"></script>
 </body>
 
 </html>

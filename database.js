@@ -3,101 +3,16 @@
 import { supabase } from '../supabaseClient.js';
 
 // --- HELPER FUNCTION TO EMBED YOUTUBE VIDEOS ---
-function getYouTubeEmbedUrl(url) {
-    if (!url) return null;
-    let videoId;
-    try {
-        const urlObj = new URL(url);
-        if (urlObj.hostname === 'youtu.be') {
-            videoId = urlObj.pathname.slice(1);
-        } else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') {
-            videoId = urlObj.searchParams.get('v');
-        }
-        return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-    } catch (e) {
-        return null;
-    }
-}
+function getYouTubeEmbedUrl(url) { if (!url) return null; let videoId; try { const urlObj = new URL(url); if (urlObj.hostname === 'youtu.be') { videoId = urlObj.pathname.slice(1); } else if (urlObj.hostname === 'www.youtube.com' || urlObj.hostname === 'youtube.com') { videoId = urlObj.searchParams.get('v'); } return videoId ? `https://www.youtube.com/embed/${videoId}` : null; } catch (e) { return null; } }
 
 // --- YOUTUBE PLAYER & AUDIO CONTROL LOGIC ---
-let activeAudioPlayer = null;
-let activeAudioEpisodeId = null;
-let progressUpdateInterval = null;
-
-window.onYouTubeIframeAPIReady = function () {
-    console.log("YouTube API is ready.");
-};
-
-function createAudioPlayer(episodeId, videoId) {
-    if (activeAudioPlayer) {
-        activeAudioPlayer.destroy();
-        clearInterval(progressUpdateInterval);
-        const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-        if (oldEpisodeElement) {
-            oldEpisodeElement.querySelector('.custom-audio-player').classList.remove('active');
-        }
-    }
-    const playerContainerId = `audio-player-div-${episodeId}`;
-    activeAudioPlayer = new YT.Player(playerContainerId, {
-        height: '0',
-        width: '0',
-        videoId: videoId,
-        playerVars: { 'controls': 0 },
-        events: {
-            'onReady': onAudioPlayerReady,
-            'onStateChange': onAudioPlayerStateChange
-        }
-    });
-    activeAudioEpisodeId = episodeId;
-}
-function onAudioPlayerReady(event) {
-    event.target.playVideo();
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    const volumeSlider = episodeElement.querySelector('.volume-slider');
-    event.target.setVolume(volumeSlider.value);
-    progressUpdateInterval = setInterval(() => {
-        updateProgressBar(event.target);
-    }, 1000);
-}
-function onAudioPlayerStateChange(event) {
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    if (!episodeElement) return;
-
-    const playBtn = episodeElement.querySelector('.listen-play-btn');
-    const pauseBtn = episodeElement.querySelector('.listen-pause-btn');
-
-    if (event.data === YT.PlayerState.PLAYING) {
-        playBtn.style.display = 'none';
-        pauseBtn.style.display = 'inline-flex';
-    } else {
-        playBtn.style.display = 'inline-flex';
-        pauseBtn.style.display = 'none';
-        if (event.data === YT.PlayerState.ENDED) {
-            clearInterval(progressUpdateInterval);
-            if (activeAudioPlayer) activeAudioPlayer.destroy();
-            activeAudioPlayer = null;
-        }
-    }
-}
-function formatTime(time) {
-    if (isNaN(time)) return "0:00";
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-}
-function updateProgressBar(player) {
-    const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`);
-    if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return;
-    const currentTime = player.getCurrentTime();
-    const duration = player.getDuration();
-    const progressBar = episodeElement.querySelector('.progress-slider');
-    const currentTimeDisplay = episodeElement.querySelector('.current-time');
-    const durationDisplay = episodeElement.querySelector('.duration-time');
-    progressBar.max = duration;
-    progressBar.value = currentTime;
-    currentTimeDisplay.textContent = formatTime(currentTime);
-    durationDisplay.textContent = formatTime(duration);
-}
+let activeAudioPlayer = null; let activeAudioEpisodeId = null; let progressUpdateInterval = null;
+window.onYouTubeIframeAPIReady = function () { console.log("YouTube API is ready."); };
+function createAudioPlayer(episodeId, videoId) { if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); const oldEpisodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`); if (oldEpisodeElement) { oldEpisodeElement.querySelector('.custom-audio-player').classList.remove('active'); } } const playerContainerId = `audio-player-div-${episodeId}`; activeAudioPlayer = new YT.Player(playerContainerId, { height: '0', width: '0', videoId: videoId, playerVars: { 'controls': 0 }, events: { 'onReady': onAudioPlayerReady, 'onStateChange': onAudioPlayerStateChange } }); activeAudioEpisodeId = episodeId; }
+function onAudioPlayerReady(event) { event.target.playVideo(); const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`); const volumeSlider = episodeElement.querySelector('.volume-slider'); event.target.setVolume(volumeSlider.value); progressUpdateInterval = setInterval(() => { updateProgressBar(event.target); }, 1000); }
+function onAudioPlayerStateChange(event) { const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`); if (!episodeElement) return; const playBtn = episodeElement.querySelector('.listen-play-btn'); const pauseBtn = episodeElement.querySelector('.listen-pause-btn'); if (event.data === YT.PlayerState.PLAYING) { playBtn.style.display = 'none'; pauseBtn.style.display = 'inline-flex'; } else { playBtn.style.display = 'inline-flex'; pauseBtn.style.display = 'none'; if (event.data === YT.PlayerState.ENDED) { clearInterval(progressUpdateInterval); if (activeAudioPlayer) activeAudioPlayer.destroy(); activeAudioPlayer = null; } } }
+function formatTime(time) { if (isNaN(time)) return "0:00"; const minutes = Math.floor(time / 60); const seconds = Math.floor(time % 60); return `${minutes}:${seconds.toString().padStart(2, '0')}`; }
+function updateProgressBar(player) { const episodeElement = document.querySelector(`.podcast-episode[data-id="${activeAudioEpisodeId}"]`); if (!player || !episodeElement || typeof player.getCurrentTime !== 'function') return; const currentTime = player.getCurrentTime(); const duration = player.getDuration(); const progressBar = episodeElement.querySelector('.progress-slider'); const currentTimeDisplay = episodeElement.querySelector('.current-time'); const durationDisplay = episodeElement.querySelector('.duration-time'); progressBar.max = duration; progressBar.value = currentTime; currentTimeDisplay.textContent = formatTime(currentTime); durationDisplay.textContent = formatTime(duration); }
 
 // --- CONTACT FORM SUBMISSION ---
 const contactForm = document.getElementById('contact-form');
@@ -106,13 +21,7 @@ if (contactForm) {
         e.preventDefault();
         const formData = { full_name: document.getElementById('contact-name').value, email: document.getElementById('contact-email').value, phone: document.getElementById('contact-phone').value, subject: document.getElementById('subject').value, message: document.getElementById('contact-message').value, };
         const { error } = await supabase.from('contacts').insert([formData]);
-        if (error) {
-            console.error('Error submitting contact form:', error);
-            alert('Sorry, there was an error sending your message. Please try again.');
-        } else {
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-            this.reset();
-        }
+        if (error) { console.error('Error submitting contact form:', error); alert('Sorry, there was an error sending your message. Please try again.'); } else { alert('Thank you for your message! We will get back to you within 24 hours.'); this.reset(); }
     });
 }
 
@@ -186,23 +95,8 @@ async function loadPodcastEpisodes() {
             const episodeId = episodeElement.dataset.id;
             const videoUrl = episodeElement.dataset.videoUrl;
             const videoId = getYouTubeVideoId(videoUrl);
-            if (button.classList.contains('main-listen-btn')) {
-                const audioPlayerUI = episodeElement.querySelector('.custom-audio-player');
-                audioPlayerUI.classList.toggle('active');
-                if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) { if (videoId) { createAudioPlayer(episodeId, videoId); } }
-            }
-            if (button.classList.contains('watch-btn')) {
-                const playerContainer = episodeElement.querySelector('.video-player-container');
-                if (playerContainer.classList.contains('active')) {
-                    playerContainer.innerHTML = '';
-                    playerContainer.classList.remove('active');
-                } else if (videoId) {
-                    if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); }
-                    document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); if (p.classList.contains('video-player-container')) p.innerHTML = ''; });
-                    playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-                    playerContainer.classList.add('active');
-                }
-            }
+            if (button.classList.contains('main-listen-btn')) { const audioPlayerUI = episodeElement.querySelector('.custom-audio-player'); audioPlayerUI.classList.toggle('active'); if (audioPlayerUI.classList.contains('active') && activeAudioEpisodeId !== episodeId) { if (videoId) { createAudioPlayer(episodeId, videoId); } } }
+            if (button.classList.contains('watch-btn')) { const playerContainer = episodeElement.querySelector('.video-player-container'); if (playerContainer.classList.contains('active')) { playerContainer.innerHTML = ''; playerContainer.classList.remove('active'); } else if (videoId) { if (activeAudioPlayer) { activeAudioPlayer.destroy(); clearInterval(progressUpdateInterval); } document.querySelectorAll('.video-player-container.active, .custom-audio-player.active').forEach(p => { p.classList.remove('active'); if (p.classList.contains('video-player-container')) p.innerHTML = ''; }); playerContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`; playerContainer.classList.add('active'); } }
             if (button.classList.contains('listen-play-btn')) { if (videoId) { if (activeAudioEpisodeId !== episodeId) { createAudioPlayer(episodeId, videoId); } else if (activeAudioPlayer) { activeAudioPlayer.playVideo(); } } }
             if (button.classList.contains('listen-pause-btn')) { if (activeAudioPlayer) { activeAudioPlayer.pauseVideo(); } }
         });
@@ -264,6 +158,28 @@ async function loadSchedule() {
     }
 }
 
+// --- DYNAMICALLY LOAD SERVICE PRICING ---
+async function loadServicePricing() {
+    const containers = {
+        'one-on-one': document.getElementById('pricing-one-on-one'),
+        'online': document.getElementById('pricing-online'),
+        'nutrition': document.getElementById('pricing-nutrition')
+    };
+    if (!containers['one-on-one']) return;
+    const { data, error } = await supabase.from('services').select('id, pricing');
+    if (error) { console.error('Error fetching service pricing:', error); Object.values(containers).forEach(c => c.innerHTML = '<p>Error loading pricing.</p>'); return; }
+    data.forEach(service => {
+        const container = containers[service.id];
+        if (container) {
+            const pricingTiersHtml = service.pricing.tiers.map(tier =>
+                `<p><strong>${tier.name}: ${tier.price}</strong> ${tier.note || ''}</p>`
+            ).join('');
+            container.innerHTML = `<h4>Investment:</h4>${pricingTiersHtml}`;
+        }
+    });
+}
+
+
 // --- SHARED LOGIC (Copyright Year) ---
 const yearSpan = document.getElementById('copyright-year');
 if (yearSpan) {
@@ -277,3 +193,4 @@ loadMerchandise();
 loadPodcastEpisodes();
 loadTestimonialsPage();
 loadSchedule();
+loadServicePricing();
