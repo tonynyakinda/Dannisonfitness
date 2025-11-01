@@ -44,33 +44,5 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (SIMPLE & CORRECT) ---
-window.addEventListener('load', () => {
-    let currentPage = window.location.pathname.split('/').pop();
-    if (currentPage === "") {
-        currentPage = "index.html";
-    }
-
-    const navLinks = document.querySelectorAll('.nav-menu a');
-
-    // First, clear any existing active classes
-    navLinks.forEach(link => {
-        link.classList.remove('active-link');
-    });
-
-    // Handle the single post page exception
-    if (currentPage === 'post.html') {
-        const blogLink = document.querySelector('a[href="blog.html"]');
-        if (blogLink) {
-            blogLink.classList.add('active-link');
-        }
-        return; // Stop here if it's a post page
-    }
-
-    // Find the link that exactly matches the current page
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active-link');
-        }
-    });
-});
+// The faulty active link highlighter has been removed from this file.
+// The active state is now handled by manually adding class="active-link" to each HTML page.
