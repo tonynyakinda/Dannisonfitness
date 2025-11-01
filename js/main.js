@@ -12,8 +12,10 @@ if (hamburger && navMenu) {
 
     // Close mobile menu when clicking on a link
     document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+        if (!n.classList.contains('book-now-btn')) { // Don't close if it's the booking button in the nav
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
     }));
 }
 
@@ -28,7 +30,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop - 80,
+                top: targetElement.offsetTop - 80, // Adjust for fixed header height
                 behavior: 'smooth'
             });
         }
@@ -39,16 +41,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (header) {
-        if (window.scrollY > 100) {
+        if (window.scrollY > 50) {
             header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            header.style.padding = '5px 0';
         } else {
             header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            header.style.padding = '15px 0';
         }
     }
 });
 
-// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (REVISED) ---
-// We use the 'load' event to ensure all content (including from database.js) is on the page
+// --- ACTIVE NAVIGATION LINK HIGHLIGHTER (THIS WAS THE MISSING PIECE) ---
 window.addEventListener('load', () => {
     // Get the filename of the current page (e.g., "blog.html")
     const currentPage = window.location.pathname.split("/").pop();
