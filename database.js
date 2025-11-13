@@ -134,7 +134,6 @@ async function loadHomepageTestimonialSlider() {
     const sliderContent = document.getElementById('testimonial-slider-content');
     if (!sliderContent) return;
 
-    // 1. Fetch up to 5 of the most recent testimonials
     const { data: testimonials, error } = await supabase
         .from('testimonials')
         .select('*')
@@ -144,22 +143,14 @@ async function loadHomepageTestimonialSlider() {
     if (error || !testimonials || testimonials.length === 0) {
         sliderContent.innerHTML = '<p>Check out our client success stories!</p>';
         console.warn('Could not load testimonials for slider:', error);
-        // We hide the button's margin if there are no testimonials
-        const seeMoreBtn = container.querySelector('.btn-primary');
-        if (seeMoreBtn) seeMoreBtn.style.display = 'none';
         return;
     }
 
     let currentIndex = 0;
 
-    // 2. Create a function to display a specific testimonial
     function showTestimonial(index) {
         const testimonial = testimonials[index];
-
-        // Start fade-out animation
         sliderContent.style.opacity = 0;
-
-        // After the fade-out is complete, change the content and fade back in
         setTimeout(() => {
             sliderContent.innerHTML = `
                 <div class="testimonial-card">
@@ -175,20 +166,17 @@ async function loadHomepageTestimonialSlider() {
                     </div>
                 </div>
             `;
-            // Start fade-in animation
             sliderContent.style.opacity = 1;
-        }, 500); // This delay must match your CSS transition duration
+        }, 500);
     }
 
-    // 3. Display the first testimonial immediately
     showTestimonial(currentIndex);
 
-    // 4. Set an interval to cycle through the testimonials if there's more than one
     if (testimonials.length > 1) {
         setInterval(() => {
             currentIndex = (currentIndex + 1) % testimonials.length;
             showTestimonial(currentIndex);
-        }, 7000); // Change every 7 seconds
+        }, 7000);
     }
 }
 
@@ -341,35 +329,30 @@ async function loadPodcastEpisodes() {
         <button class="btn btn-primary watch-btn">Watch</button>`;
         }
         const episodeCard = `
-      <div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''
-            }">
-        <img src="${episode.image_url}" alt="${episode.title
-            }" class="episode-thumbnail">
+      <div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''}">
+        <img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail">
         <div class="episode-details">
-          <div class="episode-meta">Episode ${episodeNumber} | ${new Date(
-                episode.created_at
-            ).toLocaleDateString()}</div>
-          <h3>${episode.title}</h3>
-          <p>${contentSnippet.substring(0, 150)}...</p>
-          <div class="custom-audio-player">
-            <div class="player-controls">
-              <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
-              <button class="btn btn-secondary listen-pause-btn" style="display:none;"><i class="fas fa-pause"></i></button>
-              <div class="progress-bar-container">
-                <span class="time-display current-time">0:00</span>
-                <input type="range" class="progress-slider" value="0" min="0" step="1">
-                <span class="time-display duration-time">0:00</span>
-              </div>
+            <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
+            <h3>${episode.title}</h3>
+            <p>${contentSnippet.substring(0, 150)}...</p>
+            <div class="custom-audio-player">
+                <div class="player-controls">
+                    <button class="btn btn-secondary listen-play-btn"><i class="fas fa-play"></i></button>
+                    <button class="btn btn-secondary listen-pause-btn" style="display:none;"><i class="fas fa-pause"></i></button>
+                    <div class="progress-bar-container">
+                        <span class="time-display current-time">0:00</span>
+                        <input type="range" class="progress-slider" value="0" min="0" step="1">
+                        <span class="time-display duration-time">0:00</span>
+                    </div>
+                </div>
+                <div class="volume-controls">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" class="volume-slider" min="0" max="100" value="75">
+                    <i class="fas fa-volume-up"></i>
+                </div>
             </div>
-            <div class="volume-controls">
-              <i class="fas fa-volume-down"></i>
-              <input type="range" class="volume-slider" min="0" max="100" value="75">
-              <i class="fas fa-volume-up"></i>
-            </div>
-          </div>
-          <div class="video-player-container"></div>
-          <div class="audio-player-container" id="audio-player-div-${episode.id
-            }"></div>
+            <div class="video-player-container"></div>
+            <div class="audio-player-container" id="audio-player-div-${episode.id}"></div>
         </div>
         <div class="episode-actions">${actionButtons}</div>
       </div>`;
@@ -525,6 +508,7 @@ async function loadSchedule() {
     const scheduleBody = document.getElementById('schedule-body');
     if (!scheduleBody) return;
 
+    // Fetch schedule data from Supabase
     const { data, error } = await supabase.from('schedule').select('*').order('start_time');
     if (error) {
         console.error('Error fetching schedule:', error);
@@ -535,26 +519,35 @@ async function loadSchedule() {
         scheduleBody.innerHTML = '<tr><td colspan="8">Class schedule is not available at the moment.</td></tr>';
         return;
     }
+
+    // 1. BUILD THE TABLE HTML WITH CLICKABLE, DATA-RICH ENTRIES
     const timeSlots = {};
-    data.forEach((item) => {
+    data.forEach(item => {
         const time = item.start_time.slice(0, 5);
         if (!timeSlots[time]) {
             timeSlots[time] = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] };
         }
         timeSlots[time][item.day_of_week].push(item);
     });
+
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const sortedTimes = Object.keys(timeSlots).sort();
     let tableHtml = '';
-    sortedTimes.forEach((time) => {
+
+    sortedTimes.forEach(time => {
         tableHtml += `<tr><td><strong>${time}</strong></td>`;
         for (let day = 1; day <= 7; day++) {
             tableHtml += '<td>';
             if (timeSlots[time][day] && timeSlots[time][day].length > 0) {
-                timeSlots[time][day].forEach((classItem) => {
+                timeSlots[time][day].forEach(classItem => {
+                    // We've turned the div into a clickable link-like element with data attributes
                     tableHtml += `
-                      <div class="class-entry">
+                      <div class="class-entry bookable" 
+                           data-class-name="${classItem.class_name}" 
+                           data-class-day="${daysOfWeek[day - 1]}"
+                           data-class-time="${time}">
                         <span class="class-session">${classItem.class_name}</span>
-                        <span class="session-type">Group Class</span>
+                        <span class="session-type">Click to Book</span>
                       </div>`;
                 });
             }
@@ -563,6 +556,46 @@ async function loadSchedule() {
         tableHtml += '</tr>';
     });
     scheduleBody.innerHTML = tableHtml;
+
+    // 2. ADD EVENT LISTENER TO HANDLE CLICKS ON THE NEW BOOKABLE CLASSES
+    scheduleBody.addEventListener('click', (e) => {
+        const classEntry = e.target.closest('.bookable');
+        if (!classEntry) return; // Exit if the click was not on a bookable class
+
+        // Get the data we stored in the HTML
+        const className = classEntry.dataset.className;
+        const classDay = classEntry.dataset.classDay;
+        const classTime = classEntry.dataset.classTime;
+
+        // Find the booking modal and its form elements
+        const bookingModal = document.getElementById('booking-modal');
+        const serviceSelect = document.getElementById('service');
+        const messageTextarea = document.getElementById('message');
+
+        // --- PRE-FILL THE FORM ---
+
+        // Remove any previously added custom option to avoid duplicates
+        const existingCustomOption = serviceSelect.querySelector('option[data-custom-class]');
+        if (existingCustomOption) {
+            existingCustomOption.remove();
+        }
+
+        // Create a new, selected option for the clicked class
+        const newOption = document.createElement('option');
+        newOption.value = `Group Class: ${className}`; // Set a descriptive value
+        newOption.textContent = `${className} (Group Class)`;
+        newOption.selected = true;
+        newOption.setAttribute('data-custom-class', 'true'); // Mark it for easy removal later
+        serviceSelect.prepend(newOption); // Add it to the top of the list
+
+        // Pre-fill the message area with the class details
+        const prefilledMessage = `I'm interested in booking the "${className}" class on ${classDay} at ${classTime}.`;
+        messageTextarea.value = prefilledMessage;
+
+        // --- OPEN THE MODAL ---
+        bookingModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
 }
 
 async function loadServicePricing() {

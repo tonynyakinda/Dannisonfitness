@@ -597,3 +597,16 @@ footer {
     display: inline-block;
     align-self: flex-start;
 }
+
+/* Add these new styles */
+.schedule-table .class-entry.bookable {
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.schedule-table .class-entry.bookable:hover {
+    background-color: #fde8e2;
+    /* A lighter shade of your primary orange */
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

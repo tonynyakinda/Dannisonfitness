@@ -74,6 +74,19 @@
             display: block;
         }
 
+        /* NEW HOVER STYLES FOR INTERACTIVITY */
+        .schedule-table .class-entry.bookable {
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .schedule-table .class-entry.bookable:hover {
+            background-color: #fde8e2;
+            /* A lighter shade of your primary orange */
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
         .schedule-note {
             margin-top: 30px;
             text-align: center;
@@ -115,57 +128,59 @@
         </div>
     </header>
 
-    <section class="hero"
-        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Class Schedule & Availability</h1>
-                <p>Find a time that works for you and book your next session</p>
+    <main>
+        <section class="hero"
+            style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Class Schedule & Availability</h1>
+                    <p>Find a time that works for you and book your next session</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Weekly Group Class Schedule</h2>
-                <p>Our group classes are designed to be challenging, fun, and scalable for all fitness levels.</p>
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Weekly Group Class Schedule</h2>
+                    <p>Our group classes are designed to be challenging, fun, and scalable for all fitness levels.</p>
+                </div>
+                <div class="schedule-container">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                                <th>Sunday</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-body">
+                            <tr>
+                                <td colspan="8">Loading schedule...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="schedule-note">
+                    <strong>One-on-One Personal Training:</strong> Available by appointment.
+                    <br>Please use the button below to book your private consultation or session.
+                </div>
             </div>
-            <div class="schedule-container">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                            <th>Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody id="schedule-body">
-                        <tr>
-                            <td colspan="8">Loading schedule...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="schedule-note">
-                <strong>One-on-One Personal Training:</strong> Available by appointment.
-                <br>Please use the button below to book your private consultation or session.
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Book Your Spot?</h2>
-            <p>Whether it's a group class or a one-on-one session, take the next step in your fitness journey.</p>
-            <a href="#" class="btn btn-primary book-now-btn">Book Your Session</a>
-        </div>
-    </section>
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Book Your Spot?</h2>
+                <p>Whether it's a group class or a one-on-one session, take the next step in your fitness journey.</p>
+                <a href="#" class="btn btn-primary book-now-btn">Book Your Session</a>
+            </div>
+        </section>
+    </main>
 
     <footer id="contact">
         <div class="container">
@@ -235,9 +250,11 @@
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" required>
                     </div>
+                    <!-- === UPDATED TEXTAREA FOR BETTER UX === -->
                     <div class="form-group">
-                        <label for="message">Preferred Date/Time (Optional)</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
+                        <label for="message">Your Message (Optional)</label>
+                        <textarea id="message" name="message" rows="4"
+                            placeholder="Feel free to confirm the time or suggest an alternative that works for you."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
                 </form>
