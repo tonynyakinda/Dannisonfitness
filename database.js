@@ -125,44 +125,72 @@ function updateProgressBar(player) {
 // --- DYNAMIC CONTENT LOADING FUNCTIONS ---
 
 /**
- * Loads the latest testimonial on the homepage.
+ * Loads recent testimonials and displays them in an animated slider on the homepage.
  */
-async function loadHomepageTestimonial() {
+async function loadHomepageTestimonialSlider() {
     const container = document.getElementById('home-testimonial-container');
     if (!container) return;
 
-    const { data: testimonial, error } = await supabase
+    const sliderContent = document.getElementById('testimonial-slider-content');
+    if (!sliderContent) return;
+
+    // 1. Fetch up to 5 of the most recent testimonials
+    const { data: testimonials, error } = await supabase
         .from('testimonials')
         .select('*')
         .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        .limit(5);
 
-    if (error || !testimonial) {
-        container.innerHTML = '<p>Check out our client success stories!</p><a href="testimonials.html" class="btn btn-primary">See Transformations</a>';
-        console.warn('Could not load homepage testimonial:', error);
+    if (error || !testimonials || testimonials.length === 0) {
+        sliderContent.innerHTML = '<p>Check out our client success stories!</p>';
+        console.warn('Could not load testimonials for slider:', error);
+        // We hide the button's margin if there are no testimonials
+        const seeMoreBtn = container.querySelector('.btn-primary');
+        if (seeMoreBtn) seeMoreBtn.style.display = 'none';
         return;
     }
 
-    const testimonialHtml = `
-        <div class="testimonial-card">
-            <p>"${testimonial.quote}"</p>
-            <div class="client-info">
-                <div class="client-image">
-                    <img src="${testimonial.image_after_url || 'https://placehold.co/100x100'}" alt="${testimonial.client_name}">
-                </div>
-                <div>
-                    <div class="client-name">${testimonial.client_name}</div>
-                    <div>${testimonial.program_type || 'Transformation'}</div>
-                </div>
-            </div>
-        </div>
-        <a href="testimonials.html" class="btn btn-primary">See More Transformations</a>
-    `;
+    let currentIndex = 0;
 
-    container.innerHTML = testimonialHtml;
+    // 2. Create a function to display a specific testimonial
+    function showTestimonial(index) {
+        const testimonial = testimonials[index];
+
+        // Start fade-out animation
+        sliderContent.style.opacity = 0;
+
+        // After the fade-out is complete, change the content and fade back in
+        setTimeout(() => {
+            sliderContent.innerHTML = `
+                <div class="testimonial-card">
+                    <p>"${testimonial.quote}"</p>
+                    <div class="client-info">
+                        <div class="client-image">
+                            <img src="${testimonial.image_after_url || 'https://placehold.co/100x100'}" alt="${testimonial.client_name}">
+                        </div>
+                        <div>
+                            <div class="client-name">${testimonial.client_name}</div>
+                            <div>${testimonial.program_type || 'Transformation'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Start fade-in animation
+            sliderContent.style.opacity = 1;
+        }, 500); // This delay must match your CSS transition duration
+    }
+
+    // 3. Display the first testimonial immediately
+    showTestimonial(currentIndex);
+
+    // 4. Set an interval to cycle through the testimonials if there's more than one
+    if (testimonials.length > 1) {
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            showTestimonial(currentIndex);
+        }, 7000); // Change every 7 seconds
+    }
 }
-
 
 async function loadBlogPosts() {
     const container = document.getElementById('blog-posts-container');
@@ -348,7 +376,6 @@ async function loadPodcastEpisodes() {
         container.insertAdjacentHTML('beforeend', episodeCard);
     });
 
-    // Attach event listeners to the container
     container.addEventListener('click', function (e) {
         const button = e.target.closest('button');
         if (!button) return;
@@ -501,15 +528,12 @@ async function loadSchedule() {
     const { data, error } = await supabase.from('schedule').select('*').order('start_time');
     if (error) {
         console.error('Error fetching schedule:', error);
-        scheduleBody.innerHTML =
-            '<tr><td colspan="8">Error loading schedule.</td></tr>';
+        scheduleBody.innerHTML = '<tr><td colspan="8">Error loading schedule.</td></tr>';
         return;
     }
     if (data.length === 0) {
-        scheduleBody.innerHTML =
-            '<tr><td colspan="8">Class schedule is not available at the moment.</td></tr>';
+        scheduleBody.innerHTML = '<tr><td colspan="8">Class schedule is not available at the moment.</td></tr>';
         return;
-        s
     }
     const timeSlots = {};
     data.forEach((item) => {
@@ -528,10 +552,10 @@ async function loadSchedule() {
             if (timeSlots[time][day] && timeSlots[time][day].length > 0) {
                 timeSlots[time][day].forEach((classItem) => {
                     tableHtml += `
-            <div class="class-entry">
-              <span class="class-session">${classItem.class_name}</span>
-              <span class="session-type">Group Class</span>
-            </div>`;
+                      <div class="class-entry">
+                        <span class="class-session">${classItem.class_name}</span>
+                        <span class="session-type">Group Class</span>
+                      </div>`;
                 });
             }
             tableHtml += '</td>';
@@ -604,27 +628,13 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // Homepage specific
-    loadHomepageTestimonial();
-
-    // Blog list page
+    // Call all loading functions. They will internally check if their container exists.
+    loadHomepageTestimonialSlider();
     loadBlogPosts();
-
-    // Single blog post page
     loadSinglePost();
-
-    // Merchandise page
     loadMerchandise();
-
-    // Podcast page
     loadPodcastEpisodes();
-
-    // Testimonials page
     loadTestimonialsPage();
-
-    // Schedule page
     loadSchedule();
-
-    // Services page
     loadServicePricing();
 });

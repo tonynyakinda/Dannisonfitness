@@ -210,7 +210,6 @@ header {
     transition: var(--transition);
 }
 
-/* NEW ACTIVE LINK STYLE */
 .nav-menu a.active-link {
     color: var(--primary-orange);
     font-weight: 600;
@@ -331,6 +330,7 @@ header {
     border-radius: var(--border-radius);
     padding: 30px;
     max-width: 800px;
+    width: 100%;
     text-align: center;
     position: relative;
 }
@@ -343,6 +343,17 @@ header {
     top: -20px;
     left: 20px;
     opacity: 0.3;
+}
+
+/* === NEW: Styles for the Testimonial Slider === */
+#testimonial-slider-content {
+    transition: opacity 0.5s ease-in-out;
+    min-height: 220px;
+    /* Prevents layout jump during transitions */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .client-info {

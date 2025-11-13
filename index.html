@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome CDN (This is the correct one to keep) -->
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -177,9 +177,16 @@
                 <div class="section-title">
                     <h2>Client Transformations</h2>
                 </div>
-                <!-- This container will be filled by JavaScript -->
                 <div class="testimonial-showcase" id="home-testimonial-container">
-                    <p>Loading latest testimonial...</p>
+
+                    <!-- This div will hold the currently visible testimonial and will be animated -->
+                    <div id="testimonial-slider-content">
+                        <p>Loading testimonials...</p>
+                    </div>
+
+                    <!-- The button now sits outside the rotating content -->
+                    <a href="testimonials.html" class="btn btn-primary" style="margin-top: 30px;">See More
+                        Transformations</a>
                 </div>
             </div>
         </section>
@@ -272,7 +279,6 @@
     </div>
 
     <!-- === SCRIPTS === -->
-    <!-- The problematic Font Awesome script has been removed -->
     <script src="js/main.js"></script>
     <script type="module" src="js/booking.js"></script>
     <script type="module" src="database.js"></script>
