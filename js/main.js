@@ -1,6 +1,51 @@
-// js/main.js
+// js/main.js (FINAL, SELF-CONTAINED VERSION)
 
-// Mobile Navigation Toggle
+// =========================================================================
+// === UI HELPER FUNCTIONS - SELF-CONTAINED HERE ===
+// =========================================================================
+
+/**
+ * Displays a custom toast notification.
+ * This function is attached to the window object to be globally accessible.
+ */
+window.showAlert = function (message, type = 'info', duration = 5000) {
+    const customAlert = document.getElementById('custom-alert');
+    if (!customAlert) {
+        console.error("Custom alert element not found in the DOM.");
+        // Fallback to a standard browser alert if our custom one is missing
+        alert(`${type.toUpperCase()}: ${message}`);
+        return;
+    }
+
+    const alertMessage = customAlert.querySelector('.alert-message');
+
+    // Use a static variable on the function to hold the timeout
+    clearTimeout(window.showAlert.timeout);
+
+    alertMessage.textContent = message;
+    customAlert.className = 'custom-alert'; // Reset classes
+    customAlert.classList.add(`alert-${type}`);
+    customAlert.classList.add('active');
+
+    window.showAlert.timeout = setTimeout(() => {
+        customAlert.classList.remove('active');
+    }, duration);
+
+    const closeButton = customAlert.querySelector('.close-alert');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            clearTimeout(window.showAlert.timeout);
+            customAlert.classList.remove('active');
+        }, { once: true });
+    }
+};
+
+
+// =========================================================================
+// === MAIN SITE LOGIC ===
+// =========================================================================
+
+// --- Mobile Navigation Toggle ---
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
@@ -18,31 +63,36 @@ if (hamburger && navMenu) {
     }));
 }
 
-// Smooth scrolling for anchor links
+// --- Smooth scrolling for anchor links ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        if (this.classList.contains('book-now-btn')) {
+            return;
+        }
         e.preventDefault();
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
             window.scrollTo({
-                top: targetElement.offsetTop - 80,
+                top: offsetPosition,
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// Sticky header on scroll
+// --- Sticky header on scroll ---
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (header) {
-        const isScrolled = window.scrollY > 50;
-        header.style.boxShadow = isScrolled ? '0 5px 15px rgba(0, 0, 0, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.1)';
-        header.style.padding = isScrolled ? '5px 0' : '15px 0';
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 });
-
-// The faulty active link highlighter has been removed from this file.
-// The active state is now handled by manually adding class="active-link" to each HTML page.

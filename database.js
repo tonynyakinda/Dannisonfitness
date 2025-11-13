@@ -362,12 +362,10 @@ async function loadPodcastEpisodes() {
     container.addEventListener('click', function (e) {
         const button = e.target.closest('button');
         if (!button) return;
-
         const episodeElement = button.closest('.podcast-episode');
         const episodeId = episodeElement.dataset.id;
         const videoUrl = episodeElement.dataset.videoUrl;
         const videoId = getYouTubeVideoId(videoUrl);
-
         if (button.classList.contains('main-listen-btn')) {
             const audioPlayerUI = episodeElement.querySelector('.custom-audio-player');
             audioPlayerUI.classList.toggle('active');
@@ -508,7 +506,6 @@ async function loadSchedule() {
     const scheduleBody = document.getElementById('schedule-body');
     if (!scheduleBody) return;
 
-    // Fetch schedule data from Supabase
     const { data, error } = await supabase.from('schedule').select('*').order('start_time');
     if (error) {
         console.error('Error fetching schedule:', error);
@@ -520,7 +517,6 @@ async function loadSchedule() {
         return;
     }
 
-    // 1. BUILD THE TABLE HTML WITH CLICKABLE, DATA-RICH ENTRIES
     const timeSlots = {};
     data.forEach(item => {
         const time = item.start_time.slice(0, 5);
@@ -540,7 +536,6 @@ async function loadSchedule() {
             tableHtml += '<td>';
             if (timeSlots[time][day] && timeSlots[time][day].length > 0) {
                 timeSlots[time][day].forEach(classItem => {
-                    // We've turned the div into a clickable link-like element with data attributes
                     tableHtml += `
                       <div class="class-entry bookable" 
                            data-class-name="${classItem.class_name}" 
@@ -557,42 +552,33 @@ async function loadSchedule() {
     });
     scheduleBody.innerHTML = tableHtml;
 
-    // 2. ADD EVENT LISTENER TO HANDLE CLICKS ON THE NEW BOOKABLE CLASSES
     scheduleBody.addEventListener('click', (e) => {
         const classEntry = e.target.closest('.bookable');
-        if (!classEntry) return; // Exit if the click was not on a bookable class
+        if (!classEntry) return;
 
-        // Get the data we stored in the HTML
         const className = classEntry.dataset.className;
         const classDay = classEntry.dataset.classDay;
         const classTime = classEntry.dataset.classTime;
 
-        // Find the booking modal and its form elements
         const bookingModal = document.getElementById('booking-modal');
         const serviceSelect = document.getElementById('service');
         const messageTextarea = document.getElementById('message');
 
-        // --- PRE-FILL THE FORM ---
-
-        // Remove any previously added custom option to avoid duplicates
         const existingCustomOption = serviceSelect.querySelector('option[data-custom-class]');
         if (existingCustomOption) {
             existingCustomOption.remove();
         }
 
-        // Create a new, selected option for the clicked class
         const newOption = document.createElement('option');
-        newOption.value = `Group Class: ${className}`; // Set a descriptive value
+        newOption.value = `Group Class: ${className}`;
         newOption.textContent = `${className} (Group Class)`;
         newOption.selected = true;
-        newOption.setAttribute('data-custom-class', 'true'); // Mark it for easy removal later
-        serviceSelect.prepend(newOption); // Add it to the top of the list
+        newOption.setAttribute('data-custom-class', 'true');
+        serviceSelect.prepend(newOption);
 
-        // Pre-fill the message area with the class details
         const prefilledMessage = `I'm interested in booking the "${className}" class on ${classDay} at ${classTime}.`;
         messageTextarea.value = prefilledMessage;
 
-        // --- OPEN THE MODAL ---
         bookingModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     });
@@ -604,13 +590,14 @@ async function loadServicePricing() {
         online: document.getElementById('pricing-online'),
         nutrition: document.getElementById('pricing-nutrition'),
     };
-    if (!containers['one-on-one']) return;
+    // Check for only one container to decide if we are on the services page
+    if (!document.getElementById('pricing-one-on-one')) return;
 
     const { data, error } = await supabase.from('services').select('id, pricing');
     if (error) {
         console.error('Error fetching service pricing:', error);
         Object.values(containers).forEach(
-            (c) => (c.innerHTML = '<p>Error loading pricing.</p>')
+            (c) => { if (c) c.innerHTML = '<p>Error loading pricing.</p>' }
         );
         return;
     }
@@ -645,23 +632,24 @@ if (contactForm) {
         const { error } = await supabase.from('contacts').insert([formData]);
         if (error) {
             console.error('Error submitting contact form:', error);
-            alert('Sorry, there was an error sending your message. Please try again.');
+            // Use the global alert function
+            window.showAlert('Sorry, there was an error sending your message.', 'error');
         } else {
-            alert('Thank you for your message! We will get back to you within 24 hours.');
+            // Use the global alert function
+            window.showAlert('Thank you for your message! We will get back to you soon.', 'success');
             this.reset();
         }
     });
 }
 
-// Run functions based on which page is currently loaded
+// Run all loading functions when the DOM is ready.
+// Each function checks internally if it's on the right page.
 document.addEventListener('DOMContentLoaded', () => {
-    // Shared logic for all pages
     const yearSpan = document.getElementById('copyright-year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // Call all loading functions. They will internally check if their container exists.
     loadHomepageTestimonialSlider();
     loadBlogPosts();
     loadSinglePost();

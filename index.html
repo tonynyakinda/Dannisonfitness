@@ -285,7 +285,7 @@
             </div>
         </div>
     </div>
-    <!-- === CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
+    <!-- === FINAL, CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
 
     <!-- HTML for the alert component -->
     <div id="custom-alert" class="custom-alert">
@@ -293,15 +293,14 @@
         <button class="close-alert">&times;</button>
     </div>
 
-    <!-- Load the UI helpers first to make them globally available -->
-    <script src="js/ui.js"></script>
-
-    <!-- Load your other scripts -->
+    <!-- Load main.js first as a STANDARD script. It will define window.showAlert. -->
     <script src="js/main.js"></script>
+
+    <!-- Load your other scripts as modules. They can now access window.showAlert. -->
     <script type="module" src="js/booking.js"></script>
     <script type="module" src="database.js"></script>
 
-    <!-- Any other page-specific scripts like the preloader -->
+    <!-- Any other page-specific scripts -->
     <script>
         window.addEventListener('load', () => {
             const preloader = document.querySelector('.preloader');
