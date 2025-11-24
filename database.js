@@ -1,3 +1,4 @@
+// Filename: database.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\database.js
 import { supabase } from '../supabaseClient.js';
 
 // --- HELPER FUNCTIONS ---

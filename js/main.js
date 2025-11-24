@@ -1,3 +1,4 @@
+// Filename: main.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\js\main.js
 // js/main.js (FINAL, SELF-CONTAINED VERSION)
 
 // =========================================================================

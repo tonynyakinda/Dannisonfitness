@@ -1,3 +1,4 @@
+// Filename: supabaseClient.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\supabaseClient.js
 // supabaseClient.js
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';

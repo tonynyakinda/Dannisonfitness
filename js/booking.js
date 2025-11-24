@@ -1,3 +1,4 @@
+// Filename: booking.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\js\booking.js
 // This script assumes that 'supabase' is available because supabaseClient.js is loaded as a module,
 // and that 'window.showAlert' is available because ui.js has been loaded as a standard script.
 
