@@ -1,0 +1,1775 @@
+========================================
+FILENAME: about.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\about.html
+========================================
+
+<!-- Filename: about.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\about.html -->
+<!-----about.html------>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Dennison Fitness | Meet Your Coach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active-link">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>About Dennison Fitness</h1>
+                <p>Learn about our mission, philosophy, and the team behind your transformation</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-snippet">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Philosophy</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Transformative Fitness for Real Life</h3>
+                    <p>At Dennison Fitness, we believe that fitness is not just about physical transformation, but about
+                        creating sustainable lifestyle changes that enhance every aspect of your life. Our philosophy
+                        centers on three core principles:</p>
+                    <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
+                        <li><strong>Personalization:</strong> Every individual is unique, and so should be their fitness
+                            journey.</li>
+                        <li><strong>Sustainability:</strong> We focus on building habits that last a lifetime, not quick
+                            fixes.</li>
+                        <li><strong>Empowerment:</strong> Our goal is to equip you with the knowledge and confidence to
+                            maintain your results independently.</li>
+                    </ul>
+                    <p>We reject the one-size-fits-all approach and instead create customized programs that align with
+                        your goals, lifestyle, and preferences.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/ggg.jpeg" alt="Our Fitness Philosophy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Your Coach</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="css/Hero.jpg" alt="Dennison - Head Trainer">
+                </div>
+                <div class="about-text">
+                    <h3>Dennison, Certified Personal Trainer</h3>
+                    <p>With over 10 years of experience in the fitness industry, Dennison has dedicated his career to
+                        helping individuals achieve their health and fitness goals. His journey began as a competitive
+                        athlete, which evolved into a passion for coaching and transforming lives.</p>
+                    <p><strong>Certifications & Specializations:</strong></p>
+                    <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
+                        <li>NASM Certified Personal Trainer</li>
+                        <li>Precision Nutrition Level 1 Coach</li>
+                        <li>Functional Movement Systems Specialist</li>
+                        <li>TRX Suspension Training Certified</li>
+                        <li>Corrective Exercise Specialist</li>
+                    </ul>
+                    <p>Dennison's approach combines scientific principles with practical application, ensuring that
+                        every client receives evidence-based training tailored to their specific needs and limitations.
+                    </p>
+                    <a href="#" class="btn btn-primary book-now-btn">Book a Session</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-snippet">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Facility</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>State-of-the-Art Training Environment</h3>
+                    <p>Our private training facility is designed to provide the optimal environment for transformation.
+                        Unlike crowded commercial gyms, we offer a focused, private setting where you can train without
+                        distractions.</p>
+                    <p><strong>Facility Features:</strong></p>
+                    <ul style="list-style: disc; margin-left: 20px; margin-bottom: 20px;">
+                        <li>Private training sessions - no crowds, no waiting</li>
+                        <li>Professional-grade equipment</li>
+                        <li>Clean, sanitized environment</li>
+                        <li>Functional training area</li>
+                        <li>Comfortable changing rooms and amenities</li>
+                    </ul>
+                    <p>We maintain the highest standards of cleanliness and equipment maintenance to ensure your safety
+                        and comfort during every session.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/iiiii.jpeg" alt="Our Training Facility">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/ddd.jpeg') center/cover no-repeat;">
+        <div class="container">
+            <h2>Ready to Begin Your Transformation?</h2>
+            <p>Join the Dennison Fitness community and start your journey to a stronger, healthier you
+                today.</p>
+            <a href="#" class="btn btn-primary book-now-btn">Book Your Free Consultation</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala,Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- === CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
+
+    <!-- HTML for the alert component -->
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <!-- Load the UI helpers first to make them globally available -->
+    <script src="js/ui.js"></script>
+
+    <!-- Load your other scripts -->
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+
+    <!-- Any other page-specific scripts like the preloader -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+========================================
+FILENAME: blog.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\blog.html
+========================================
+
+<!-- Filename: blog.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tips & Blog | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                    <li><a href="blog.html" class="active-link">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Fitness Tips & Blog</h1>
+                <p>Expert advice, workout tips, and nutrition guidance to support your fitness journey</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Articles</h2>
+                <p>Stay informed with evidence-based fitness and nutrition information</p>
+            </div>
+
+            <div class="blog-grid" id="blog-posts-container">
+                <p>Loading posts...</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn btn-primary">Load More Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-snippet">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Stay Updated With Fitness Tips</h2>
+                    <p>Subscribe to our newsletter and receive weekly fitness tips, workout ideas, and nutrition advice
+                        directly to your inbox.</p>
+                    <form style="display: flex; gap: 10px; margin-top: 20px;">
+                        <input type="email" placeholder="Enter your email"
+                            style="flex: 1; padding: 12px 15px; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: var(--body-font);">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+                <div class="about-image">
+                    <img src="images/4.jpg" alt="Fitness Newsletter">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala, Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i>dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- === CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
+
+    <!-- HTML for the alert component -->
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <!-- Load the UI helpers first to make them globally available -->
+    <script src="js/ui.js"></script>
+
+    <!-- Load your other scripts -->
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+
+    <!-- Any other page-specific scripts like the preloader -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+========================================
+FILENAME: contact.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\contact.html
+========================================
+
+<!-- Filename: contact.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\contact.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- === NEW STYLES FOR THE MAP OVERLAY === -->
+    <style>
+        .location-map-section {
+            position: relative;
+            /* Establishes the positioning context for the overlay */
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .location-map-section iframe {
+            display: block;
+            /* Removes any extra space below the iframe */
+            width: 100%;
+            height: 500px;
+            border: 0;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Perfectly centers the overlay */
+            z-index: 10;
+            /* Ensures the overlay is on top of the map */
+
+            background: rgba(255, 255, 255, 0.95);
+            /* Slightly transparent white background */
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 450px;
+        }
+
+        .map-overlay .map-icon {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .map-overlay h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .map-overlay p {
+            color: var(--charcoal-gray);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active-link">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero"
+            style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/uuuu.jpeg') center/cover no-repeat;">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Get In Touch</h1>
+                    <p>We're here to answer your questions and help you start your fitness journey</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Information</h2>
+                    <p>Multiple ways to reach us - choose what works best for you</p>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <div class="contact-info" style="margin-bottom: 40px;">
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+                                <div
+                                    style="background: var(--primary-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 style="margin-bottom: 5px;">Visit Our Facility</h3>
+                                    <p>Utawala, Nairobi, Kenya</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+                                <div
+                                    style="background: var(--primary-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h3 style="margin-bottom: 5px;">Call Us</h3>
+                                    <p><a href="tel:+254748823072" style="text-decoration: none;">+254 748
+                                            823072</a><br>Mon-Fri: 6:00 AM - 9:00 PM<br>Sat-Sun: 7:00 AM - 7:00 PM</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+                                <div
+                                    style="background: var(--primary-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h3 style="margin-bottom: 5px;">Email Us</h3>
+                                    <p><a href="mailto:dennisonfitness@gmail.com"
+                                            style="text-decoration: none;">dennisonfitness@gmail.com</a><br>We typically
+                                        respond within 24 hours</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <div
+                                    style="background: var(--primary-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h3 style="margin-bottom: 5px;">Operating Hours</h3>
+                                    <p>Monday - Friday: 6:00 AM - 9:00 PM<br>Saturday: 7:00 AM - 7:00 PM<br>Sunday: 7:00
+                                        AM - 5:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social-links" style="display: flex; gap: 15px;">
+                            <a href="https://www.facebook.com/Dennisonfitness/"
+                                style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/dennisonfitness/"
+                                style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                                style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                    class="fab fa-tiktok"></i></a>
+                            <a href="https://www.youtube.com/@Dennisonfitness"
+                                style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                    class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="about-image">
+                        <div class="contact-form"
+                            style="background: var(--light-gray); padding: 30px; border-radius: var(--border-radius);">
+                            <h3 style="text-align: center; margin-bottom: 25px;">Send Us a Message</h3>
+                            <form id="contact-form">
+                                <div class="form-group"><label for="contact-name">Full Name</label><input type="text"
+                                        id="contact-name" name="name" required></div>
+                                <div class="form-group"><label for="contact-email">Email Address</label><input
+                                        type="email" id="contact-email" name="email" required></div>
+                                <div class="form-group"><label for="contact-phone">Phone Number</label><input type="tel"
+                                        id="contact-phone" name="phone"></div>
+                                <div class="form-group"><label for="subject">Subject</label><select id="subject"
+                                        name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="pricing">Pricing Information</option>
+                                        <option value="booking">Booking Question</option>
+                                        <option value="partnership">Partnership Opportunity</option>
+                                        <option value="other">Other</option>
+                                    </select></div>
+                                <div class="form-group"><label for="contact-message">Message</label><textarea
+                                        id="contact-message" name="message" rows="5" required></textarea></div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === NEW MAP SECTION WITH OVERLAY === -->
+        <section class="location-map-section">
+            <div class="map-overlay">
+                <i class="fas fa-map-marker-alt map-icon"></i>
+                <h3>Visit Our Location</h3>
+                <p>Dennison Fitness, Utawala, Nairobi, Kenya</p>
+                <a href="https://maps.app.goo.gl/8nydwZ93S1nQpjdB6" class="btn btn-primary" target="_blank"
+                    rel="noopener noreferrer">Get Directions</a>
+            </div>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.783151817551!2d36.96342127496579!3d-1.306023198681577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f13c6b206e613%3A0x2c645c7553259111!2sTuscany%20Apartments!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions</p>
+                </div>
+                <div class="faq-grid" style="display: grid; gap: 20px; max-width: 800px; margin: 0 auto;">
+                    <div class="faq-item"
+                        style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius);">
+                        <h3 style="margin-bottom: 10px;">Do I need to be in shape to start personal training?</h3>
+                        <p>Not at all! Our programs are designed for all fitness levels... a towel. We provide all
+                            necessary equipment and amenities.</p>
+                    </div>
+                    <div class="faq-item"
+                        style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius);">
+                        <h3 style="margin-bottom: 10px;">What should I bring to my first session?</h3>
+                        <p>Just bring workout clothes, athletic shoes, a water bottle, and a towel...</p>
+                    </div>
+                    <div class="faq-item"
+                        style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius);">
+                        <h3 style="margin-bottom: 10px;">How soon can I expect to see results?</h3>
+                        <p>Most clients notice improvements in energy, mood, and strength within 2-3 weeks...</p>
+                    </div>
+                    <div class="faq-item"
+                        style="background: var(--light-gray); padding: 20px; border-radius: var(--border-radius);">
+                        <h3 style="margin-bottom: 10px;">Do you offer package discounts?</h3>
+                        <p>Yes, we offer discounted rates for session packages...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Take the First Step?</h2>
+                <p>Contact us today to schedule your free consultation and start your transformation journey.</p>
+                <a href="#" class="btn btn-primary book-now-btn">Book Free Consultation</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                                class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a
+                            href="#"><i class="fab fa-youtube"></i></a></div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala, Nairobi</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+254748823072">+254 748 823072</a></li>
+                        <li><i class="fas fa-envelope"></i> <a
+                                href="mailto:dennisonfitness@gmail.com">dennisonfitness@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group"><label for="service">Select Service</label><select id="service"
+                            name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select></div>
+                    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name"
+                            required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                            name="email" required></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone"
+                            name="phone" required></div>
+                    <div class="form-group"><label for="message">Additional Information (Optional)</label><textarea
+                            id="message" name="message" rows="4"></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- === CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
+
+    <!-- HTML for the alert component -->
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <!-- Load the UI helpers first to make them globally available -->
+    <script src="js/ui.js"></script>
+
+    <!-- Load your other scripts -->
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+
+    <!-- Any other page-specific scripts like the preloader -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+========================================
+FILENAME: events.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\events.html
+========================================
+
+<!-- Filename: events.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\events.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html" class="active-link">Events</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/ffff.jpeg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Upcoming Events</h1>
+                <p>Join us for workshops, challenges, and special fitness sessions</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fitness Events & Workshops</h2>
+                <p>Don't miss out on our exciting upcoming events</p>
+            </div>
+
+            <!-- Event Filters -->
+            <div class="event-filters">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="past">Past Events</button>
+            </div>
+
+            <!-- Events Grid -->
+            <div id="events-grid" class="events-grid">
+                <!-- Event Card 1 -->
+                <div class="event-card" data-status="upcoming">
+                    <div class="event-poster">
+                        <img src="images/ddd.jpeg" alt="Summer Fitness Challenge">
+                        <span class="event-date-badge">
+                            <span class="day">15</span>
+                            <span class="month">Dec</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge challenge">Challenge</span>
+                            <span class="event-time"><i class="far fa-clock"></i> 6:00 AM</span>
+                        </div>
+                        <h3>Summer Fitness Challenge</h3>
+                        <p>30-day transformation challenge with personalized coaching, meal plans, and group support.
+                            Win amazing prizes!</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Dennison Fitness Studio, Utawala
+                        </div>
+                        <a href="#" class="btn btn-primary">Register Now</a>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="event-card" data-status="upcoming">
+                    <div class="event-poster">
+                        <img src="images/iiiii.jpeg" alt="Nutrition Workshop">
+                        <span class="event-date-badge">
+                            <span class="day">20</span>
+                            <span class="month">Dec</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge workshop">Workshop</span>
+                            <span class="event-time"><i class="far fa-clock"></i> 10:00 AM</span>
+                        </div>
+                        <h3>Nutrition for Performance Workshop</h3>
+                        <p>Learn how to fuel your body for optimal performance. Includes meal prep demo and recipe book.
+                        </p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Dennison Fitness Studio, Utawala
+                        </div>
+                        <a href="#" class="btn btn-primary">Register Now</a>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="event-card" data-status="upcoming">
+                    <div class="event-poster">
+                        <img src="images/ggg.jpeg" alt="New Year Bootcamp">
+                        <span class="event-date-badge">
+                            <span class="day">02</span>
+                            <span class="month">Jan</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge class">Special Class</span>
+                            <span class="event-time"><i class="far fa-clock"></i> 7:00 AM</span>
+                        </div>
+                        <h3>New Year Kickstart Bootcamp</h3>
+                        <p>Start 2025 strong! High-intensity bootcamp session designed to jumpstart your fitness goals.
+                        </p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Dennison Fitness Studio, Utawala
+                        </div>
+                        <a href="#" class="btn btn-primary">Register Now</a>
+                    </div>
+                </div>
+
+                <!-- Event Card 4 -->
+                <div class="event-card" data-status="upcoming">
+                    <div class="event-poster">
+                        <img src="images/aaaa.jpeg" alt="Outdoor Training">
+                        <span class="event-date-badge">
+                            <span class="day">10</span>
+                            <span class="month">Jan</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge special">Special Event</span>
+                            <span class="event-time"><i class="far fa-clock"></i> 6:30 AM</span>
+                        </div>
+                        <h3>Outdoor Group Training Session</h3>
+                        <p>Take your workout outdoors! Fun group session in nature with bodyweight exercises and team
+                            challenges.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Karura Forest, Nairobi
+                        </div>
+                        <a href="#" class="btn btn-primary">Register Now</a>
+                    </div>
+                </div>
+
+                <!-- Event Card 5 -->
+                <div class="event-card" data-status="past">
+                    <div class="event-poster">
+                        <img src="images/ooo.jpeg" alt="Strength Training Workshop">
+                        <span class="event-date-badge past">
+                            <span class="day">15</span>
+                            <span class="month">Nov</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge workshop">Workshop</span>
+                            <span class="event-time"><i class="far fa-clock"></i> 9:00 AM</span>
+                        </div>
+                        <h3>Strength Training Fundamentals</h3>
+                        <p>Comprehensive workshop covering proper form, progressive overload, and program design for
+                            strength gains.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Dennison Fitness Studio, Utawala
+                        </div>
+                        <span class="event-status-badge">Event Completed</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 6 -->
+                <div class="event-card" data-status="past">
+                    <div class="event-poster">
+                        <img src="images/pppp.jpeg" alt="Fitness Assessment">
+                        <span class="event-date-badge past">
+                            <span class="day">28</span>
+                            <span class="month">Oct</span>
+                        </span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <span class="event-badge special">Special Event</span>
+                            <span class="event-time"><i class="far fa-clock"></i> All Day</span>
+                        </div>
+                        <h3>Free Fitness Assessment Day</h3>
+                        <p>Complimentary body composition analysis, movement screening, and personalized fitness
+                            recommendations.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i> Dennison Fitness Studio, Utawala
+                        </div>
+                        <span class="event-status-badge">Event Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Want to Host an Event?</h2>
+            <p>Have an idea for a fitness event or workshop? Let's collaborate and make it happen!</p>
+            <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala, Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2023</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group"><label for="service">Select Service</label><select id="service"
+                            name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select></div>
+                    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name"
+                            required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                            name="email" required></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone"
+                            name="phone" required></div>
+                    <div class="form-group"><label for="message">Additional Information (Optional)</label><textarea
+                            id="message" name="message" rows="4"></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+</body>
+
+</html>
+
+========================================
+FILENAME: index.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\index.html
+========================================
+
+<!-- Filename: index.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dennison Fitness | Transform Your Body. Redefine Your Limits.</title>
+
+    <!-- Favicon Links (Replace with your generated files) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Preloader Styles -->
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
+
+        .preloader img {
+            max-width: 150px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Loading...">
+    </div>
+
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active-link">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Transform Your Body. Redefine Your Limits.</h1>
+                    <p>Personalized Fitness Coaching for Lasting Results</p>
+                    <a href="#" class="btn btn-primary" id="hero-book-btn">Book a Free Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Services</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>One-on-One Training</h3>
+                        <p>Personalized workout sessions tailored to your specific goals, fitness level, and schedule.
+                        </p>
+                        <a href="services.html" class="btn btn-secondary">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Online Coaching</h3>
+                        <p>Professional guidance and custom workout plans delivered directly to you, wherever you are.
+                        </p>
+                        <a href="services.html" class="btn btn-secondary">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Nutrition Plans</h3>
+                        <p>Customized meal plans and nutritional guidance to complement your fitness journey.</p>
+                        <a href="services.html" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-snippet" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Who We Are</h2>
+                        <p>At Dennison Fitness, we believe that everyone has the potential to achieve their fitness
+                            goals.
+                            Our mission is to provide personalized coaching that empowers individuals to transform their
+                            bodies and lives through sustainable fitness practices.</p>
+                        <p>With over 10 years of experience in the fitness industry, our certified trainers are
+                            dedicated to
+                            helping you reach your full potential in a supportive and motivating environment.</p>
+                        <a href="about.html" class="btn btn-primary">Meet Your Coach</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/aaaa.jpeg" alt="Dennison Fitness Trainer">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Client Transformations</h2>
+                </div>
+                <div class="testimonial-showcase" id="home-testimonial-container">
+
+                    <!-- This div will hold the currently visible testimonial and will be animated -->
+                    <div id="testimonial-slider-content">
+                        <p>Loading testimonials...</p>
+                    </div>
+
+                    <!-- The button now sits outside the rotating content -->
+                    <a href="testimonials.html" class="btn btn-primary" style="margin-top: 30px;">See More
+                        Transformations</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta"
+            style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/ffff.jpeg') center/cover no-repeat;">
+            <div class="container">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Take the first step towards a healthier, stronger you. Book your session today and experience the
+                    Dennison Fitness difference.</p>
+                <a href="#" class="btn btn-primary" id="cta-book-btn">Book Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawaala, Nairobi</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+254748823072">+254 748 823072</a></li>
+                        <li><i class="fas fa-envelope"></i> <a
+                                href="mailto:dennisonfitness@gmail.com">dennisonfitness@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- === FINAL, CORRECTED SCRIPT SETUP (Use in ALL client-side HTML files) === -->
+
+    <!-- HTML for the alert component -->
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <!-- Load main.js first as a STANDARD script. It will define window.showAlert. -->
+    <script src="js/main.js"></script>
+
+    <!-- Load your other scripts as modules. They can now access window.showAlert. -->
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+
+    <!-- Any other page-specific scripts -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+========================================
+FILENAME: merchandise.html
+PATH: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html
+========================================
+
+<!-- Filename: merchandise.html | Path: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Page-specific styles for the merchandise grid -->
+    <style>
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .merch-card {
+            background: #ffffff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .merch-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: var(--light-gray);
+        }
+
+        .merch-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .merch-content .merch-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        .merch-content p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="events.html">Events</a></li>`r`n                    <li><a href="merchandise.html" class="active-link">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('css/Hero.jpg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Dennison Fitness Gear</h1>
+                <p>Shop our official merchandise and represent your fitness journey</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merchandise Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Shop Our Collection</h2>
+                <p>High-quality apparel and accessories to support your training.</p>
+            </div>
+
+            <!-- This container will be filled with products from the database -->
+            <div class="merch-grid" id="merch-container">
+                <!-- JavaScript will insert products here -->
+                <p>Loading products...</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Have a Question About Our Gear?</h2>
+            <p>Contact us for questions about sizing, materials, or bulk orders.</p>
+            <a href="contact.html" class="btn btn-primary">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala,Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2025</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                            <option value="merchandise-inquiry">Merchandise Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Question (Optional)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="ui.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <!-- Add type="module" to enable Supabase import -->
+    <script type="module" src="database.js"></script>
+</body>
+
+</html>
+
+
+
