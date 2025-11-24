@@ -160,8 +160,11 @@ header {
 }
 
 .logo-img {
-    height: 50px;
+    max-height: 50px;
+    height: auto;
     width: auto;
+    max-width: 200px;
+    object-fit: contain;
 }
 
 .nav-menu {
@@ -693,7 +696,9 @@ footer {
     /* A lighter shade of your primary orange */
     transform: scale(1.03);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}/* ===================================
+}
+
+/* ===================================
    TUTORIAL LIBRARY STYLES
    =================================== */
 
