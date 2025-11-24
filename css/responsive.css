@@ -3,7 +3,7 @@
     .about-content {
         flex-direction: column;
     }
-    
+
     .about-image {
         order: -1;
     }
