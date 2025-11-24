@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout/Tutorial Library | Dennison Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Dennison Fitness 1.png" alt="Dennison Fitness Logo" class="logo-img">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="tutorials.html" class="active-link">Workout/Tutorial Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="merchandise.html">Merchandise</a></li>
+                    <li><a href="podcast.html">Podcast</a></li>
+                    <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/yyyy.jpeg') center/cover no-repeat;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Workout/Tutorial Library</h1>
+                <p>Master every movement with our comprehensive video tutorial collection</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Video Tutorials</h2>
+                <p>Learn proper form and technique for maximum results</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="tutorial-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="upper-body">Upper Body</button>
+                <button class="filter-btn" data-category="lower-body">Lower Body</button>
+                <button class="filter-btn" data-category="core">Core</button>
+                <button class="filter-btn" data-category="cardio">Cardio</button>
+                <button class="filter-btn" data-category="full-body">Full Body</button>
+            </div>
+
+            <!-- Tutorial Videos Grid -->
+            <div id="tutorial-grid" class="tutorial-grid">
+                <!-- Placeholder Video Cards -->
+                <div class="tutorial-card" data-category="lower-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">8:45</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Proper Squat Form & Technique</h3>
+                        <p>Master the fundamental squat movement for leg development</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty beginner">Beginner</span>
+                            <span class="category">Lower Body</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="upper-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">10:30</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Bench Press Complete Guide</h3>
+                        <p>Learn proper setup, form, and breathing for bench press</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="category">Upper Body</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="lower-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">7:15</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Deadlift Fundamentals</h3>
+                        <p>Safe and effective deadlift technique from setup to lockout</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="category">Lower Body</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="core">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">12:00</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Core Stability Exercises</h3>
+                        <p>Build a strong, stable core with these essential movements</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty beginner">Beginner</span>
+                            <span class="category">Core</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="upper-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">9:20</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Pull-Up Progression</h3>
+                        <p>Step-by-step guide to achieving your first pull-up</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty beginner">Beginner</span>
+                            <span class="category">Upper Body</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="cardio">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">15:30</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>HIIT Workout Techniques</h3>
+                        <p>High-intensity interval training for maximum fat burning</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty advanced">Advanced</span>
+                            <span class="category">Cardio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="full-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">11:45</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Full Body Workout Routine</h3>
+                        <p>Complete workout targeting all major muscle groups</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="category">Full Body</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" data-category="upper-body">
+                    <div class="tutorial-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">6:50</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>Shoulder Press Form</h3>
+                        <p>Perfect your overhead press for strong shoulders</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty beginner">Beginner</span>
+                            <span class="category">Upper Body</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Want Personalized Guidance?</h2>
+            <p>Book a session and let's work together to perfect your form and technique</p>
+            <a href="#" class="btn btn-primary book-now-btn">Book Your Session</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dennison Fitness</h3>
+                    <p>Transforming lives through personalized fitness coaching and sustainable health practices.</p>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/Dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dennisonfitness/"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dennisonfitness?_t=ZM-8yjwjgmpZ8X&_r=1"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Dennisonfitness"
+                            style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--dark-gray); color: white; border-radius: 50%; transition: var(--transition);"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Utawala, Nairobi</li>
+                        <li><i class="fas fa-phone"></i> +254 748 823072</li>
+                        <li><i class="fas fa-envelope"></i> dennisonfitness@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="copyright-year">2023</span> Dennison Fitness. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Session</h2>
+                <form id="booking-form">
+                    <div class="form-group"><label for="service">Select Service</label><select id="service"
+                            name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="consultation">Free Consultation</option>
+                            <option value="personal-training">One-on-One Personal Training</option>
+                            <option value="online-coaching">Online Coaching</option>
+                            <option value="nutrition-plan">Nutrition Plan</option>
+                        </select></div>
+                    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name"
+                            required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                            name="email" required></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone"
+                            name="phone" required></div>
+                    <div class="form-group"><label for="message">Additional Information (Optional)</label><textarea
+                            id="message" name="message" rows="4"></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="custom-alert">
+        <p class="alert-message"></p>
+        <button class="close-alert">&times;</button>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script type="module" src="js/booking.js"></script>
+    <script type="module" src="database.js"></script>
+</body>
+
+</html>

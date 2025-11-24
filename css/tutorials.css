@@ -1,0 +1,151 @@
+/* ===================================
+   TUTORIAL LIBRARY STYLES
+   =================================== */
+
+/* Tutorial Filters */
+.tutorial-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.filter-btn {
+    padding: 12px 30px;
+    border: 2px solid var(--primary-orange);
+    background: transparent;
+    color: var(--primary-orange);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.filter-btn:hover {
+    background: var(--primary-orange);
+    color: white;
+}
+
+.filter-btn.active {
+    background: var(--primary-orange);
+    color: white;
+}
+
+/* Tutorial Grid */
+.tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Tutorial Card */
+.tutorial-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.tutorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Tutorial Thumbnail */
+.tutorial-thumbnail {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.tutorial-thumbnail i {
+    font-size: 70px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: var(--transition);
+}
+
+.tutorial-card:hover .tutorial-thumbnail i {
+    transform: scale(1.1);
+    color: white;
+}
+
+.tutorial-thumbnail .duration {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Tutorial Content */
+.tutorial-content {
+    padding: 25px;
+}
+
+.tutorial-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--charcoal-gray);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tutorial-content p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Tutorial Meta */
+.tutorial-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tutorial-meta span {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Difficulty Badges */
+.difficulty {
+    color: white;
+}
+
+.difficulty.beginner {
+    background: #4caf50;
+}
+
+.difficulty.intermediate {
+    background: #ff9800;
+}
+
+.difficulty.advanced {
+    background: #f44336;
+}
+
+/* Category Tag */
+.tutorial-meta .category {
+    background: var(--light-gray);
+    color: var(--charcoal-gray);
+}
