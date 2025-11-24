@@ -848,4 +848,190 @@ footer {
 .tutorial-meta .category {
     background: var(--light-gray);
     color: var(--charcoal-gray);
+}/* ===================================
+   EVENTS PAGE STYLES
+   =================================== */
+
+/* Event Filters */
+.event-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+/* Events Grid */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 35px;
+    margin-top: 40px;
+}
+
+/* Event Card */
+.event-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Event Poster */
+.event-poster {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.event-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.event-card:hover .event-poster img {
+    transform: scale(1.05);
+}
+
+/* Event Date Badge */
+.event-date-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--primary-orange);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-width: 70px;
+}
+
+.event-date-badge.past {
+    background: var(--dark-gray);
+}
+
+.event-date-badge .day {
+    font-size: 28px;
+    line-height: 1;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.event-date-badge .month {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+/* Event Content */
+.event-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.event-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.event-time {
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.event-content h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: var(--charcoal-gray);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.3;
+}
+
+.event-content p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    flex-grow: 1;
+}
+
+.event-location {
+    color: var(--primary-orange);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.event-content .btn {
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+}
+
+/* Event Badges */
+.event-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+.event-badge.challenge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.event-badge.workshop {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.event-badge.class {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.event-badge.special {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* Event Status Badge */
+.event-status-badge {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
