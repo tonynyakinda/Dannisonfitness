@@ -1,7 +1,7 @@
 // Filename: supabaseClient.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\supabaseClient.js
 // supabaseClient.js
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 // Your actual Supabase URL and anon key
 const supabaseUrl = 'https://wsssggnrfxdldeoahvso.supabase.co';
