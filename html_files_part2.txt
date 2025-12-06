@@ -331,7 +331,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\podcast.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -506,7 +506,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\post.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                    <li><a href="blog.html" class="active-link">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                    <li><a href="blog.html" class="active-link">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
                     <li><a href="events.html">Events</a></li>
@@ -560,7 +560,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\post.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -849,7 +849,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\schedule.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1149,7 +1149,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\services.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1358,7 +1358,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\testimonials.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

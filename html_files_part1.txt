@@ -193,7 +193,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\about.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -317,7 +317,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\blog.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                    <li><a href="blog.html" class="active-link">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                    <li><a href="blog.html" class="active-link">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
                     <li><a href="events.html">Events</a></li>
@@ -409,7 +409,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\blog.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -789,7 +789,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\contact.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1432,7 +1432,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\index.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1619,7 +1619,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
-                    <li><a href="events.html">Events</a></li>`r`n                    <li><a href="merchandise.html" class="active-link">Merchandise</a></li>
+                    <li><a href="events.html">Events</a></li>                    <li><a href="merchandise.html" class="active-link">Merchandise</a></li>
                     <li><a href="podcast.html">Podcast</a></li>
                     <li><a href="#" class="btn btn-primary book-now-btn">Get started</a></li>
                 </ul>
@@ -1698,7 +1698,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>`r`n                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
