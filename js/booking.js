@@ -1,26 +1,28 @@
 // Filename: booking.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\js\booking.js
 // This script assumes that 'supabase' is available because supabaseClient.js is loaded as a module,
-// and that 'window.showAlert' is available because ui.js has been loaded as a standard script.
+// and that 'window.showAlert' is available because main.js has been loaded as a standard script.
 
 import { supabase } from '../supabaseClient.js';
 
 // --- Get DOM Elements ---
 const bookingModal = document.getElementById('booking-modal');
-const bookNowBtns = document.querySelectorAll('.book-now-btn, #hero-book-btn, #cta-book-btn');
 const closeModalBtn = document.querySelector('.close-modal');
 const bookingForm = document.getElementById('booking-form');
 
 
 // --- Modal Opening Logic ---
-// Add event listeners to all "Book Now" or "Get Started" buttons
-bookNowBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent the default link behavior
+// Use event delegation on document to catch all "Book Now" or "Get Started" button clicks
+// This ensures clicks are intercepted even if there are timing issues with module loading
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.book-now-btn, #hero-book-btn, #cta-book-btn');
+    if (btn) {
+        e.preventDefault(); // Prevent the default link behavior (scrolling to top)
+        e.stopPropagation(); // Prevent event bubbling
         if (bookingModal) {
             bookingModal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
-    });
+    }
 });
 
 // --- Modal Closing Logic ---
