@@ -2,11 +2,19 @@
 import { supabase } from './supabaseClient.js';
 
 /**
- * Loads preview of upcoming events for the homepage (max 3 events)
+ * Loads preview of upcoming events for the homepage as a slider (one event per view)
  */
+let currentSlide = 0;
+let totalSlides = 0;
+let autoSlideInterval = null;
+
 async function loadHomepageEvents() {
-    const container = document.getElementById('home-events-grid');
-    if (!container) return;
+    const sliderContainer = document.getElementById('home-events-slider');
+    const dotsContainer = document.getElementById('slider-dots');
+    const prevBtn = document.querySelector('.slider-prev');
+    const nextBtn = document.querySelector('.slider-next');
+
+    if (!sliderContainer) return;
 
     const today = new Date().toISOString().split('T')[0];
     const { data: events, error } = await supabase
@@ -15,46 +23,178 @@ async function loadHomepageEvents() {
         .eq('status', 'upcoming')
         .gte('event_date', today)
         .order('event_date', { ascending: true })
-        .limit(3);
+        .limit(10);
 
     if (error) {
         console.error('Error loading events:', error);
-        container.innerHTML = '<p>Unable to load events at this time.</p>';
+        sliderContainer.innerHTML = '<p>Unable to load events at this time.</p>';
         return;
     }
 
     if (!events || events.length === 0) {
-        container.innerHTML = '<p>No upcoming events at the moment. Check back soon!</p>';
+        sliderContainer.innerHTML = '<p>No upcoming events at the moment. Check back soon!</p>';
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
         return;
     }
 
-    container.innerHTML = '';
-    events.forEach(event => {
+    totalSlides = events.length;
+    currentSlide = 0;
+
+    // Build slider HTML
+    sliderContainer.innerHTML = '';
+    events.forEach((event, index) => {
         const eventDate = new Date(event.event_date);
-        const eventCard = `
-            <div class="event-card" data-status="upcoming">
-                <div class="event-poster">
-                    <img src="${event.poster_url}" alt="${event.title}">
-                    <span class="event-date-badge">
-                        <span class="day">${eventDate.getDate()}</span>
-                        <span class="month">${eventDate.toLocaleDateString('en-US', { month: 'short' })}</span>
-                    </span>
-                </div>
-                <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-badge ${event.event_type || 'special'}">${event.event_type || 'Event'}</span>
-                        <span class="event-time"><i class="far fa-clock"></i> ${event.event_time}</span>
-                    </div>
-                    <h3>${event.title}</h3>
-                    <p>${event.description ? event.description.substring(0, 100) + '...' : ''}</p>
-                    <div class="event-location">
-                        <i class="fas fa-map-marker-alt"></i> ${event.location}
-                    </div>
-                    <a href="events.html" class="btn btn-primary">View Details</a>
-                </div>
-            </div>`;
-        container.insertAdjacentHTML('beforeend', eventCard);
+        const slide = document.createElement('div');
+        slide.className = `event-slide ${index === 0 ? 'active' : ''}`;
+        slide.dataset.index = index;
+
+        slide.innerHTML = `
+            <div class="event-poster">
+                <img src="${event.poster_url}" alt="${event.title}">
+                <span class="event-date-badge">
+                    <span class="day">${eventDate.getDate()}</span>
+                    <span class="month">${eventDate.toLocaleDateString('en-US', { month: 'short' })}</span>
+                </span>
+            </div>
+        `;
+        sliderContainer.appendChild(slide);
     });
+
+    // Build dots
+    if (dotsContainer && totalSlides > 1) {
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = `slider-dot ${i === 0 ? 'active' : ''}`;
+            dot.dataset.index = i;
+            dot.setAttribute('aria-label', `Go to event ${i + 1}`);
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    // Hide arrows if only one event
+    if (totalSlides <= 1) {
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        if (dotsContainer) dotsContainer.style.display = 'none';
+    } else {
+        // Set up arrow navigation
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                changeSlide('prev');
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                changeSlide('next');
+            });
+        }
+
+        // Start auto-advance
+        startAutoSlide();
+    }
+}
+
+/**
+ * Changes to the next or previous slide with animation
+ */
+function changeSlide(direction) {
+    const slides = document.querySelectorAll('.event-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+
+    if (slides.length === 0) return;
+
+    const currentSlideEl = slides[currentSlide];
+
+    // Calculate next slide index
+    let nextSlideIndex;
+    if (direction === 'next') {
+        nextSlideIndex = (currentSlide + 1) % totalSlides;
+    } else {
+        nextSlideIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+    }
+
+    const nextSlideEl = slides[nextSlideIndex];
+
+    // Apply exit animation to current slide
+    currentSlideEl.classList.remove('active', 'slide-in-left', 'slide-in-right');
+    currentSlideEl.classList.add(direction === 'next' ? 'slide-out-left' : 'slide-out-right');
+
+    // After exit animation, show next slide with entry animation
+    setTimeout(() => {
+        currentSlideEl.classList.remove('slide-out-left', 'slide-out-right');
+        currentSlideEl.style.display = 'none';
+
+        nextSlideEl.style.display = 'block';
+        nextSlideEl.classList.add('active', direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+
+        // Update dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === nextSlideIndex);
+        });
+
+        currentSlide = nextSlideIndex;
+    }, 300);
+}
+
+/**
+ * Goes directly to a specific slide
+ */
+function goToSlide(index) {
+    if (index === currentSlide) return;
+
+    stopAutoSlide();
+
+    const direction = index > currentSlide ? 'next' : 'prev';
+    const slides = document.querySelectorAll('.event-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+
+    const currentSlideEl = slides[currentSlide];
+    const nextSlideEl = slides[index];
+
+    // Animate out current
+    currentSlideEl.classList.remove('active', 'slide-in-left', 'slide-in-right');
+    currentSlideEl.classList.add(direction === 'next' ? 'slide-out-left' : 'slide-out-right');
+
+    setTimeout(() => {
+        currentSlideEl.classList.remove('slide-out-left', 'slide-out-right');
+        currentSlideEl.style.display = 'none';
+
+        nextSlideEl.style.display = 'block';
+        nextSlideEl.classList.add('active', direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+
+        currentSlide = index;
+    }, 300);
+
+    startAutoSlide();
+}
+
+/**
+ * Starts auto-advancing the slider
+ */
+function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(() => {
+        changeSlide('next');
+    }, 5000); // Change every 5 seconds
+}
+
+/**
+ * Stops auto-advancing
+ */
+function stopAutoSlide() {
+    if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+    }
 }
 
 /**
