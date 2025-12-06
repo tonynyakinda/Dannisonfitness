@@ -889,14 +889,14 @@ footer {
 /* Event Poster */
 .event-poster {
     position: relative;
-    height: 250px;
     overflow: hidden;
+    background: var(--light-gray);
 }
 
 .event-poster img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
     transition: var(--transition);
 }
 
