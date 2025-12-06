@@ -38,7 +38,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\about.html
                     <li><a href="about.html" class="active-link">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="tutorials.html">Library</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
@@ -193,7 +193,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\about.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -317,7 +317,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\blog.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                    <li><a href="blog.html" class="active-link">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                    <li><a href="blog.html" class="active-link">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
                     <li><a href="events.html">Events</a></li>
@@ -409,7 +409,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\blog.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -585,7 +585,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\contact.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="tutorials.html">Library</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html" class="active-link">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
@@ -789,7 +789,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\contact.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -907,7 +907,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\events.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="tutorials.html">Library</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
@@ -1288,7 +1288,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\index.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="tutorials.html">Library</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
@@ -1432,7 +1432,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\index.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1615,7 +1615,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html
                     <li><a href="about.html">About</a></li>
                     <li><a href="services.html">Service</a></li>
                     <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>
+                    <li><a href="tutorials.html">Library</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
@@ -1698,7 +1698,7 @@ PATH: C:\Users\cyber\Downloads\Dannisonfitness\merchandise.html
                         <li><a href="about.html">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="tutorials.html">Workout Library</a></li>                        <li><a href="blog.html">Blog</a></li>
+                    <li><a href="tutorials.html">Library</a></li>                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
