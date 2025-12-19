@@ -616,6 +616,136 @@ async function loadServicePricing() {
     });
 }
 
+// --- TUTORIALS (LIBRARY) LOADING ---
+async function loadTutorials() {
+    const grid = document.getElementById('tutorial-grid');
+    const filterContainer = document.querySelector('.tutorial-filters');
+    if (!grid) return;
+
+    // Fetch tutorials from Supabase
+    const { data, error } = await supabase
+        .from('tutorials')
+        .select('*')
+        .order('display_order', { ascending: true });
+
+    if (error) {
+        console.error('Error fetching tutorials:', error);
+        grid.innerHTML = '<p class="error-message">Error loading tutorials. Please try again later.</p>';
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        grid.innerHTML = '<p>No tutorials available yet. Check back soon!</p>';
+        return;
+    }
+
+    // Store tutorials for filtering
+    let allTutorials = data;
+
+    // Function to render tutorials
+    function renderTutorials(tutorials) {
+        grid.innerHTML = '';
+
+        if (tutorials.length === 0) {
+            grid.innerHTML = '<p>No tutorials found in this category.</p>';
+            return;
+        }
+
+        tutorials.forEach(tutorial => {
+            const categoryLabel = tutorial.category ? tutorial.category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'General';
+            const difficultyClass = tutorial.difficulty || 'beginner';
+            const difficultyLabel = tutorial.difficulty ? tutorial.difficulty.charAt(0).toUpperCase() + tutorial.difficulty.slice(1) : 'Beginner';
+
+            // Check if there's a video URL for clickable play
+            const hasVideo = !!tutorial.video_url;
+            const videoId = hasVideo ? getYouTubeVideoId(tutorial.video_url) : null;
+            const thumbnailStyle = tutorial.thumbnail_url
+                ? `background: url('${tutorial.thumbnail_url}') center/cover no-repeat;`
+                : (videoId ? `background: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg') center/cover no-repeat;` : '');
+
+            const card = `
+                <div class="tutorial-card" data-category="${tutorial.category || 'general'}" ${hasVideo ? `data-video-url="${tutorial.video_url}"` : ''}>
+                    <div class="tutorial-thumbnail" style="${thumbnailStyle}">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="duration">${tutorial.duration || 'N/A'}</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3>${tutorial.title}</h3>
+                        <p>${tutorial.description || ''}</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty ${difficultyClass}">${difficultyLabel}</span>
+                            <span class="category">${categoryLabel}</span>
+                        </div>
+                    </div>
+                </div>`;
+            grid.insertAdjacentHTML('beforeend', card);
+        });
+
+        // Add click handlers for video playback
+        grid.querySelectorAll('.tutorial-card[data-video-url]').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function () {
+                const videoUrl = this.dataset.videoUrl;
+                const videoId = getYouTubeVideoId(videoUrl);
+                if (videoId) {
+                    // Create a modal for video playback
+                    const modal = document.createElement('div');
+                    modal.className = 'video-modal';
+                    modal.innerHTML = `
+                        <div class="video-modal-content">
+                            <button class="video-modal-close">&times;</button>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                                    title="Tutorial Video" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                    document.body.style.overflow = 'hidden';
+
+                    // Close modal handlers
+                    modal.querySelector('.video-modal-close').addEventListener('click', () => {
+                        modal.remove();
+                        document.body.style.overflow = '';
+                    });
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.remove();
+                            document.body.style.overflow = '';
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    // Initial render
+    renderTutorials(allTutorials);
+
+    // Setup category filter buttons
+    if (filterContainer) {
+        filterContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+
+            // Update active state
+            filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.dataset.category;
+            if (category === 'all') {
+                renderTutorials(allTutorials);
+            } else {
+                const filtered = allTutorials.filter(t => t.category === category);
+                renderTutorials(filtered);
+            }
+        });
+    }
+}
+
 // --- EVENT LISTENERS & INITIALIZATION ---
 
 // Contact form submission
@@ -659,4 +789,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTestimonialsPage();
     loadSchedule();
     loadServicePricing();
+    loadTutorials();
 });
