@@ -388,7 +388,7 @@ header {
 
 /* CTA Section */
 .cta {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/journey.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/Hero.jpg') center/cover no-repeat;
     color: var(--white);
     text-align: center;
     padding: 100px 0;
@@ -1243,8 +1243,13 @@ footer {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .video-modal-content {
@@ -1273,7 +1278,8 @@ footer {
 
 .video-modal .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
     border-radius: var(--border-radius);
