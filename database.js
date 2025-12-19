@@ -6,21 +6,37 @@ import { supabase } from './supabaseClient.js';
 // Extracts a YouTube video ID from various URL formats.
 function getYouTubeVideoId(url) {
     if (!url) return null;
+    url = url.trim();
     let videoId = null;
+
     try {
         const urlObj = new URL(url);
         if (urlObj.hostname === 'youtu.be') {
-            videoId = urlObj.pathname.slice(1);
+            // Short URL format: https://youtu.be/VIDEO_ID or https://youtu.be/VIDEO_ID?si=...
+            videoId = urlObj.pathname.slice(1).split('?')[0];
         } else if (urlObj.hostname.includes('youtube.com')) {
+            // Standard format: https://www.youtube.com/watch?v=VIDEO_ID
             videoId = urlObj.searchParams.get('v');
+
+            // Also handle embed format: https://www.youtube.com/embed/VIDEO_ID
+            if (!videoId && urlObj.pathname.startsWith('/embed/')) {
+                videoId = urlObj.pathname.replace('/embed/', '').split('?')[0];
+            }
         }
     } catch (e) {
+        // Fallback regex for malformed URLs
         const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
         const match = url.match(regex);
         if (match) {
             videoId = match[1];
         }
     }
+
+    // Ensure we have exactly 11 characters (valid YouTube ID length)
+    if (videoId && videoId.length >= 11) {
+        videoId = videoId.substring(0, 11);
+    }
+
     return videoId;
 }
 
@@ -657,14 +673,14 @@ async function loadTutorials() {
             const difficultyLabel = tutorial.difficulty ? tutorial.difficulty.charAt(0).toUpperCase() + tutorial.difficulty.slice(1) : 'Beginner';
 
             // Check if there's a video URL for clickable play
-            const hasVideo = !!tutorial.video_url;
-            const videoId = hasVideo ? getYouTubeVideoId(tutorial.video_url) : null;
+            const videoId = tutorial.video_url ? getYouTubeVideoId(tutorial.video_url) : null;
+            const hasVideo = !!videoId;
             const thumbnailStyle = tutorial.thumbnail_url
                 ? `background: url('${tutorial.thumbnail_url}') center/cover no-repeat;`
                 : (videoId ? `background: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg') center/cover no-repeat;` : '');
 
             const card = `
-                <div class="tutorial-card" data-category="${tutorial.category || 'general'}" ${hasVideo ? `data-video-url="${tutorial.video_url}"` : ''}>
+                <div class="tutorial-card" data-category="${tutorial.category || 'general'}" ${hasVideo ? `data-video-id="${videoId}"` : ''}>
                     <div class="tutorial-thumbnail" style="${thumbnailStyle}">
                         <i class="fas fa-play-circle"></i>
                         <span class="duration">${tutorial.duration || 'N/A'}</span>
@@ -682,11 +698,10 @@ async function loadTutorials() {
         });
 
         // Add click handlers for video playback
-        grid.querySelectorAll('.tutorial-card[data-video-url]').forEach(card => {
+        grid.querySelectorAll('.tutorial-card[data-video-id]').forEach(card => {
             card.style.cursor = 'pointer';
             card.addEventListener('click', function () {
-                const videoUrl = this.dataset.videoUrl;
-                const videoId = getYouTubeVideoId(videoUrl);
+                const videoId = this.dataset.videoId;
                 if (videoId) {
                     // Create a modal for video playback
                     const modal = document.createElement('div');
