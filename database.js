@@ -655,19 +655,38 @@ async function loadTutorials() {
         return;
     }
 
+
     // Store tutorials for filtering
     let allTutorials = data;
+    let currentCategory = 'all';
+    let searchQuery = '';
 
     // Function to render tutorials
-    function renderTutorials(tutorials) {
+    function renderTutorials() {
         grid.innerHTML = '';
 
-        if (tutorials.length === 0) {
-            grid.innerHTML = '<p>No tutorials found in this category.</p>';
+        let filtered = allTutorials;
+
+        // Apply Category Filter
+        if (currentCategory !== 'all') {
+            filtered = filtered.filter(t => t.category === currentCategory);
+        }
+
+        // Apply Search Filter
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(t =>
+                t.title.toLowerCase().includes(query) ||
+                (t.description && t.description.toLowerCase().includes(query))
+            );
+        }
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<p>No tutorials found matching your criteria.</p>';
             return;
         }
 
-        tutorials.forEach(tutorial => {
+        filtered.forEach(tutorial => {
             const categoryLabel = tutorial.category ? tutorial.category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'General';
             const difficultyClass = tutorial.difficulty || 'beginner';
             const difficultyLabel = tutorial.difficulty ? tutorial.difficulty.charAt(0).toUpperCase() + tutorial.difficulty.slice(1) : 'Beginner';
@@ -738,7 +757,16 @@ async function loadTutorials() {
     }
 
     // Initial render
-    renderTutorials(allTutorials);
+    renderTutorials();
+
+    // Setup Search Listener
+    const searchInput = document.getElementById('tutorial-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            renderTutorials();
+        });
+    }
 
     // Setup category filter buttons
     if (filterContainer) {
@@ -750,13 +778,8 @@ async function loadTutorials() {
             filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            const category = btn.dataset.category;
-            if (category === 'all') {
-                renderTutorials(allTutorials);
-            } else {
-                const filtered = allTutorials.filter(t => t.category === category);
-                renderTutorials(filtered);
-            }
+            currentCategory = btn.dataset.category;
+            renderTutorials();
         });
     }
 }

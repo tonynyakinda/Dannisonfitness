@@ -703,6 +703,38 @@ footer {
    TUTORIAL LIBRARY STYLES
    =================================== */
 
+/* Tutorial Search */
+.tutorial-search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.tutorial-search-container input {
+    width: 100%;
+    padding: 15px 20px 15px 50px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    transition: var(--transition);
+    outline: none;
+}
+
+.tutorial-search-container input:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 4px 12px rgba(243, 112, 80, 0.2);
+}
+
+.tutorial-search-container .search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--charcoal-gray);
+    font-size: 1.2rem;
+}
+
 /* Tutorial Filters */
 .tutorial-filters {
     display: flex;
