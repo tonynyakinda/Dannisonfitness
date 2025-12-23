@@ -201,9 +201,29 @@ async function loadBlogPosts() {
     const container = document.getElementById('blog-posts-container');
     if (!container) return;
 
+    // Show loading skeleton while fetching
+    container.innerHTML = `
+        <div class="blog-skeleton" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+            ${Array(3).fill(`
+                <div style="background: #f0f0f0; border-radius: 12px; overflow: hidden; animation: pulse 1.5s infinite;">
+                    <div style="height: 200px; background: #e0e0e0;"></div>
+                    <div style="padding: 20px;">
+                        <div style="height: 20px; background: #e0e0e0; border-radius: 4px; margin-bottom: 10px; width: 60%;"></div>
+                        <div style="height: 16px; background: #e0e0e0; border-radius: 4px; margin-bottom: 8px;"></div>
+                        <div style="height: 16px; background: #e0e0e0; border-radius: 4px; width: 80%;"></div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <style>
+            @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        </style>
+    `;
+
+    // Only select needed columns for the blog list view
     const { data, error } = await supabase
         .from('posts')
-        .select('*')
+        .select('id, title, image_url, created_at, content')
         .eq('post_type', 'blog')
         .order('created_at', { ascending: false });
 
@@ -701,7 +721,7 @@ async function loadTutorials() {
             const card = `
                 <div class="tutorial-card" data-category="${tutorial.category || 'general'}" ${hasVideo ? `data-video-id="${videoId}"` : ''}>
                     <div class="tutorial-thumbnail" style="${thumbnailStyle}">
-                        <i class="fas fa-play-circle"></i>
+                        ${hasVideo ? '<i class="fas fa-play-circle"></i>' : '<i class="fas fa-book-open" style="opacity: 0.5;"></i>'}
                         <span class="duration">${tutorial.duration || 'N/A'}</span>
                     </div>
                     <div class="tutorial-content">
@@ -721,7 +741,9 @@ async function loadTutorials() {
             card.style.cursor = 'pointer';
             card.addEventListener('click', function () {
                 const videoId = this.dataset.videoId;
-                if (videoId) {
+                console.log('Tutorial clicked, videoId:', videoId);
+
+                if (videoId && videoId !== 'null' && videoId !== 'undefined' && videoId.length >= 11) {
                     // Create a modal for video playback
                     const modal = document.createElement('div');
                     modal.className = 'video-modal';
@@ -751,7 +773,27 @@ async function loadTutorials() {
                             document.body.style.overflow = '';
                         }
                     });
+
+                    // Handle Escape key to close modal
+                    const handleEscape = (e) => {
+                        if (e.key === 'Escape') {
+                            modal.remove();
+                            document.body.style.overflow = '';
+                            document.removeEventListener('keydown', handleEscape);
+                        }
+                    };
+                    document.addEventListener('keydown', handleEscape);
+                } else {
+                    console.error('Invalid video ID:', videoId);
+                    alert('Sorry, this video is not available. The video URL may be invalid.');
                 }
+            });
+        });
+
+        // Add message for cards without video
+        grid.querySelectorAll('.tutorial-card:not([data-video-id])').forEach(card => {
+            card.addEventListener('click', function () {
+                alert('This tutorial does not have a video available yet.');
             });
         });
     }
