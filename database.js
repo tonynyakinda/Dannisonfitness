@@ -221,12 +221,13 @@ async function loadBlogPosts() {
         </style>
     `;
 
-    // Only select needed columns for the blog list view
+    // Only select needed columns and limit to 9 posts for faster loading
     const { data, error } = await supabase
         .from('posts')
         .select('id, title, image_url, created_at, content')
         .eq('post_type', 'blog')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(9);
 
     if (error) {
         container.innerHTML =
