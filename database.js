@@ -248,7 +248,7 @@ async function loadBlogPosts() {
       <article class="blog-post">
         <div class="blog-image">
           <a href="post.html?id=${post.id}">
-            <img src="${post.image_url}" alt="${post.title}">
+            <img src="${post.image_url}" alt="${post.title}" loading="lazy">
           </a>
         </div>
         <div class="blog-content">
@@ -324,7 +324,7 @@ async function loadMerchandise() {
     data.forEach((item) => {
         const merchCard = `
       <div class="merch-card">
-        <img src="${item.image_url}" alt="${item.name}">
+        <img src="${item.image_url}" alt="${item.name}" loading="lazy">
         <div class="merch-content">
           <h3>${item.name}</h3>
           <span class="merch-price">Ksh${Number(item.price).toFixed(2)}</span>
@@ -369,7 +369,7 @@ async function loadPodcastEpisodes() {
         }
         const episodeCard = `
       <div class="podcast-episode" data-id="${episode.id}" data-video-url="${episode.video_url || ''}">
-        <img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail">
+        <img src="${episode.image_url}" alt="${episode.title}" class="episode-thumbnail" loading="lazy">
         <div class="episode-details">
             <div class="episode-meta">Episode ${episodeNumber} | ${new Date(episode.created_at).toLocaleDateString()}</div>
             <h3>${episode.title}</h3>
@@ -493,11 +493,11 @@ async function loadTestimonialsPage() {
         <div class="transformation-card" style="background: var(--white); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow);">
           <div class="transformation-images" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
             <div class="before-image">
-              <img src="${testimonial.image_before_url}" alt="Before Transformation" style="width: 100%; height: 250px; object-fit: cover;">
+              <img src="${testimonial.image_before_url}" alt="Before Transformation" style="width: 100%; height: 250px; object-fit: cover;" loading="lazy">
               <div style="background: var(--primary-orange); color: white; text-align: center; padding: 5px; font-weight: bold;">BEFORE</div>
             </div>
             <div class="after-image">
-              <img src="${testimonial.image_after_url}" alt="After Transformation" style="width: 100%; height: 250px; object-fit: cover;">
+              <img src="${testimonial.image_after_url}" alt="After Transformation" style="width: 100%; height: 250px; object-fit: cover;" loading="lazy">
               <div style="background: var(--charcoal-gray); color: white; text-align: center; padding: 5px; font-weight: bold;">AFTER</div>
             </div>
           </div>
