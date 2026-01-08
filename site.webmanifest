@@ -1,0 +1,27 @@
+{
+    "name": "Dennison Fitness",
+    "short_name": "Dennison Fit",
+    "description": "Transform Your Body. Redefine Your Limits. Personalized fitness coaching in Nairobi, Kenya.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ff6b35",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "images/Dennison Fitness 1.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "images/Dennison Fitness 1.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["fitness", "health", "lifestyle"],
+    "lang": "en",
+    "dir": "ltr"
+}
