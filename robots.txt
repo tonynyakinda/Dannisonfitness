@@ -1,0 +1,11 @@
+# Robots.txt for Dennison Fitness
+# https://dennisonfitness.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://dennisonfitness.com/sitemap.xml
+
+# Crawl-delay (be nice to server)
+Crawl-delay: 1
