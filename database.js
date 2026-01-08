@@ -227,7 +227,7 @@ async function loadBlogPosts() {
         .select('id, title, image_url, created_at, content')
         .eq('post_type', 'blog')
         .order('created_at', { ascending: false })
-        .limit(9);
+        .limit(6);
 
     if (error) {
         container.innerHTML =
