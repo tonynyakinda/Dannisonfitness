@@ -1,5 +1,6 @@
 // Filename: database.js | Path: C:\Users\cyber\Downloads\Dannisonfitness\database.js
 import { supabase } from './supabaseClient.js';
+import { detectSpam } from './js/spamFilter.js';
 
 // --- HELPER FUNCTIONS ---
 
@@ -828,11 +829,21 @@ async function loadTutorials() {
 
 // --- EVENT LISTENERS & INITIALIZATION ---
 
-// Contact form submission
+// Contact form submission with spam protection
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
+    // Record form load time for spam detection (bots submit too fast)
+    const formLoadTime = Date.now();
+    contactForm.setAttribute('data-load-time', formLoadTime);
+
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
+
+        // Get honeypot field value (should be empty for real users)
+        const honeypotField = document.getElementById('website-url');
+        const honeypotValue = honeypotField ? honeypotField.value : '';
+
+        // Collect form data
         const formData = {
             full_name: document.getElementById('contact-name').value,
             email: document.getElementById('contact-email').value,
@@ -840,13 +851,35 @@ if (contactForm) {
             subject: document.getElementById('subject').value,
             message: document.getElementById('contact-message').value,
         };
+
+        // Run spam detection
+        const spamCheck = detectSpam({
+            message: formData.message,
+            email: formData.email,
+            honeypot: honeypotValue
+        }, formLoadTime);
+
+        // Block spam submissions
+        if (spamCheck.isSpam) {
+            console.warn('Spam detected:', spamCheck.reason);
+
+            // Show user-friendly message without revealing it's spam detection
+            if (spamCheck.confidence === 'high') {
+                // Likely a bot - silent block or generic message
+                window.showAlert('Unable to process your request. Please try again later.', 'error');
+            } else {
+                // Might be a false positive - give more helpful message
+                window.showAlert('Your message could not be sent. Please remove any promotional content or links and try again.', 'error');
+            }
+            return; // Stop form submission
+        }
+
+        // Submit to Supabase if not spam
         const { error } = await supabase.from('contacts').insert([formData]);
         if (error) {
             console.error('Error submitting contact form:', error);
-            // Use the global alert function
             window.showAlert('Sorry, there was an error sending your message.', 'error');
         } else {
-            // Use the global alert function
             window.showAlert('Thank you for your message! We will get back to you soon.', 'success');
             this.reset();
         }
