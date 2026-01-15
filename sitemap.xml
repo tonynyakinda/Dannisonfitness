@@ -66,4 +66,5 @@
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>
+    <!-- Note: post.html is excluded as it's a dynamic template page requiring ?id= parameter -->
 </urlset>
